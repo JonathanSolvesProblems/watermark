@@ -1,0 +1,71 @@
+from watermark import claimmap, integrity
+from watermark.captions import _extract_json
+from watermark.chime import _pick_slot
+from watermark.ring import infer_kind
+from ringpartner.types import ChimeSlot, DeviceCapabilities, DeviceStatus
+
+
+def test_integrity_flags_drift_and_reconciled():
+    inc = {"id": "i", "kind": "flood", "opened_at_ms": 1000, "closed_at_ms": 61000, "camera_device_id": "cam",
+           "camera_role": "fixed", "opened_source": "received"}
+    frames = [{"id": 1, "media_ms": 16000, "drift_ms": 15000, "caption_model": "amazon.nova-lite-v1:0"},
+              {"id": 2, "media_ms": 20000, "drift_ms": 500}]
+    health = [{"device_id": "cam", "ts_ms": 30000, "online": 0}, {"device_id": "cam", "ts_ms": 40000, "online": 1}]
+    captures = [{"session_no": 1, "outcome": "ok", "frames": 2, "started_ms": 15000, "ended_ms": 20000},
+                {"session_no": 2, "outcome": "media_not_found", "frames": 0, "started_ms": 45000, "ended_ms": 50000, "detail": "x"}]
+    events = [{"type": "flood_cleared", "source": "reconciled", "timestamp_ms": 61000}]
+    out = integrity.compute(inc, frames, health, captures, events, [])
+    kinds = {g["kind"] for g in out["gaps"]}
+    assert "camera_offline" in kinds and "capture_media_not_found" in kinds
+    fl = {f["kind"] for f in out["flags"]}
+    assert "frame_drift" in fl and "reconciled_event" in fl and "model_captions" in fl
+    assert out["stats"]["sensor_to_first_frame_s"] == 15.0
+    assert out["verdict"] == "partial"
+
+
+def test_integrity_sensor_only_when_no_camera():
+    inc = {"id": "i", "kind": "flood", "opened_at_ms": 1000, "camera_device_id": None}
+    out = integrity.compute(inc, [], [], [{"session_no": 0, "outcome": "no_camera", "frames": 0}], [], [])
+    assert out["verdict"] == "sensor-only" and out["gaps"][0]["kind"] == "no_camera"
+
+
+def test_claimmap_counts():
+    pack = {
+        "incident": {"id": "i", "kind": "flood", "room": "Water heater closet", "opened_at_ms": 1000,
+                     "closed_at_ms": 601000, "opened_source": "received", "chime_status": "[...]"},
+        "sensor": {"name": "Water heater sensor"},
+        "frames": [{"id": 1, "media_ms": 5000, "caption": "Water along the baseboard", "caption_model": "amazon.nova-lite-v1:0"}],
+        "readings": [{"humidity": 40.0, "temperature": 20.0}, {"humidity": 70.0, "temperature": 21.0}],
+        "health": [{"online": 1}], "captures": [{"outcome": "ok"}], "rover_log": [{"kind": "dispatched"}],
+        "events": [], "prior_incident_count": 2,
+    }
+    out = claimmap.evaluate(pack)
+    assert out["total"] == 12
+    by_id = {r["id"]: r["status"] for r in out["rows"]}
+    assert by_id["q1"] == "answered" and by_id["q5"] == "answered" and by_id["q6"] == "answered"
+    assert by_id["q12"] == "unanswered" and by_id["q10"] == "unanswered" and by_id["q11"] == "partial"
+    assert out["answered"] == 9 and out["partial"] == 1
+
+
+def test_infer_kind():
+    flood = DeviceStatus.from_json({"data": {"attributes": {"online": True, "reported_at": "x", "flood_detection": {"faulted": False}}}})
+    cam = DeviceStatus.from_json({"data": {"attributes": {"online": True, "reported_at": "x"}}})
+    assert infer_kind(flood, None) == "flood_freeze"
+    assert infer_kind(cam, DeviceCapabilities(["AVC"], False, None)) == "camera"
+    assert infer_kind(cam, DeviceCapabilities(None, True, 2)) == "chime"
+    temp = DeviceStatus.from_json({"data": {"attributes": {"online": True, "reported_at": "x", "temperature": 21.0, "humidity": 40.0}}})
+    assert infer_kind(temp, None) == "temperature_humidity"
+
+
+def test_pick_slot_prefers_kind():
+    slots = [ChimeSlot("ring-appstore-event-2", "freeze", "Freeze", None, False),
+             ChimeSlot("ring-appstore-event-1", "water", "Water", None, False)]
+    assert _pick_slot(slots, "flood").audio_ref == "water"
+    assert _pick_slot(slots, "freeze").audio_ref == "freeze"
+    assert _pick_slot([ChimeSlot("ring-appstore-event-1", "w", None, None, True)], "flood") is None
+
+
+def test_extract_json_tolerates_fences():
+    assert _extract_json('```json\n{"a": 1}\n```')["a"] == 1
+    assert _extract_json('text before {"water_visible": true} after')["water_visible"] is True
+    assert "description" in _extract_json("no json here")

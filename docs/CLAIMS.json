@@ -1,0 +1,50 @@
+{
+  "_comment": "Each headline number in the docs must trace to a committed run in docs/runs/. Run files are the pack.json of a real incident (copy it there). Until docs/runs/demo-run.json exists, bracketed placeholders like [N] are allowed and real numbers are failures.",
+  "runs": {
+    "demo": "docs/runs/demo-run.json",
+    "ablation": "docs/runs/ablation-run.json"
+  },
+  "watch_files": ["README.md", "docs/DEMO_SCRIPT.md", "docs/SUBMISSION.md"],
+  "claims": [
+    {
+      "id": "first_frame_s",
+      "text": "seconds from sensor to first Ring frame",
+      "docs_regex": "first frame (?:within|in|at) \\[?([0-9.]+|N)\\]? ?s",
+      "run": "demo",
+      "path": "integrity.stats.sensor_to_first_frame_s",
+      "tolerance": 0.5
+    },
+    {
+      "id": "on_station_s",
+      "text": "seconds from sensor to rover on station",
+      "docs_regex": "on station (?:in|after|at) \\[?([0-9.]+|N)\\]? ?s",
+      "run": "demo",
+      "path": "integrity.stats.sensor_to_on_station_s",
+      "tolerance": 0.5
+    },
+    {
+      "id": "questions_answered",
+      "text": "claim questions answered",
+      "docs_regex": "answers \\[?([0-9]+|N)\\]? of \\[?(?:[0-9]+|M)\\]? questions",
+      "run": "demo",
+      "path": "claims.answered",
+      "tolerance": 0
+    },
+    {
+      "id": "questions_total",
+      "text": "claim questions total",
+      "docs_regex": "answers \\[?(?:[0-9]+|N)\\]? of \\[?([0-9]+|M)\\]? questions",
+      "run": "demo",
+      "path": "claims.total",
+      "tolerance": 0
+    },
+    {
+      "id": "ablation_frames",
+      "text": "frames captured with the sensor scope off",
+      "docs_regex": "sensor scope off[^.]*?\\[?([0-9]+|N)\\]? frames",
+      "run": "ablation",
+      "path": "integrity.stats.frames",
+      "tolerance": 0
+    }
+  ]
+}

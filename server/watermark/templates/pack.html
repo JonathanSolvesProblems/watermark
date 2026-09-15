@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Watermark evidence pack {{ pack.incident.id }}</title>
+<style>
+  :root { --ink:#1b1f24; --muted:#5f6b76; --line:#d9dee3; --paper:#fbfaf7; --water:#2a6f9e; --warn:#a14d2b; --ok:#2f6b3a; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:36px; background:#fff; color:var(--ink); font:14px/1.5 Georgia, "Times New Roman", serif; }
+  .wrap { max-width:900px; margin:0 auto; }
+  header { border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:22px; display:flex; justify-content:space-between; align-items:flex-end; gap:16px; }
+  h1 { margin:0; font-size:24px; letter-spacing:.01em; }
+  h2 { font-size:17px; margin:30px 0 10px; border-bottom:1px solid var(--line); padding-bottom:4px; }
+  .mono { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size:12.5px; }
+  .muted { color:var(--muted); }
+  .label { display:inline-block; font:600 11px/1 ui-sans-serif, system-ui, sans-serif; letter-spacing:.08em; text-transform:uppercase; padding:5px 8px; border:1px solid var(--ink); border-radius:3px; }
+  .label.warn { border-color:var(--warn); color:var(--warn); }
+  .label.ok { border-color:var(--ok); color:var(--ok); }
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:14px 0 4px; }
+  .stat { border:1px solid var(--line); background:var(--paper); padding:10px 12px; }
+  .stat .n { font-size:24px; font-weight:700; }
+  .stat .l { color:var(--muted); font-size:12px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { font-family: ui-sans-serif, system-ui, sans-serif; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+  .frames { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .frame { border:1px solid var(--line); background:var(--paper); }
+  .frame img { width:100%; display:block; aspect-ratio:16/9; object-fit:cover; }
+  .frame .meta { padding:8px 10px; font-size:12px; }
+  .gap { border-left:4px solid var(--warn); background:#fbf1ec; padding:8px 12px; margin:8px 0; }
+  .flag { border-left:4px solid var(--muted); background:var(--paper); padding:8px 12px; margin:8px 0; }
+  .q { display:grid; grid-template-columns:110px 1fr 1.2fr; gap:10px; padding:8px 0; border-bottom:1px solid var(--line); }
+  .q .s { font:600 11px/1.6 ui-sans-serif, system-ui, sans-serif; letter-spacing:.06em; text-transform:uppercase; }
+  .s.answered { color:var(--ok); } .s.partial { color:var(--warn); } .s.unanswered { color:var(--muted); }
+  footer { margin-top:36px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+  @media print { body { padding:0; } .frames { grid-template-columns:repeat(2,1fr);} .frame, .gap, .flag, .q { break-inside:avoid; } }
+</style>
+</head>
+<body><div class="wrap">
+
+<header>
+  <div>
+    <div class="muted mono">Watermark evidence pack &middot; {{ pack.incident.id }}</div>
+    <h1>{{ pack.incident.kind|capitalize }} in {{ pack.incident.room }}</h1>
+    <div class="muted">{{ pack.incident.opened_at_ms|ts }} to {{ pack.incident.closed_at_ms|ts if pack.incident.closed_at_ms else "still open" }} &middot; generated {{ pack.generated_at }}</div>
+  </div>
+  <div>
+    {% if pack.notes.controlled_test %}<span class="label warn">Controlled test. Real device.</span>{% endif %}
+    <span class="label {{ 'ok' if pack.integrity.verdict == 'complete' else 'warn' }}">Evidence: {{ pack.integrity.verdict }}</span>
+  </div>
+</header>
+
+<section class="stats">
+  <div class="stat"><div class="n">{{ pack.integrity.stats.sensor_to_first_frame_s if pack.integrity.stats.sensor_to_first_frame_s is not none else "n/a" }}<span class="muted" style="font-size:13px"> s</span></div><div class="l">sensor to first frame</div></div>
+  <div class="stat"><div class="n">{{ pack.integrity.stats.frames }}</div><div class="l">frames from the Ring camera</div></div>
+  <div class="stat"><div class="n">{{ pack.claims.answered }}<span class="muted" style="font-size:13px"> / {{ pack.claims.total }}</span></div><div class="l">claim questions answered</div></div>
+  <div class="stat"><div class="n">{{ pack.integrity.gaps|length }}</div><div class="l">gaps disclosed</div></div>
+</section>
+
+<h2>What happened</h2>
+<p>{{ pack.narrative }}</p>
+
+<h2>Timeline</h2>
+<table>
+  <tr><th>Time</th><th>Source</th><th>Entry</th></tr>
+  {% for t in pack.timeline %}
+  <tr><td class="mono">{{ t.ts_ms|hms }}</td><td class="muted">{{ t.source }}</td><td>{{ t.text }}</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Frames</h2>
+{% if pack.frames %}
+<div class="frames">
+  {% for f in pack.frames %}
+  {% if loop.index <= 24 %}
+  <div class="frame">
+    {% if thumbs.get(f.id) %}<img src="{{ thumbs[f.id] }}" alt="frame {{ f.id }}">{% endif %}
+    <div class="meta">
+      <div class="mono">{{ f.media_ms|ts }} &middot; {{ f.origin }}{% if f.drift_ms is not none %} &middot; drift {{ (f.drift_ms/1000)|round(1) }} s{% endif %}</div>
+      {% if f.caption %}<div>{{ f.caption }}</div><div class="muted">{{ f.caption_model }}</div>{% endif %}
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+</div>
+{% if pack.frames|length > 24 %}<p class="muted">{{ pack.frames|length - 24 }} more frames in the JSON pack.</p>{% endif %}
+{% else %}
+<p class="muted">No frames were captured. See the integrity section for why.</p>
+{% endif %}
+
+{% if chart %}
+<h2>Room conditions</h2>
+{{ chart|safe }}
+<p class="muted">{{ pack.readings|length }} readings ({{ pack.readings|selectattr("source","equalto","ring")|list|length }} from Ring sensors, {{ pack.readings|selectattr("source","equalto","wand")|list|length }} from the rover's wand).</p>
+{% endif %}
+
+{% if pack.incident.camera_role == "rover" %}
+<h2>Camera movement</h2>
+<table>
+  <tr><th>Time</th><th>Entry</th></tr>
+  {% for r in pack.rover_log %}
+  <tr><td class="mono">{{ r.ts_ms|hms }}</td><td>{{ r.kind }}: {{ r.message }}</td></tr>
+  {% endfor %}
+</table>
+<p class="muted">Dispatch to on-station: {{ pack.integrity.stats.sensor_to_on_station_s if pack.integrity.stats.sensor_to_on_station_s is not none else "never reported" }} s after the sensor. Stop reason: {{ pack.incident.rover_stop_reason or "n/a" }}.</p>
+{% endif %}
+
+<h2>Evidence integrity</h2>
+{% for g in pack.integrity.gaps %}
+<div class="gap"><strong class="mono">{{ g.start_ms|hms }}{% if g.end_ms %} to {{ g.end_ms|hms }}{% endif %}</strong> &middot; {{ g.text }}</div>
+{% endfor %}
+{% for fl in pack.integrity.flags %}
+<div class="flag">{{ fl.text }}</div>
+{% endfor %}
+{% if not pack.integrity.gaps and not pack.integrity.flags %}<p>No gaps or flags.</p>{% endif %}
+
+<h2>Against the claim questions</h2>
+<p class="muted">{{ pack.claims.source }}</p>
+{% for q in pack.claims.rows %}
+<div class="q"><div class="s {{ q.status }}">{{ q.status }}</div><div>{{ q.question }}</div><div class="muted">{{ q.evidence }}</div></div>
+{% endfor %}
+
+{% if pack.aftermath.available %}
+<h2>Aftermath (visible damage in the frames)</h2>
+<p class="muted">{{ pack.aftermath.frames_analyzed }} frames analysed with the {{ pack.aftermath.backend }} backend. Draft findings; every one needs a human before it goes to an insurer.</p>
+<table>
+  <tr><th>Area</th><th>Type</th><th>Severity</th><th>Confidence</th><th>Observed</th></tr>
+  {% for f in pack.aftermath.findings %}
+  <tr><td>{{ f.area }}</td><td>{{ f.damage_type }}</td><td>{{ f.severity }}</td><td>{{ f.confidence }}</td><td>{{ f.description }}</td></tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+<footer>
+  Generated by Watermark from Ring sensor events, Ring camera media and rover telemetry. Timestamps on frames are Ring's own media timestamps unless marked live. Captions and the narrative were written by a model from the frames and the logs; they describe, they do not measure, and they never state a cause. Review everything before submitting it to an insurer.
+</footer>
+
+</div></body></html>

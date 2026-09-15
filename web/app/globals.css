@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #1b1f24;
+  --water: #2a6f9e;
+}
+
+html { background: #f4f2ec; }
+body { color: var(--ink); font-family: Georgia, "Times New Roman", serif; }
+
+/* The waterline: a single rule that reads as a high-water mark, used as the
+   section divider everywhere instead of cards inside cards. */
+.waterline {
+  position: relative;
+  border-bottom: 1px solid #d9dee3;
+}
+.waterline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 64px;
+  height: 3px;
+  background: var(--water);
+}
+
+.label {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.btn {
+  @apply inline-flex items-center gap-2 px-4 py-2 border border-ink bg-ink text-paper font-sans text-sm rounded-sm;
+}
+.btn:hover { background: #2a6f9e; border-color: #2a6f9e; }
+.btn-ghost {
+  @apply inline-flex items-center gap-2 px-4 py-2 border border-ink bg-transparent text-ink font-sans text-sm rounded-sm;
+}
+.btn-ghost:hover { background: #fbfaf7; }
+.btn-danger {
+  @apply inline-flex items-center gap-2 px-4 py-2 border border-warn bg-transparent text-warn font-sans text-sm rounded-sm;
+}
+
+.stat { @apply border border-line bg-paper px-4 py-3; }
+.stat .n { @apply text-3xl font-bold leading-tight; }
+.stat .l { @apply text-muted text-xs font-sans; }
+
+table.log { @apply w-full text-sm; }
+table.log th { @apply text-left font-sans text-[11px] uppercase tracking-wider text-muted py-2 border-b border-line; }
+table.log td { @apply py-2 border-b border-line align-top; }
+
+input.field, select.field {
+  @apply w-full border border-line bg-white px-3 py-2 font-sans text-sm rounded-sm;
+}
+input.field:focus, select.field:focus { outline: 2px solid #2a6f9e; outline-offset: 1px; }

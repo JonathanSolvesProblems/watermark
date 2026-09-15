@@ -1,0 +1,18 @@
+{
+  "_comment": "Template. Replace `question` text with the exact questions from the real claim file so the headline number is graded by the insurer's document, not by this template. Keep `answered_by` keys; they name the pack fields that satisfy each question. `by_design_unanswered` marks questions Watermark refuses to answer (cause is the adjuster's job).",
+  "source": "TEMPLATE: typical Canadian home water-damage claim intake questions. Replace with the insurer's own form.",
+  "questions": [
+    {"id": "q1", "question": "When did you first become aware of the water?", "answered_by": ["first_detection_time"]},
+    {"id": "q2", "question": "Where in the home did the water appear?", "answered_by": ["location_in_home"]},
+    {"id": "q3", "question": "How did you discover it?", "answered_by": ["detection_source"]},
+    {"id": "q4", "question": "How long was the water present before it was addressed?", "answered_by": ["duration"]},
+    {"id": "q5", "question": "Do you have photographs or video, with dates and times?", "answered_by": ["photos_with_times"]},
+    {"id": "q6", "question": "Describe the extent of the water (depth, area, surfaces affected).", "answered_by": ["extent_description"]},
+    {"id": "q7", "question": "What were the conditions in the room afterwards (humidity, temperature, drying)?", "answered_by": ["environmental_readings"]},
+    {"id": "q8", "question": "Were any detection devices installed and were they working at the time?", "answered_by": ["device_health_log"]},
+    {"id": "q9", "question": "Have you had previous water incidents at this address?", "answered_by": ["prior_incidents"]},
+    {"id": "q10", "question": "Was anyone home at the time, and who entered the area?", "answered_by": ["people_present"]},
+    {"id": "q11", "question": "What steps did you take to stop or mitigate the water?", "answered_by": ["actions_taken"]},
+    {"id": "q12", "question": "What was the source or cause of the water?", "answered_by": ["cause"], "by_design_unanswered": true}
+  ]
+}

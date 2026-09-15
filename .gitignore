@@ -1,0 +1,47 @@
+# secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.cache/
+
+# node
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.pnpm-store/
+
+# runtime data
+data/
+!server/watermark/data/
+server/data/
+rover/captures/
+brain/out/
+brain/.cache/
+*.sqlite
+*.sqlite-journal
+*.db
+
+# media and large files
+*.mp4
+*.mov
+*.zip
+build-video/render/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,17 @@
+# One entry per tape line the rover can follow. The server's route ids must match
+# these ids (set them on the sensor in the web app's Setup page).
+#
+# max_run_s caps the drive. end_marker says what ends the line: "crossbar" (a
+# strip of tape across the line at the room) or "wet" (the line runs straight
+# into the area that floods and the wand is the stop).
+routes:
+  route-water-heater:
+    name: Hall to water heater
+    description: Dock at the hall closet, follow the tape past the stairs, left at the panel wall, ends at the water heater closet door.
+    max_run_s: 90
+    end_marker: crossbar
+  route-panel-wall:
+    name: Hall to electrical panel
+    description: Same start, straight on to the wall beside the electrical panel where the June water came in.
+    max_run_s: 75
+    end_marker: crossbar
