@@ -68,6 +68,12 @@ Video: [URL]
 
 ## Notes (never pasted)
 
+- **Repo is public with MIT, not private-with-collaborators.** Reasoning and the fallback
+  account list are in `docs/REPOS.md`. If it ever goes private, the six DevRel accounts get
+  added on submission day, because the invitations expire after 7 days.
+- The Open Source mini needs its own public repo, `ring-partner-py`, split out of `sdk/`.
+  Commands are in `docs/REPOS.md`.
+
 - The tagline is 111 characters. Read it aloud once, logged out, on the live page, at T-48h.
 - "[N]" placeholders are enforced by `tools/check_claims.py`. Do not hand-edit numbers; copy the run file.
 - Product feedback and the friction log are separate fields; their sources are `docs/PRODUCT_FEEDBACK.md` and `docs/FRICTION_LOG.md`.
