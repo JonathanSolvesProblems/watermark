@@ -242,6 +242,51 @@ select.field:focus {
     animation: plate-in 240ms cubic-bezier(0.2, 0, 0, 1) both;
   }
 }
+/* The vertical staff on the home page: E-ticks every tenth, a heavy stroke every half. */
+.staff-col-ticks {
+  background-image:
+    repeating-linear-gradient(to top, var(--tick) 0 3px, transparent 3px 50%),
+    repeating-linear-gradient(to top, var(--tick) 0 1px, transparent 1px 10%);
+  background-size: 100% 100%, 45% 100%;
+  background-repeat: no-repeat;
+}
+.staff-col-fill {
+  background: var(--wet);
+  transform-origin: bottom center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* The home page's one moment: the water climbs to the stage mark in eight detents. */
+  .staff-col-fill {
+    animation: stage-rise-v 960ms steps(8, end) 250ms both;
+  }
+  /* A new frame lands on the staff as a notch dropping into place. */
+  .notch-in {
+    animation: notch-in 240ms steps(3, end) both;
+  }
+  /* While water stands, the fill crawls with the clock. */
+  .staff-fill[data-live="true"] {
+    transition: width 1s linear;
+  }
+}
+@keyframes stage-rise-v {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes notch-in {
+  from {
+    transform: translate(-50%, -10px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
 @keyframes stage-rise {
   from {
     transform: scaleX(0);

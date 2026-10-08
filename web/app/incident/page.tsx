@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useState } from "react";
+import Counter from "@/components/Counter";
 import Staff from "@/components/Staff";
 import { api, fmtDate, fmtTime, type IncidentDetail } from "@/lib/api";
 
@@ -93,8 +94,9 @@ function IncidentInner() {
         <div className="flex flex-wrap items-end justify-between gap-6 mb-5">
           <div>
             <h2 id="gauge-h" className="label">Sensor to first frame</h2>
-            <p className="readout text-[88px] sm:text-[120px] mt-1">
-              {st.sensor_to_first_frame_s ?? "–"}
+            <p className="readout text-[88px] sm:text-[120px] mt-1"
+               aria-label={st.sensor_to_first_frame_s != null ? `${st.sensor_to_first_frame_s} seconds` : "not yet"}>
+              <Counter value={st.sensor_to_first_frame_s} decimals={1} />
               <span className="text-[40px] sm:text-[48px] text-stencil ml-1">s</span>
             </p>
           </div>
@@ -111,6 +113,7 @@ function IncidentInner() {
           notches={d.frames.map((f) => ({ ms: f.media_ms, wet: f.water_visible === 1 }))}
           gaps={d.integrity.gaps.map((g) => ({ start: g.start_ms, end: g.end_ms }))}
           marks={marks}
+          viewName={`staff-${inc.id}`}
         />
       </section>
 

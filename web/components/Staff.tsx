@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 // The staff gauge: time from the sensor going wet to now (or to dry) painted on
 // an enamel staff. The pink fill is how long water stood; notches along the top
 // are frames from the Ring camera; hatching is a span the record cannot vouch for.
@@ -15,6 +17,7 @@ export default function Staff({
   notches,
   gaps,
   marks,
+  viewName,
 }: {
   start: number;
   end: number;
@@ -22,10 +25,23 @@ export default function Staff({
   notches: Notch[];
   gaps: Span[];
   marks: Mark[];
+  viewName?: string;
 }) {
-  const span = Math.max(end - start, 1000);
-  // A little headroom past the water so the open end reads as still rising.
-  const axis = span * (open ? 1.12 : 1.04);
+  // While water stands, the gauge follows the clock rather than waiting for the next poll.
+  const [now, setNow] = useState(end);
+  useEffect(() => {
+    if (!open) return;
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, [open]);
+  // A frame cannot be later than the water it shows: if one arrives stamped ahead of this
+  // browser's clock, the fill reaches it rather than leaving the notch hanging past the end.
+  const latest = notches.reduce((m, n) => Math.max(m, n.ms), 0);
+  const until = open ? Math.max(end, now, latest) : Math.max(end, latest);
+  const span = Math.max(until - start, 1000);
+  // Closed: a little headroom. Open: the scale snaps to whole steps, so between rescales
+  // the water visibly climbs against fixed marks, as it does on a real staff.
+  const axis = open ? ceilToStep(span * 1.15) : span * 1.04;
   const at = (ms: number) => `${Math.min(100, Math.max(0, ((ms - start) / axis) * 100))}%`;
   const fillPct = (span / axis) * 100;
   const step = niceStep(axis);
@@ -35,18 +51,20 @@ export default function Staff({
   return (
     <figure className="select-none" aria-label={`Water stood ${fmtElapsed(span)}${open ? " so far" : ""}`}>
       <div className="relative h-5 mb-1" aria-hidden="true">
-        {notches.map((n, i) => (
+        {notches.map((n) => (
           <span
-            key={i}
-            className="absolute bottom-0 w-[3px] h-4 -translate-x-1/2"
+            key={n.ms}
+            className="notch-in absolute bottom-0 w-[3px] h-4 -translate-x-1/2"
             style={{ left: at(n.ms), background: n.wet ? "var(--wet)" : "var(--ink)" }}
           />
         ))}
       </div>
-      <div className="staff h-16 overflow-hidden">
+      <div className="staff h-16 overflow-hidden" data-view={viewName}
+           style={viewName ? { viewTransitionName: viewName } : undefined}>
         <div
           key={open ? "open" : "closed"}
           data-rise="true"
+          data-live={open}
           className="staff-fill absolute inset-y-0 left-0"
           style={{ width: `${fillPct}%` }}
         />
@@ -57,7 +75,7 @@ export default function Staff({
             style={{
               borderColor: "var(--tick)",
               left: at(g.start),
-              width: `calc(${at(g.end ?? end)} - ${at(g.start)})`,
+              width: `calc(${at(g.end ?? until)} - ${at(g.start)})`,
               backgroundImage: "repeating-linear-gradient(135deg, rgba(20,24,22,.55) 0 2px, transparent 2px 7px)",
             }}
             title="Not verified"
@@ -99,6 +117,11 @@ function ticks(axis: number, step: number): { at: number; major: boolean }[] {
   const out: { at: number; major: boolean }[] = [];
   for (let i = 1; i * minor < axis; i++) out.push({ at: i * minor, major: i % 5 === 0 });
   return out;
+}
+
+function ceilToStep(ms: number): number {
+  const s = niceStep(ms);
+  return Math.ceil(ms / s) * s;
 }
 
 function niceStep(ms: number): number {

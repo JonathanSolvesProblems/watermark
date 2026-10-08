@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import StaffColumn from "@/components/StaffColumn";
 import { api, type Account } from "@/lib/api";
 
 const STEPS = [
@@ -32,8 +33,11 @@ export default function Home() {
 
   return (
     <div className="grid gap-14">
-      <section className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:items-end">
-        <div>
+      <section className="grid gap-10 lg:grid-cols-[auto_1.5fr_1fr] lg:items-stretch">
+        <div className="hidden lg:block pl-7 py-2">
+          <StaffColumn />
+        </div>
+        <div className="lg:self-end">
           <p className="label">Ring flood sensor · Ring camera · your claim</p>
           <h1 className="readout uppercase text-[52px] sm:text-[84px] mt-4">
             When the sensor finds water, <span className="text-stencil">the camera goes to the water.</span>
@@ -44,7 +48,7 @@ export default function Home() {
             record I wish had been running.
           </p>
         </div>
-        <div className="plate p-6">
+        <div className="plate p-6 lg:self-end">
           {err && (
             <p className="text-[15px]">
               <span className="label block mb-1">Server not reachable</span>

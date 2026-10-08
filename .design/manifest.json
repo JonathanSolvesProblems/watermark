@@ -69,9 +69,18 @@
     "motion_easing": "steps(6, end) for the water fill; cubic-bezier(0.2, 0, 0, 1) for plates"
   },
   "motion_brief": {
-    "explains": "that water was confirmed and how far the record has run; that a new frame arrived",
-    "signature": "the stage fill: the pink water level climbs the staff in six detented steps to the current mark",
-    "resting": "still; the only live element is a 1px tick that advances on the staff while an incident is open"
+    "explains": "that water was confirmed and how far the record has run; that a new frame arrived; which incident the dashboard just opened",
+    "signature": "the stage fill: the pink water level climbs the staff in detented steps to the current mark (incident staff, 6 steps; home page vertical staff, 8 steps)",
+    "moments": [
+      "home: the vertical staff beside the headline fills to the stage mark in 8 detents, 250 ms after paint",
+      "incident: the sensor-to-first-frame readout rolls up in 10 steps on first view only",
+      "incident: each new Ring frame drops onto the staff as a notch (3 steps)",
+      "open incident: the fill crawls with the clock (1 s linear) against a scale that snaps to whole steps",
+      "dashboard to incident: the row's mini gauge grows into the incident staff (View Transitions, matched by name)"
+    ],
+    "resting": "still once loaded; only an open incident's fill moves, at clock speed",
+    "reduced_motion": "every moment above is gated on prefers-reduced-motion: no-preference; values appear at rest",
+    "verified": "tmp/motion_check.py records each moment as video, samples frames, and asserts staff height, click-to-incident under 3 s, and zero running animations under reduced motion"
   },
   "contrast_checked": {
     "dark": "ink/concrete 13.9, stencil/concrete 7.2, stencil/plate 6.3, wet/concrete 5.7, tick/staff 14.2",

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import GaugeLink from "@/components/GaugeLink";
 import { api, fmtDate, fmtDuration, type Account, type Device, type Incident } from "@/lib/api";
 
 const SENSOR_KINDS = ["flood_freeze", "contact", "temperature_humidity", "air_quality"];
@@ -159,7 +160,7 @@ export default function Dashboard() {
           <ul className="grid gap-3">
             {incidents.map((i) => (
               <li key={i.id} className="plate plate-in">
-                <Link href={`/incident?id=${i.id}`} className="grid grid-cols-[96px_1fr] sm:grid-cols-[160px_1fr_auto] gap-4 p-3 items-center">
+                <GaugeLink href={`/incident?id=${i.id}`} view={`staff-${i.id}`} className="grid grid-cols-[96px_1fr] sm:grid-cols-[160px_1fr_auto] gap-4 p-3 items-center">
                   <div className="aspect-video bg-concrete overflow-hidden relative">
                     {i.first_frame_id ? (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -180,6 +181,10 @@ export default function Dashboard() {
                     <p className="text-[14px] text-stencil">
                       {fmtDate(i.opened_at_ms)} · stood {fmtDuration(i.opened_at_ms, i.closed_at_ms)} · {i.frame_count} frames
                     </p>
+                    {/* The incident's gauge in miniature; on click it grows into the incident page's staff. */}
+                    <div className="staff h-2 mt-2 overflow-hidden" style={{ viewTransitionName: `staff-${i.id}` }} aria-hidden="true">
+                      <div className="staff-fill absolute inset-y-0 left-0" style={{ width: i.status === "open" ? "88%" : "96%" }} />
+                    </div>
                   </div>
                   <div className="col-span-2 sm:col-span-1 sm:text-right">
                     {i.pack ? (
@@ -191,7 +196,7 @@ export default function Dashboard() {
                       <span className="label">Pack when dry</span>
                     )}
                   </div>
-                </Link>
+                </GaugeLink>
               </li>
             ))}
           </ul>
