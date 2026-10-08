@@ -24,6 +24,7 @@ with the AWS Builder and Open Source mini-challenges. MIT.
 
 ## What it measures
 
+- **Measured on Ring's Developer Playground (October 8, 2026):** the first Ring frame arrived 6.7 s after the sensor event, median of 5 runs, range 6.6 to 7.1 s. The camera is the Playground's doorbell reached through the real Ring API; the sensor is simulated, because Ring offers no sensors in the Playground and limits real device access to US locations. Every run's evidence pack is in `docs/runs/playground/`, and `docs/runs/playground-series.json` is the summary.
 - **Sensor to first frame:** first frame at [N] s after the sensor event, graded by Ring's own `X-Media-Timestamp`.
 - **Rover on station in [N] s** after the sensor, graded by the rover's report against the sensor timestamp.
 - **Claim questions:** the pack answers [N] of [M] questions on my real claim file. Cause is refused by design.

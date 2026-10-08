@@ -92,7 +92,7 @@ class PackBuilder:
                     thumbs[f["id"]] = "data:image/jpeg;base64," + base64.b64encode(data).decode("ascii")
                 except Exception:  # noqa: BLE001
                     continue
-        return tpl.render(pack=pack, thumbs=thumbs, chart=readings_svg(pack["readings"]))
+        return tpl.render(pack=pack, thumbs=thumbs, chart=readings_svg(pack["readings"]), staff=staff_svg(pack))
 
     def build(self, incident_id: str) -> dict[str, Any]:
         pack = self.collect(incident_id)
@@ -159,6 +159,65 @@ def build_timeline(inc, events, frames, captures, rover_log, health, chime) -> l
     return items
 
 
+def staff_svg(pack: dict[str, Any], width: int = 860) -> str:
+    """The flood staff gauge, same as the app's: an enamel staff with E-ticks, the time
+    water stood as the one pink fill, frames as notches (pink where a caption saw water),
+    unverified spans hatched. Drawn as SVG so it survives printing and PDF export."""
+    inc = pack["incident"]
+    start = inc.get("opened_at_ms")
+    if not start:
+        return ""
+    end = inc.get("closed_at_ms") or int(time.time() * 1000)
+    span = max(end - start, 1000)
+    axis = span * (1.04 if inc.get("closed_at_ms") else 1.12)
+    left, right, top, h = 2, width - 2, 22, 54
+    w = right - left
+
+    def x(ms: float) -> float:
+        return left + max(0.0, min(1.0, (ms - start) / axis)) * w
+
+    step = next((s * 1000 for s in (1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 900, 1800, 3600, 7200, 21600)
+                 if axis / (s * 1000) <= 8), 43_200_000)
+    parts = [f'<svg viewBox="0 0 {width} {top + h + 26}" width="100%" role="img" '
+             f'aria-label="Water stood {_elapsed(span)}">',
+             '<defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" '
+             'patternTransform="rotate(45)"><rect width="2" height="7" fill="#141816" fill-opacity=".55"/></pattern></defs>']
+    for f in pack.get("frames", []):
+        if f.get("media_ms"):
+            colour = "var(--wet)" if f.get("water_visible") == 1 else "var(--ink)"
+            parts.append(f'<rect x="{x(f["media_ms"]) - 1:.1f}" y="4" width="2.5" height="14" style="fill:{colour}"/>')
+    parts.append(f'<rect x="{left}" y="{top}" width="{w}" height="{h}" fill="#f7f7f2" stroke="#141816"/>')
+    parts.append(f'<rect x="{left}" y="{top}" width="{x(end) - left:.1f}" height="{h}" style="fill:var(--wet)"/>')
+    for g in pack.get("integrity", {}).get("gaps", []):
+        gx = x(g["start_ms"])
+        parts.append(f'<rect x="{gx:.1f}" y="{top}" width="{max(2.0, x(g.get("end_ms") or end) - gx):.1f}" '
+                     f'height="{h}" fill="url(#hatch)" stroke="#141816"/>')
+    minor = step / 5
+    i = 1
+    while i * minor < axis:
+        tx = x(start + i * minor)
+        major = i % 5 == 0
+        parts.append(f'<rect x="{tx - (1.5 if major else 0.5):.1f}" y="{top}" width="{3 if major else 1}" '
+                     f'height="{h if major else h * 0.42:.1f}" fill="#141816"/>')
+        if major:
+            parts.append(f'<text x="{tx:.1f}" y="{top + h + 18}" font-size="12" text-anchor="middle" '
+                         f'class="tick">{_elapsed(i * minor)}</text>')
+        i += 1
+    parts.append(f'<text x="{left}" y="{top + h + 18}" font-size="12" class="tick">0s</text></svg>')
+    return "".join(parts)
+
+
+def _elapsed(ms: float) -> str:
+    s = max(0, round(ms / 1000))
+    if s < 60:
+        return f"{s}s"
+    m, s = divmod(s, 60)
+    if m < 60:
+        return f"{m}m{s:02d}" if s else f"{m}m"
+    h, m = divmod(m, 60)
+    return f"{h}h{m:02d}" if m else f"{h}h"
+
+
 def readings_svg(readings: list[dict[str, Any]], width: int = 720, height: int = 160) -> str:
     """Inline SVG of humidity (and temperature if present) over time. No library."""
     pts = [r for r in readings if r.get("ts_ms")]
@@ -176,12 +235,12 @@ def readings_svg(readings: list[dict[str, Any]], width: int = 720, height: int =
         rng = max(1e-6, hi - lo)
         coords = " ".join(f"{20 + (ts - t0) / span * (width - 40):.1f},{height - 20 - (v - lo) / rng * (height - 40):.1f}"
                           for ts, v in vals)
-        return (f'<polyline fill="none" stroke="{color}" stroke-width="2" points="{coords}"/>'
-                f'<text x="{width - 18}" y="14" font-size="11" fill="{color}" text-anchor="end">{key} {lo:.0f} to {hi:.0f}</text>')
+        return (f'<polyline fill="none" style="stroke:{color}" stroke-width="2" points="{coords}"/>'
+                f'<text x="{width - 18}" y="14" font-size="11" style="fill:{color}" text-anchor="end">{key} {lo:.0f} to {hi:.0f}</text>')
 
     return (f'<svg viewBox="0 0 {width} {height}" width="100%" height="{height}" role="img" aria-label="readings">'
             f'<rect x="0" y="0" width="{width}" height="{height}" fill="none"/>'
-            f'{line("humidity", "#2a6f9e")}{line("temperature", "#a0522d")}</svg>')
+            f'{line("humidity", "var(--ink)")}{line("temperature", "var(--stencil)")}</svg>')
 
 
 def html_to_pdf(html: str) -> bytes | None:

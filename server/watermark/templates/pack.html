@@ -2,59 +2,121 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Watermark evidence pack {{ pack.incident.id }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,700;10..72,800&family=Commissioner:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root { --ink:#1b1f24; --muted:#5f6b76; --line:#d9dee3; --paper:#fbfaf7; --water:#2a6f9e; --warn:#a14d2b; --ok:#2f6b3a; }
-  * { box-sizing:border-box; }
-  body { margin:0; padding:36px; background:#fff; color:var(--ink); font:14px/1.5 Georgia, "Times New Roman", serif; }
-  .wrap { max-width:900px; margin:0 auto; }
-  header { border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:22px; display:flex; justify-content:space-between; align-items:flex-end; gap:16px; }
-  h1 { margin:0; font-size:24px; letter-spacing:.01em; }
-  h2 { font-size:17px; margin:30px 0 10px; border-bottom:1px solid var(--line); padding-bottom:4px; }
-  .mono { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size:12.5px; }
-  .muted { color:var(--muted); }
-  .label { display:inline-block; font:600 11px/1 ui-sans-serif, system-ui, sans-serif; letter-spacing:.08em; text-transform:uppercase; padding:5px 8px; border:1px solid var(--ink); border-radius:3px; }
-  .label.warn { border-color:var(--warn); color:var(--warn); }
-  .label.ok { border-color:var(--ok); color:var(--ok); }
-  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:14px 0 4px; }
-  .stat { border:1px solid var(--line); background:var(--paper); padding:10px 12px; }
-  .stat .n { font-size:24px; font-weight:700; }
-  .stat .l { color:var(--muted); font-size:12px; }
-  table { width:100%; border-collapse:collapse; font-size:13px; }
-  th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
-  th { font-family: ui-sans-serif, system-ui, sans-serif; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
-  .frames { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
-  .frame { border:1px solid var(--line); background:var(--paper); }
-  .frame img { width:100%; display:block; aspect-ratio:16/9; object-fit:cover; }
-  .frame .meta { padding:8px 10px; font-size:12px; }
-  .gap { border-left:4px solid var(--warn); background:#fbf1ec; padding:8px 12px; margin:8px 0; }
-  .flag { border-left:4px solid var(--muted); background:var(--paper); padding:8px 12px; margin:8px 0; }
-  .q { display:grid; grid-template-columns:110px 1fr 1.2fr; gap:10px; padding:8px 0; border-bottom:1px solid var(--line); }
-  .q .s { font:600 11px/1.6 ui-sans-serif, system-ui, sans-serif; letter-spacing:.06em; text-transform:uppercase; }
-  .s.answered { color:var(--ok); } .s.partial { color:var(--warn); } .s.unanswered { color:var(--muted); }
-  footer { margin-top:36px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
-  @media print { body { padding:0; } .frames { grid-template-columns:repeat(2,1fr);} .frame, .gap, .flag, .q { break-inside:avoid; } }
+  /* Watermark design code (see .design/manifest.json). The pack is the record an
+     adjuster reads, usually printed, so its home is light: limewashed concrete and
+     enamel. One hue, the indicator pink, marks confirmed water and nothing else;
+     anything the record cannot vouch for is hatched, never coloured. */
+  :root {
+    color-scheme: light;
+    --concrete: #e3e6df; --plate: #f3f4ef; --raised: #ffffff; --ink: #151917; --stencil: #4e5852;
+    --seam: #c3c9c0; --wet: #b0175c; --staff: #f7f7f2; --tick: #141816;
+    --hatch: repeating-linear-gradient(135deg, rgba(21,25,23,.16) 0 2px, transparent 2px 7px);
+    --display: "Big Shoulders", "Arial Narrow", "Roboto Condensed", sans-serif;
+    --body: "Commissioner", "Segoe UI", system-ui, sans-serif;
+  }
+  @media screen and (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --concrete: #1a1f1c; --plate: #242a26; --raised: #2e3530; --ink: #e8ebe4; --stencil: #a3ada6;
+      --seam: #3a433d; --wet: #f2669f;
+      --hatch: repeating-linear-gradient(135deg, rgba(232,235,228,.16) 0 2px, transparent 2px 7px);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 40px 24px; background: var(--concrete); color: var(--ink);
+         font: 15px/1.55 var(--body); font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  .label { font: 700 12px/1.2 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--stencil); }
+  .readout { font-family: var(--display); font-weight: 800; line-height: .92; text-transform: uppercase; }
+  h1.readout { font-size: 54px; margin: 8px 0 6px; }
+  h2 { font: 700 13px/1.2 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--stencil);
+       margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--seam); }
+  .muted { color: var(--stencil); }
+  .plate { background: var(--plate); border: 1px solid var(--seam); box-shadow: 0 1px 0 #b8beb5; }
+  .hatch { background-image: var(--hatch); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .tag { font: 700 12px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; padding: 8px 10px;
+         border: 1px solid var(--seam); background: var(--plate); }
+  .head { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
+  .first .n { font-size: 112px; }
+  .first .n small { font-size: 44px; color: var(--stencil); margin-left: 4px; }
+  .readings { display: flex; gap: 28px; flex-wrap: wrap; }
+  .reading { border-left: 2px solid var(--seam); padding-left: 10px; }
+  .reading .n { font-size: 38px; }
+  .reading .l { font-size: 12px; color: var(--stencil); max-width: 13ch; line-height: 1.25; margin-top: 4px; }
+  .staff svg { display: block; margin-top: 18px; }
+  .staff .tick { font: 700 12px var(--display); fill: var(--stencil); letter-spacing: .04em; }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--seam); vertical-align: top; }
+  td.t { font: 700 15px var(--display); white-space: nowrap; width: 1%; }
+  td.s { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--stencil); white-space: nowrap; width: 1%; }
+  .frames { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .frame { background: var(--plate); border: 1px solid var(--seam); }
+  .frame .img { position: relative; }
+  .frame img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+  .frame .stamp { position: absolute; left: 0; bottom: 0; background: var(--staff); color: var(--tick);
+                  font: 800 15px var(--display); padding: 2px 7px; letter-spacing: .03em; }
+  .frame .meta { padding: 9px 11px; font-size: 13px; }
+  .spot { display: inline-block; width: 11px; height: 11px; border-radius: 99px; border: 2px solid var(--stencil);
+          vertical-align: -1px; margin-right: 6px; }
+  .spot.wet { background: var(--wet); border-color: var(--wet); }
+  .gap { display: grid; grid-template-columns: 12px 1fr; margin: 8px 0; }
+  .gap .bar { border-right: 1px solid var(--seam); }
+  .gap .body, .flag { padding: 9px 12px; }
+  .flag { margin: 8px 0; }
+  .q { display: grid; grid-template-columns: 140px 1fr 1.1fr; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--seam); }
+  .status { font: 700 12px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; padding: 6px 8px;
+            align-self: start; width: fit-content; }
+  .status.answered { background: var(--ink); color: var(--concrete); }
+  .status.partial { border: 1px solid var(--seam); background: var(--plate); }
+  .status.unanswered { background-image: var(--hatch); color: var(--stencil); }
+  .aftermath td, .aftermath th { font-size: 13px; text-align: left; }
+  .aftermath th { font: 700 11px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--stencil);
+                  padding: 6px 10px 6px 0; border-bottom: 1px solid var(--seam); }
+  footer { margin-top: 44px; padding-top: 14px; border-top: 1px solid var(--seam); font-size: 13px; color: var(--stencil); }
+  @media (max-width: 700px) { .head { grid-template-columns: 1fr; } .frames { grid-template-columns: 1fr 1fr; }
+    .q { grid-template-columns: 1fr; gap: 4px; } h1.readout { font-size: 40px; } .first .n { font-size: 84px; } }
+  @media print {
+    body { padding: 0; background: #fff; }
+    .frames { grid-template-columns: repeat(2, 1fr); }
+    .frame, .gap, .flag, .q, tr { break-inside: avoid; }
+    h2 { break-after: avoid; }
+  }
 </style>
 </head>
 <body><div class="wrap">
 
 <header>
-  <div>
-    <div class="muted mono">Watermark evidence pack &middot; {{ pack.incident.id }}</div>
-    <h1>{{ pack.incident.kind|capitalize }} in {{ pack.incident.room }}</h1>
-    <div class="muted">{{ pack.incident.opened_at_ms|ts }} to {{ pack.incident.closed_at_ms|ts if pack.incident.closed_at_ms else "still open" }} &middot; generated {{ pack.generated_at }}</div>
-  </div>
-  <div>
-    {% if pack.notes.controlled_test %}<span class="label warn">Controlled test. Real device.</span>{% endif %}
-    <span class="label {{ 'ok' if pack.integrity.verdict == 'complete' else 'warn' }}">Evidence: {{ pack.integrity.verdict }}</span>
+  <div class="label">Watermark evidence pack · {{ pack.incident.id }}</div>
+  <h1 class="readout">{{ "Water" if pack.incident.kind == "flood" else "Freeze" }} in {{ pack.incident.room }}</h1>
+  <div class="muted">{{ pack.incident.opened_at_ms|ts }} to {{ pack.incident.closed_at_ms|ts if pack.incident.closed_at_ms else "still open" }} · generated {{ pack.generated_at }}</div>
+  <div class="tags">
+    {% if pack.notes.simulated_sensor %}<span class="tag hatch">Simulated sensor · Ring Playground camera</span>{% endif %}
+    {% if pack.notes.controlled_test %}<span class="tag">Controlled test. Real device.</span>{% endif %}
+    <span class="tag {{ '' if pack.integrity.verdict == 'complete' else 'hatch' }}">Evidence {{ pack.integrity.verdict }}</span>
   </div>
 </header>
 
-<section class="stats">
-  <div class="stat"><div class="n">{{ pack.integrity.stats.sensor_to_first_frame_s if pack.integrity.stats.sensor_to_first_frame_s is not none else "n/a" }}<span class="muted" style="font-size:13px"> s</span></div><div class="l">sensor to first frame</div></div>
-  <div class="stat"><div class="n">{{ pack.integrity.stats.frames }}</div><div class="l">frames from the Ring camera</div></div>
-  <div class="stat"><div class="n">{{ pack.claims.answered }}<span class="muted" style="font-size:13px"> / {{ pack.claims.total }}</span></div><div class="l">claim questions answered</div></div>
-  <div class="stat"><div class="n">{{ pack.integrity.gaps|length }}</div><div class="l">gaps disclosed</div></div>
+<section class="staff">
+  <div class="head" style="margin-top:28px">
+    <div class="first">
+      <div class="label">Sensor to first frame</div>
+      <div class="readout n">{{ pack.integrity.stats.sensor_to_first_frame_s if pack.integrity.stats.sensor_to_first_frame_s is not none else "–" }}<small>s</small></div>
+    </div>
+    <div class="readings">
+      <div class="reading"><div class="readout n">{{ pack.integrity.stats.frames }}</div><div class="l">frames from the Ring camera</div></div>
+      <div class="reading"><div class="readout n">{{ pack.claims.answered }}/{{ pack.claims.total }}</div><div class="l">claim questions answered</div></div>
+      <div class="reading {{ 'hatch' if pack.integrity.gaps else '' }}"><div class="readout n">{{ pack.integrity.gaps|length }}</div><div class="l">gaps disclosed</div></div>
+    </div>
+  </div>
+  {{ staff|safe }}
+  <p class="muted" style="font-size:13px;margin-top:6px">The pink is how long the sensor reported water. Notches above are frames, pink where the caption saw water. Hatched spans are times the record cannot vouch for.</p>
 </section>
 
 <h2>What happened</h2>
@@ -62,22 +124,25 @@
 
 <h2>Timeline</h2>
 <table>
-  <tr><th>Time</th><th>Source</th><th>Entry</th></tr>
   {% for t in pack.timeline %}
-  <tr><td class="mono">{{ t.ts_ms|hms }}</td><td class="muted">{{ t.source }}</td><td>{{ t.text }}</td></tr>
+  <tr><td class="t">{{ t.ts_ms|hms }}</td><td class="s">{{ t.source }}</td><td>{{ t.text }}</td></tr>
   {% endfor %}
 </table>
 
-<h2>Frames</h2>
+<h2>Frames from the Ring camera</h2>
 {% if pack.frames %}
 <div class="frames">
   {% for f in pack.frames %}
   {% if loop.index <= 24 %}
   <div class="frame">
-    {% if thumbs.get(f.id) %}<img src="{{ thumbs[f.id] }}" alt="frame {{ f.id }}">{% endif %}
+    <div class="img">
+      {% if thumbs.get(f.id) %}<img src="{{ thumbs[f.id] }}" alt="Frame {{ f.id }} from the Ring camera">{% endif %}
+      <span class="stamp">{{ f.media_ms|hms }}</span>
+    </div>
     <div class="meta">
-      <div class="mono">{{ f.media_ms|ts }} &middot; {{ f.origin }}{% if f.drift_ms is not none %} &middot; drift {{ (f.drift_ms/1000)|round(1) }} s{% endif %}</div>
-      {% if f.caption %}<div>{{ f.caption }}</div><div class="muted">{{ f.caption_model }}</div>{% endif %}
+      <div><span class="spot {{ 'wet' if f.water_visible == 1 else '' }}"></span><span class="label">{{ "Water visible" if f.water_visible == 1 else ("No water visible" if f.water_visible == 0 else "Not captioned") }}</span></div>
+      <div class="muted" style="font-size:12px;margin-top:3px">{{ "live session, time of receipt" if f.origin == "live" else "Ring media timestamp" }}{% if f.drift_ms is not none %} · drift {{ (f.drift_ms/1000)|round(1) }} s{% endif %}</div>
+      {% if f.caption %}<div style="margin-top:5px">{{ f.caption }}</div><div class="muted" style="font-size:12px">{{ f.caption_model }}</div>{% endif %}
     </div>
   </div>
   {% endif %}
@@ -85,7 +150,7 @@
 </div>
 {% if pack.frames|length > 24 %}<p class="muted">{{ pack.frames|length - 24 }} more frames in the JSON pack.</p>{% endif %}
 {% else %}
-<p class="muted">No frames were captured. See the integrity section for why.</p>
+<p class="plate hatch" style="padding:12px 14px">No frames were captured. The integrity section below says why.</p>
 {% endif %}
 
 {% if chart %}
@@ -97,33 +162,32 @@
 {% if pack.incident.camera_role == "rover" %}
 <h2>Camera movement</h2>
 <table>
-  <tr><th>Time</th><th>Entry</th></tr>
   {% for r in pack.rover_log %}
-  <tr><td class="mono">{{ r.ts_ms|hms }}</td><td>{{ r.kind }}: {{ r.message }}</td></tr>
+  <tr><td class="t">{{ r.ts_ms|hms }}</td><td>{{ r.kind }}: {{ r.message }}</td></tr>
   {% endfor %}
 </table>
-<p class="muted">Dispatch to on-station: {{ pack.integrity.stats.sensor_to_on_station_s if pack.integrity.stats.sensor_to_on_station_s is not none else "never reported" }} s after the sensor. Stop reason: {{ pack.incident.rover_stop_reason or "n/a" }}.</p>
+<p class="muted">Rover on station {{ pack.integrity.stats.sensor_to_on_station_s if pack.integrity.stats.sensor_to_on_station_s is not none else "never reported" }} s after the sensor. Stop reason: {{ pack.incident.rover_stop_reason or "none" }}.</p>
 {% endif %}
 
-<h2>Evidence integrity</h2>
+<h2>What this record cannot vouch for</h2>
 {% for g in pack.integrity.gaps %}
-<div class="gap"><strong class="mono">{{ g.start_ms|hms }}{% if g.end_ms %} to {{ g.end_ms|hms }}{% endif %}</strong> &middot; {{ g.text }}</div>
+<div class="gap plate"><span class="bar hatch"></span><div class="body"><strong style="font-family:var(--display)">{{ g.start_ms|hms }}{% if g.end_ms %}–{{ g.end_ms|hms }}{% endif %}</strong> · {{ g.text }}</div></div>
 {% endfor %}
 {% for fl in pack.integrity.flags %}
-<div class="flag">{{ fl.text }}</div>
+<div class="flag plate">{{ fl.text }}</div>
 {% endfor %}
-{% if not pack.integrity.gaps and not pack.integrity.flags %}<p>No gaps or flags.</p>{% endif %}
+{% if not pack.integrity.gaps and not pack.integrity.flags %}<p>Nothing. Every frame carries Ring's time and every event arrived from Ring.</p>{% endif %}
 
-<h2>Against the claim questions</h2>
+<h2>Against the questions on the claim file</h2>
 <p class="muted">{{ pack.claims.source }}</p>
 {% for q in pack.claims.rows %}
-<div class="q"><div class="s {{ q.status }}">{{ q.status }}</div><div>{{ q.question }}</div><div class="muted">{{ q.evidence }}</div></div>
+<div class="q"><span class="status {{ q.status }}">{{ "Not answered" if q.status == "unanswered" else q.status }}</span><div>{{ q.question }}</div><div class="muted">{{ q.evidence }}</div></div>
 {% endfor %}
 
 {% if pack.aftermath.available %}
-<h2>Aftermath (visible damage in the frames)</h2>
-<p class="muted">{{ pack.aftermath.frames_analyzed }} frames analysed with the {{ pack.aftermath.backend }} backend. Draft findings; every one needs a human before it goes to an insurer.</p>
-<table>
+<h2>Aftermath: visible damage in the frames</h2>
+<p class="muted">{{ pack.aftermath.frames_analyzed }} frames analysed with the {{ pack.aftermath.backend }} backend. Draft findings; each one needs a person to check it before it goes to an insurer.</p>
+<table class="aftermath">
   <tr><th>Area</th><th>Type</th><th>Severity</th><th>Confidence</th><th>Observed</th></tr>
   {% for f in pack.aftermath.findings %}
   <tr><td>{{ f.area }}</td><td>{{ f.damage_type }}</td><td>{{ f.severity }}</td><td>{{ f.confidence }}</td><td>{{ f.description }}</td></tr>
@@ -132,7 +196,7 @@
 {% endif %}
 
 <footer>
-  Generated by Watermark from Ring sensor events, Ring camera media and rover telemetry. Timestamps on frames are Ring's own media timestamps unless marked live. Captions and the narrative were written by a model from the frames and the logs; they describe, they do not measure, and they never state a cause. Review everything before submitting it to an insurer.
+  Generated by Watermark from Ring sensor events, Ring camera media and rover telemetry. Frames from a recording carry Ring's media timestamp; frames from a live session carry the time they were received, with Ring's own time burned into the image. Captions and the narrative were written by a model from the frames and the logs; they describe, they do not measure, and they never state a cause. Review everything before submitting it to an insurer.
 </footer>
 
 </div></body></html>

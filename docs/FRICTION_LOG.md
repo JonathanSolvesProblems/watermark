@@ -142,3 +142,13 @@ Severity: **blocker** (could not proceed), **major** (hours lost or wrong design
 - **Severity:** paper cut.
 - **Workaround:** the server reads the token from a file and reports clearly when it has expired, so a fresh one can be pasted in.
 - **Suggestion:** issue Playground tokens with a refresh token, or a longer life for hackathon participants.
+
+### 15. The Playground camera goes offline about 16 minutes after a token is issued
+
+- **Task:** run five measured incidents in a row against the Playground doorbell.
+- **Steps:** generated a token at 16:30:44 UTC; live view worked at 16:32 and 16:35; a series started at 16:49 found the camera offline.
+- **Expected:** a simulated device that stays online while the token is valid (30 minutes).
+- **Actual:** `GET /status` reported `online: false` with `reported_at` 16:46:43, exactly 16 minutes after the token was issued. A WHEP session against the offline device is still accepted (201) but streams no media. A new token cannot be generated until the old one has expired, so the device stays offline for the last half of every token.
+- **Severity:** minor (cost one measurement series; Watermark correctly refused to record from an offline camera).
+- **Workaround:** run measurements in the first 15 minutes after generating a token; the run script checks the camera is online before it starts.
+- **Suggestion:** keep the Playground device online for the token's whole life, or say in the console how long it stays online.

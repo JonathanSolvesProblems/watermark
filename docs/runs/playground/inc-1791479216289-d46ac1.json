@@ -1,0 +1,502 @@
+{
+ "generated_at": "2026-10-08 13:07:29 Eastern Daylight Time",
+ "incident": {
+  "id": "inc-1791479216289-d46ac1",
+  "account_id": "playground",
+  "sensor_device_id": "simulated-flood-sensor",
+  "room": "Water heater closet",
+  "kind": "flood",
+  "status": "closed",
+  "opened_at_ms": 1791479216285,
+  "opened_source": "synthetic",
+  "closed_at_ms": 1791479249534,
+  "closed_source": "synthetic",
+  "camera_device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+  "camera_role": "fixed",
+  "rover_dispatched_at_ms": null,
+  "rover_on_station_at_ms": null,
+  "rover_stop_reason": null,
+  "chime_status": "[]",
+  "notes": "{\"sensor_name\": \"Water heater sensor (simulated)\", \"camera_role\": \"fixed\", \"controlled_test\": false, \"simulated_sensor\": true}"
+ },
+ "notes": {
+  "sensor_name": "Water heater sensor (simulated)",
+  "camera_role": "fixed",
+  "controlled_test": false,
+  "simulated_sensor": true
+ },
+ "chime": [],
+ "sensor": {
+  "device_id": "simulated-flood-sensor",
+  "account_id": "playground",
+  "name": "Water heater sensor (simulated)",
+  "kind": "flood_freeze",
+  "room": "Water heater closet",
+  "route_id": null,
+  "covered_by": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+  "chime_audio_ref": null,
+  "last_status": "{\"data\": {\"attributes\": {\"online\": true, \"reported_at\": \"2026-10-08T17:07:28Z\", \"flood_detection\": {\"faulted\": true}, \"freeze_detection\": {\"faulted\": false}, \"tamper_detection\": {\"detected\": false}, \"sensor_reporting_state\": {\"value\": \"active\"}}}}",
+  "online": 1,
+  "updated_at": 1791479248.2792287
+ },
+ "camera": {
+  "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+  "account_id": "playground",
+  "name": "Playground Device",
+  "kind": "camera",
+  "room": "Water heater closet",
+  "route_id": null,
+  "covered_by": null,
+  "chime_audio_ref": null,
+  "last_status": "{\"data\": {\"type\": \"device-status\", \"id\": \"ava1.ring.device.status.5DCRG2OMJL33TKD3QYNP5LSUFIQ7SVVLOL63NBLIT3I4YUUK2AYVXCNLJ7UVN4IEGEVPVQLO4SYDYAWYROVBLRCYIB2W6UKX\", \"attributes\": {\"reported_at\": \"2026-10-08T17:05:05Z\", \"state\": null, \"audio\": {\"snooze\": {\"active\": null, \"until\": null}}, \"online\": true}}, \"meta\": {\"time\": \"2026-10-08T17:05:33Z\"}}",
+  "online": 1,
+  "updated_at": 1791479132.6943803
+ },
+ "frames": [
+  {
+   "id": 43,
+   "incident_id": "inc-1791479216289-d46ac1",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791479222864,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791479216289-d46ac1/frames/001-000.jpg",
+   "caption": "MOCK caption: synthetic frame, a blue band across the floor near the water heater.",
+   "caption_model": "mock",
+   "water_visible": 1,
+   "created_at": 1791479229.1965914
+  },
+  {
+   "id": 44,
+   "incident_id": "inc-1791479216289-d46ac1",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791479223881,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791479216289-d46ac1/frames/001-001.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791479229.2039762
+  },
+  {
+   "id": 45,
+   "incident_id": "inc-1791479216289-d46ac1",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791479224897,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791479216289-d46ac1/frames/001-002.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791479229.2102685
+  },
+  {
+   "id": 46,
+   "incident_id": "inc-1791479216289-d46ac1",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791479225898,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791479216289-d46ac1/frames/001-003.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791479229.2145746
+  },
+  {
+   "id": 47,
+   "incident_id": "inc-1791479216289-d46ac1",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791479226952,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791479216289-d46ac1/frames/001-004.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791479229.2193658
+  },
+  {
+   "id": 48,
+   "incident_id": "inc-1791479216289-d46ac1",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791479227977,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791479216289-d46ac1/frames/001-005.jpg",
+   "caption": "MOCK caption: synthetic frame, a blue band across the floor near the water heater.",
+   "caption_model": "mock",
+   "water_visible": 1,
+   "created_at": 1791479229.2246935
+  }
+ ],
+ "readings": [],
+ "health": [
+  {
+   "id": 16,
+   "incident_id": "inc-1791479216289-d46ac1",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "ts_ms": 1791479216502,
+   "online": 1,
+   "source": "status"
+  }
+ ],
+ "captures": [
+  {
+   "id": 16,
+   "incident_id": "inc-1791479216289-d46ac1",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "started_ms": 1791479216503,
+   "ended_ms": 1791479229191,
+   "frames": 6,
+   "outcome": "ok",
+   "detail": "session=7e793939-3112-4111-99d7-774e3f50f957?location=ava1.ring.whep.location.HT7KDV6RNQUH3EU3GBXTMBGNDIR6UKRYFV7BKIBWOGMNODYHQWXJUGFF2DHKJI6FG6IEQO4GYZPQF6PQAIKPDWUUMDTBQPOFELB7NNDMTLGEYAR3EMZFD2BQ5Y4OYHJV42SQCU6YI76DGAGA3BUM6YKISXXXNRF6XE7NYPHIWJK5GCD4SK4UKJARZN6S55MVIOHII5GBTFUZHT2X5HDAND4UMTXQQ3ISKA2EZHUD4RJF2PK3CBEXCQHSD5HNO7OXMSJGYTI4U6LH5HCAKPWNX6E5W7L4W77XUZYF7J2TFQUXZ57ETB6PAFFFOKHH6HLNCWBBI7Y"
+  }
+ ],
+ "rover_log": [],
+ "events": [
+  {
+   "request_id": "ca7d95b7d1d841849a17e4615c509494",
+   "event_id": "simulated-flood-sensor_flood_cleared_1791479166869",
+   "type": "flood_cleared",
+   "device_id": "simulated-flood-sensor",
+   "account_id": "playground",
+   "timestamp_ms": 1791479166869,
+   "received_at": 1791479166.8691142,
+   "source": "synthetic"
+  },
+  {
+   "request_id": "2fb9cb2bba184be5bdd101027175faba",
+   "event_id": "simulated-flood-sensor_flood_detected_1791479175012",
+   "type": "flood_detected",
+   "device_id": "simulated-flood-sensor",
+   "account_id": "playground",
+   "timestamp_ms": 1791479175012,
+   "received_at": 1791479175.0128517,
+   "source": "synthetic"
+  },
+  {
+   "request_id": "9659a652305a48339ff7a2f5a8d08d5c",
+   "event_id": "simulated-flood-sensor_flood_cleared_1791479208152",
+   "type": "flood_cleared",
+   "device_id": "simulated-flood-sensor",
+   "account_id": "playground",
+   "timestamp_ms": 1791479208152,
+   "received_at": 1791479208.1529403,
+   "source": "synthetic"
+  },
+  {
+   "request_id": "7218703577374e62947f9705b53c007d",
+   "event_id": "simulated-flood-sensor_flood_detected_1791479216285",
+   "type": "flood_detected",
+   "device_id": "simulated-flood-sensor",
+   "account_id": "playground",
+   "timestamp_ms": 1791479216285,
+   "received_at": 1791479216.2856169,
+   "source": "synthetic"
+  },
+  {
+   "request_id": "e035cb1bbbf8435c9aafae0afe422460",
+   "event_id": "simulated-flood-sensor_flood_cleared_1791479249534",
+   "type": "flood_cleared",
+   "device_id": "simulated-flood-sensor",
+   "account_id": "playground",
+   "timestamp_ms": 1791479249534,
+   "received_at": 1791479249.534866,
+   "source": "synthetic"
+  }
+ ],
+ "prior_incident_count": 7,
+ "integrity": {
+  "gaps": [],
+  "flags": [
+   {
+    "kind": "model_captions",
+    "text": "Frame captions were written by mock and describe what is visible; they are not measurements and never state a cause."
+   },
+   {
+    "kind": "simulated_sensor",
+    "text": "The sensor event is simulated: Ring's Developer Playground has no sensors. The camera, its live session and its frames are Ring's Playground doorbell, reached through the Ring API."
+   }
+  ],
+  "stats": {
+   "frames": 6,
+   "sessions_total": 1,
+   "sessions_ok": 1,
+   "sensor_to_first_frame_s": 6.6,
+   "sensor_to_dispatch_s": null,
+   "sensor_to_on_station_s": null,
+   "duration_s": 33.2
+  },
+  "verdict": "complete"
+ },
+ "timeline": [
+  {
+   "ts_ms": 1791479166869,
+   "kind": "event",
+   "source": "synthetic",
+   "text": "flood_cleared from simulated-flood-sensor"
+  },
+  {
+   "ts_ms": 1791479175012,
+   "kind": "event",
+   "source": "synthetic",
+   "text": "flood_detected from simulated-flood-sensor"
+  },
+  {
+   "ts_ms": 1791479208152,
+   "kind": "event",
+   "source": "synthetic",
+   "text": "flood_cleared from simulated-flood-sensor"
+  },
+  {
+   "ts_ms": 1791479216285,
+   "kind": "event",
+   "source": "synthetic",
+   "text": "flood_detected from simulated-flood-sensor"
+  },
+  {
+   "ts_ms": 1791479216502,
+   "kind": "health",
+   "source": "status",
+   "text": "Camera online (status)"
+  },
+  {
+   "ts_ms": 1791479216503,
+   "kind": "capture",
+   "source": "ring",
+   "text": "Capture session 1: 6 frame(s), ok"
+  },
+  {
+   "ts_ms": 1791479222864,
+   "kind": "first_frame",
+   "source": "ring",
+   "text": "First frame (received from the live session; Ring's time is in the image)"
+  },
+  {
+   "ts_ms": 1791479249534,
+   "kind": "event",
+   "source": "synthetic",
+   "text": "flood_cleared from simulated-flood-sensor"
+  }
+ ],
+ "claims": {
+  "source": "TEMPLATE: typical Canadian home water-damage claim intake questions. Replace with the insurer's own form.",
+  "total": 12,
+  "answered": 7,
+  "partial": 2,
+  "unanswered": 3,
+  "rows": [
+   {
+    "id": "q1",
+    "question": "When did you first become aware of the water?",
+    "answered_by": [
+     "first_detection_time"
+    ],
+    "status": "answered",
+    "evidence": "2026-10-08 13:06:56 (synthetic)"
+   },
+   {
+    "id": "q2",
+    "question": "Where in the home did the water appear?",
+    "answered_by": [
+     "location_in_home"
+    ],
+    "status": "answered",
+    "evidence": "Water heater closet"
+   },
+   {
+    "id": "q3",
+    "question": "How did you discover it?",
+    "answered_by": [
+     "detection_source"
+    ],
+    "status": "answered",
+    "evidence": "Ring flood sensor 'Water heater sensor (simulated)'"
+   },
+   {
+    "id": "q4",
+    "question": "How long was the water present before it was addressed?",
+    "answered_by": [
+     "duration"
+    ],
+    "status": "answered",
+    "evidence": "33 seconds, from 2026-10-08 13:06:56 to 2026-10-08 13:07:29"
+   },
+   {
+    "id": "q5",
+    "question": "Do you have photographs or video, with dates and times?",
+    "answered_by": [
+     "photos_with_times"
+    ],
+    "status": "answered",
+    "evidence": "6 frames from the Ring camera with Ring's time burned into each image, first at 2026-10-08 13:07:02"
+   },
+   {
+    "id": "q6",
+    "question": "Describe the extent of the water (depth, area, surfaces affected).",
+    "answered_by": [
+     "extent_description"
+    ],
+    "status": "partial",
+    "evidence": "MOCK caption: synthetic frame, a blue band across the floor near the water heater. (mock caption)"
+   },
+   {
+    "id": "q7",
+    "question": "What were the conditions in the room afterwards (humidity, temperature, drying)?",
+    "answered_by": [
+     "environmental_readings"
+    ],
+    "status": "unanswered",
+    "evidence": ""
+   },
+   {
+    "id": "q8",
+    "question": "Were any detection devices installed and were they working at the time?",
+    "answered_by": [
+     "device_health_log"
+    ],
+    "status": "answered",
+    "evidence": "1 camera health checks (1 online), 1 capture sessions logged, sensor battery/signal in status log"
+   },
+   {
+    "id": "q9",
+    "question": "Have you had previous water incidents at this address?",
+    "answered_by": [
+     "prior_incidents"
+    ],
+    "status": "answered",
+    "evidence": "7 earlier incident(s) recorded by Watermark at this account"
+   },
+   {
+    "id": "q10",
+    "question": "Was anyone home at the time, and who entered the area?",
+    "answered_by": [
+     "people_present"
+    ],
+    "status": "unanswered",
+    "evidence": "no contact sensor events; Watermark does not identify people"
+   },
+   {
+    "id": "q11",
+    "question": "What steps did you take to stop or mitigate the water?",
+    "answered_by": [
+     "actions_taken"
+    ],
+    "status": "partial",
+    "evidence": "chime announced; mitigation by people is not recorded"
+   },
+   {
+    "id": "q12",
+    "question": "What was the source or cause of the water?",
+    "answered_by": [
+     "cause"
+    ],
+    "by_design_unanswered": true,
+    "status": "unanswered",
+    "evidence": "By design. Watermark records what happened; it does not determine cause."
+   }
+  ]
+ },
+ "aftermath": {
+  "available": true,
+  "backend": "mock",
+  "frames_analyzed": 6,
+  "findings": [
+   {
+    "area": "frame 43",
+    "damage_type": "water intrusion",
+    "severity": "severe",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-43.jpg"
+   },
+   {
+    "area": "frame 44",
+    "damage_type": "water intrusion",
+    "severity": "minor",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-44.jpg"
+   },
+   {
+    "area": "frame 45",
+    "damage_type": "water intrusion",
+    "severity": "moderate",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-45.jpg"
+   },
+   {
+    "area": "frame 46",
+    "damage_type": "water intrusion",
+    "severity": "severe",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-46.jpg"
+   },
+   {
+    "area": "frame 47",
+    "damage_type": "water intrusion",
+    "severity": "moderate",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-47.jpg"
+   },
+   {
+    "area": "frame 48",
+    "damage_type": "water intrusion",
+    "severity": "moderate",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-48.jpg"
+   }
+  ]
+ },
+ "narrative": "A Ring flood sensor in the Water heater closet reported water and the incident lasted 1 minutes. 6 frames were captured from a Ring camera; a vision model judged water visible in 2 of them. 0 environmental readings were logged. The integrity section lists 0 gap(s) and 2 flag(s). This narrative describes captured evidence only and makes no claim about the cause."
+}

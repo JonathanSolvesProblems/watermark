@@ -1,0 +1,60 @@
+{
+ "what": "seconds from a simulated flood sensor event to the first frame from Ring's Developer Playground doorbell, through the real Ring API (WHEP live view)",
+ "measured_at": "2026-10-08 13:08:53 Eastern Daylight Time",
+ "n": 5,
+ "with_frames": 5,
+ "median_s": 6.7,
+ "min_s": 6.6,
+ "max_s": 7.1,
+ "runs": [
+  {
+   "run": 1,
+   "incident_id": "inc-1791479132700-2f60df",
+   "sensor_to_first_frame_s": 7.1,
+   "frames": 6,
+   "sessions_ok": 1,
+   "sessions_total": 1,
+   "verdict": "complete"
+  },
+  {
+   "run": 2,
+   "incident_id": "inc-1791479175013-3d2034",
+   "sensor_to_first_frame_s": 6.6,
+   "frames": 6,
+   "sessions_ok": 1,
+   "sessions_total": 1,
+   "verdict": "complete"
+  },
+  {
+   "run": 3,
+   "incident_id": "inc-1791479216289-d46ac1",
+   "sensor_to_first_frame_s": 6.6,
+   "frames": 6,
+   "sessions_ok": 1,
+   "sessions_total": 1,
+   "verdict": "complete"
+  },
+  {
+   "run": 4,
+   "incident_id": "inc-1791479257678-872b7f",
+   "sensor_to_first_frame_s": 6.8,
+   "frames": 6,
+   "sessions_ok": 1,
+   "sessions_total": 1,
+   "verdict": "complete"
+  },
+  {
+   "run": 5,
+   "incident_id": "inc-1791479299951-708741",
+   "sensor_to_first_frame_s": 6.7,
+   "frames": 6,
+   "sessions_ok": 1,
+   "sessions_total": 1,
+   "verdict": "complete"
+  }
+ ],
+ "caveats": [
+  "The sensor is simulated; the Playground has no sensors.",
+  "The first frame's time is when Watermark received it from the live session; Ring's own time is burned into the image."
+ ]
+}

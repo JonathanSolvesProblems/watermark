@@ -2,10 +2,43 @@
   "_comment": "Each headline number in the docs must trace to a committed run in docs/runs/. Run files are the pack.json of a real incident (copy it there). Until docs/runs/demo-run.json exists, bracketed placeholders like [N] are allowed and real numbers are failures.",
   "runs": {
     "demo": "docs/runs/demo-run.json",
-    "ablation": "docs/runs/ablation-run.json"
+    "ablation": "docs/runs/ablation-run.json",
+    "playground": "docs/runs/playground-series.json"
   },
   "watch_files": ["README.md", "docs/DEMO_SCRIPT.md", "docs/SUBMISSION.md"],
   "claims": [
+    {
+      "id": "playground_first_frame_median",
+      "text": "median seconds from a simulated sensor event to the first frame from Ring's Playground doorbell",
+      "docs_regex": "first Ring frame arrived \\[?([0-9.]+|N)\\]? ?s after",
+      "run": "playground",
+      "path": "median_s",
+      "tolerance": 0.05
+    },
+    {
+      "id": "playground_runs",
+      "text": "number of Playground runs behind the median",
+      "docs_regex": "median of \\[?([0-9]+|N)\\]? runs",
+      "run": "playground",
+      "path": "n",
+      "tolerance": 0
+    },
+    {
+      "id": "playground_min",
+      "text": "fastest Playground run",
+      "docs_regex": "range ([0-9.]+) to [0-9.]+ s",
+      "run": "playground",
+      "path": "min_s",
+      "tolerance": 0.05
+    },
+    {
+      "id": "playground_max",
+      "text": "slowest Playground run",
+      "docs_regex": "range [0-9.]+ to ([0-9.]+) s",
+      "run": "playground",
+      "path": "max_s",
+      "tolerance": 0.05
+    },
     {
       "id": "first_frame_s",
       "text": "seconds from sensor to first Ring frame",

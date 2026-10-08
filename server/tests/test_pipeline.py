@@ -75,7 +75,8 @@ async def test_flood_to_pack(client, app):
 
     # 7. artefacts exist
     html = (await client.get(f"/api/incidents/{incident_id}/pack.html")).text
-    assert "Controlled test. Real device." in html and "Evidence integrity" in html
+    assert "Controlled test. Real device." in html and "What this record cannot vouch for" in html
+    assert 'aria-label="Water stood' in html   # the staff gauge rendered
     assert (await client.get(f"/api/incidents/{incident_id}/pack.json")).status_code == 200
     img = await client.get(f"/api/frames/{frames[0]['id']}.jpg")
     assert img.status_code == 200 and img.content[:2] == b"\xff\xd8"
