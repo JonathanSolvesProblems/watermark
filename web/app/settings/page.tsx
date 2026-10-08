@@ -31,11 +31,11 @@ export default function Settings() {
   }
 
   return (
-    <div className="grid gap-12 max-w-3xl">
+    <div className="grid grid-cols-1 gap-12 max-w-3xl min-w-0">
       <section>
         <p className="label">Settings</p>
         <h1 className="readout uppercase text-[48px] sm:text-[64px] mt-2">Account</h1>
-        <dl className="mt-4 plate grid grid-cols-[150px_1fr]">
+        <dl className="mt-4 plate grid grid-cols-[minmax(0,110px)_minmax(0,1fr)] sm:grid-cols-[150px_minmax(0,1fr)]">
           <Row k="Email" v={acct?.email || "–"} />
           <Row k="Ring link" v={linkLabel(acct)} />
           <Row k="Subscription" v="Managed in the Ring app under My Apps. Watermark cannot change it here." />
@@ -79,7 +79,7 @@ function Row({ k, v }: { k: string; v: string }) {
   return (
     <>
       <dt className="label px-4 py-3 border-b border-seam">{k}</dt>
-      <dd className="px-4 py-3 border-b border-seam">{v}</dd>
+      <dd className="px-4 py-3 border-b border-seam break-words min-w-0">{v}</dd>
     </>
   );
 }

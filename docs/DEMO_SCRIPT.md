@@ -1,65 +1,111 @@
-# Demo script (v2, written before the first real run)
+# Demo script (v3, after the first measured runs)
 
-Target 85 seconds. Numbers in square brackets are placeholders; `tools/check_claims.py`
-fails the build if a real number appears here without a run file behind it, and fails
-again if a placeholder is still here once the run file exists. One unbroken take for the
-rover's run, stopwatch visible.
+Target about 110 seconds, spoken at an easy pace. Every number on screen comes from
+`docs/runs/playground-series.json`; `py tools/check_claims.py` fails if this file and
+the run data disagree. Narration is in plain text; what is on screen is in brackets.
+Screen clips are in `demo/broll/` (made by `tools/record_broll.py`); hardware shots are
+filmed by me and listed at the bottom.
 
-```
-[0:00] On June 20th the city sewer backed up into fifty-two units of my condo,
-       mine included. The mitigation company's report said heavy rain, and
-       floated my backyard shed as the cause. The only reason that didn't stick
-       was two phone videos I took while it was happening, because I happened
-       to be home.
-       (stills from the two entry-point videos, blurred where needed)
+## Script
 
-[0:15] Next time I won't be. This is Watermark.
+**0:00 The flood**
+[H1: stills from my two June 20 videos, address blurred]
 
-[0:19] (Flood & Freeze sensor lowered into a tray at the water heater.
-       On-screen: "Controlled test. Real device.")
-       Water touches the sensor. The chime plays. My phone says which room.
+> On June 20th the city sewer backed up into fifty-two units of my condo, mine included.
+> The mitigation report blamed the rain, and my backyard shed. What stopped that was two
+> phone videos I happened to take. Next time, I might not be home.
 
-[0:27] Ring's sensor knows where the water is. The camera is in the other
-       room. So the camera goes to the water.
-       (One take: the rover wakes, follows the line down the hall, Ring Indoor
-       Cam on the riser, stops at the doorway when the wand touches wet floor.
-       Stopwatch in the corner.)
+**0:15 The idea**
+[H2: my real Flood & Freeze sensor going into a tray of water, label on screen:
+"Controlled test. Real device."]
 
-[0:45] (Live view from the rover's Ring cam: the puddle, timestamped.)
-       Sensor at zero. Rover on station in [N] s. First frame in [N] s.
-       Caption: "Water pooling along the baseboard, roughly one to two
-       centimetres."
+> So I built Watermark. A Ring flood sensor knows the moment water arrives. Watermark
+> turns that moment into evidence: a Ring camera records, and it all lands in one pack for
+> my insurer.
 
-[0:55] Every five minutes, another frame. Humidity climbing. If the camera
-       drops offline, the timeline says so instead of pretending.
-       (Gap shown: "No visual evidence 02:31 to 02:40. Camera offline.")
+**0:27 The real alert**
+[H3: my phone, the Ring app's flood alert arriving]
 
-[1:05] When it's over, one PDF: sensor log, route, frames with times, drying
-       curve, and an integrity section listing everything it could not verify.
-       Against the questions on my real claim file, it answers [N] of [M]
-       questions. The cause is still the adjuster's job. The timeline is mine.
+> That's Ring telling me, on my phone. What Ring doesn't do is film it. A slow puddle
+> doesn't trip motion detection.
 
-[1:18] Same test with the sensor scope off: nothing moves, and it captured
-       [N] frames. That is what the sensor is worth.
+[H5: the Ring app's event history for the Indoor Cam over the same minutes, showing what
+it did and did not record]
 
-[1:23] Water is now the leading cause of home insurance claims in Canada.
-       This is a forty-dollar sensor, a camera, and a printed rover.
-```
+**0:37 The honest part**
+[Screen: 01-dashboard.webm, the hatched Playground notice in view]
 
-## Shot list
+> One honest note: Ring only opens real devices to partner apps in the US, and I'm in
+> Canada. So here the camera is Ring's Developer Playground, through the real Ring API,
+> and the sensor event is simulated. Every page says so.
 
-1. Two stills from the June 20 entry-point videos (window well, panel wall). Blur anything with an address.
-2. Sensor into the tray. Real Flood & Freeze sensor, real water, the on-screen label.
-3. Chime close-up as it plays. Phone notification in frame.
-4. **The rover run, one take.** Wide shot down the hall, stopwatch overlay from the sensor event.
-5. Screen capture: the incident page filling in (frames, timeline, stats).
-6. Screen capture: the integrity section with an offline gap (unplug the camera for 30 seconds during a rehearsal run to get a real one).
-7. Screen capture: the claim map.
-8. Screen capture: the ablation incident (scope off) with zero frames.
-9. Closing card: the three objects on a table.
+**0:52 The measurement**
+[Screen: 02-incident-gauge.webm. On screen: "The first Ring frame arrived 6.7 s after the
+sensor event, median of 5 runs, range 6.6 to 7.1 s."]
 
-## What must be true before recording
+> The sensor fires, Watermark opens a live session, and the first Ring frame is in hand in
+> under seven seconds. Five runs, median six point seven. The pink bar is how long the water
+> stood; each notch is a frame.
 
-- The numbers exist as numbers (`docs/runs/demo-run.json` and `docs/runs/ablation-run.json` committed, `py tools/check_claims.py` green).
-- The rover passed the Sept 26 gate (`docs/ROVER_TRIALS.md`).
-- The claim questions in `server/watermark/claim_questions.json` are the real ones from the June file, not the template.
+**1:08 The frames**
+[Screen: 03-incident-frames.webm, Ring's own timestamp burned into every frame]
+
+> These are Ring's frames, with Ring's own time stamped in. Ring's test camera watches a
+> bird feeder, not my basement, so instead of guessing about water, the page says "not
+> captioned".
+
+**1:20 What it won't claim**
+[Screen: 04-incident-integrity.webm, then 05-pack.webm]
+
+> Every pack lists what it can't vouch for, like a simulated sensor or a camera that went
+> offline, and it never states a cause. That's the adjuster's call. The timeline is mine.
+
+**1:34 Close**
+[H6: the sensor, the Indoor Cam and the Chime on a table, then the Watermark wordmark]
+
+> A Ring flood sensor, a Ring camera, and a record that starts the second the water does.
+> That's Watermark.
+
+## On-screen text, exact
+
+- 0:15 "Controlled test. Real device."
+- 0:37 "Camera: Ring Developer Playground, real Ring API. Sensor event: simulated."
+- 0:52 "The first Ring frame arrived 6.7 s after the sensor event, median of 5 runs, range 6.6 to 7.1 s."
+- 1:08 "Ring's timestamp, burned in by Ring."
+
+## Screen b-roll (recorded automatically, `demo/broll/`)
+
+| Clip | What it shows | Used at |
+|---|---|---|
+| `01-dashboard.webm` | Dashboard in Playground mode: the hatched notice, the sensor gauge, five incidents | 0:37 |
+| `02-incident-gauge.webm` | Incident page: 6.7 s readout, the staff gauge rising, the marks below | 0:52 |
+| `03-incident-frames.webm` | Glide to the six Ring frames with Ring's timestamps | 1:08 |
+| `04-incident-integrity.webm` | Timeline, "what this record cannot vouch for", the claim map | 1:20 |
+| `05-pack.webm` | The evidence pack, scrolled top to bottom | 1:26 |
+| `06-link.webm`, `07-setup.webm`, `08-home.webm` | Account link, setup and home pages, if a beat needs cover | spare |
+| `ring-frame-*.jpg` | Full-size Ring frames for stills | spare |
+
+Re-record with `py tools/record_broll.py --incident <id>` against a server holding the
+measured Playground runs.
+
+## Hardware shots I film myself
+
+1. **H1, June 20 stills.** Two frames from the phone videos of the flood (window well,
+   panel wall). Blur the address and anything with a unit number.
+2. **H2, sensor into water.** The Flood & Freeze sensor lowered into a shallow tray, at the
+   water heater if possible. Steady shot, 5 to 8 seconds, label added in edit.
+3. **H3, the Ring app alert.** Screen-record the phone as the flood alert arrives, with the
+   phone's clock visible. Do H2 and H3 in the same take if a second person can hold the phone.
+4. **H4, the Indoor Cam on the tray.** Point Flood Cam at the tray while the water goes in,
+   then export that clip from the Ring app. Spare footage if Ring recorded anything.
+5. **H5, the motion check.** In the Ring app, open Flood Cam's event history for the minutes
+   of H2 and screen-record it. Whatever it shows is what the script says: if a motion event
+   did appear, change the 0:27 line to match before recording the voice.
+6. **H6, closing table shot.** Sensor, Indoor Cam and Chime side by side on a plain surface.
+
+## Before recording the voice
+
+- `py tools/check_claims.py` is green.
+- H5 has been watched and the 0:27 line matches what it showed.
+- The claim map still says TEMPLATE until the real June claim questions replace
+  `server/watermark/claim_questions.json`; the script does not quote a count from it.

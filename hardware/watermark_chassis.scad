@@ -2,11 +2,11 @@
 // Designed to fit the Elegoo Neptune 3 Pro (225 x 225 mm bed) and your exact parts:
 // 4x yellow TT gear motors, 65 mm wheels, Raspberry Pi 4, L298N, 4xAA holder.
 //
-// It is JUST the chassis plate (no wheels — you already have those). You zip-tie the
+// It is JUST the chassis plate (no wheels: you already have those). You zip-tie the
 // TT motors along the sides and standoff/zip-tie the Pi + battery + L298N onto the grid.
 //
 // HOW TO USE:
-//   1. Install OpenSCAD (free: openscad.org) — or use any online .scad renderer.
+//   1. Install OpenSCAD (free: openscad.org), or use any online .scad renderer.
 //   2. Open this file, press F6 to render, then File > Export > Export as STL.
 //   3. Slice in Cura: PLA, 0.2 mm layer, ~25% infill, NO supports, brim recommended.
 //   4. It's ~190 x 150 mm, so it fits your 225 bed with room to spare.

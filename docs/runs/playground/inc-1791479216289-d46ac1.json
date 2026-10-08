@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-08 13:07:29 Eastern Daylight Time",
+ "generated_at": "2026-10-08 13:35:05 Eastern Daylight Time",
  "incident": {
   "id": "inc-1791479216289-d46ac1",
   "account_id": "playground",
@@ -35,9 +35,9 @@
   "route_id": null,
   "covered_by": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
   "chime_audio_ref": null,
-  "last_status": "{\"data\": {\"attributes\": {\"online\": true, \"reported_at\": \"2026-10-08T17:07:28Z\", \"flood_detection\": {\"faulted\": true}, \"freeze_detection\": {\"faulted\": false}, \"tamper_detection\": {\"detected\": false}, \"sensor_reporting_state\": {\"value\": \"active\"}}}}",
+  "last_status": "{\"data\": {\"attributes\": {\"online\": true, \"reported_at\": \"2026-10-08T17:35:00Z\", \"flood_detection\": {\"faulted\": false}, \"freeze_detection\": {\"faulted\": false}, \"tamper_detection\": {\"detected\": false}, \"sensor_reporting_state\": {\"value\": \"active\"}}}}",
   "online": 1,
-  "updated_at": 1791479248.2792287
+  "updated_at": 1791480900.573393
  },
  "camera": {
   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
@@ -48,9 +48,9 @@
   "route_id": null,
   "covered_by": null,
   "chime_audio_ref": null,
-  "last_status": "{\"data\": {\"type\": \"device-status\", \"id\": \"ava1.ring.device.status.5DCRG2OMJL33TKD3QYNP5LSUFIQ7SVVLOL63NBLIT3I4YUUK2AYVXCNLJ7UVN4IEGEVPVQLO4SYDYAWYROVBLRCYIB2W6UKX\", \"attributes\": {\"reported_at\": \"2026-10-08T17:05:05Z\", \"state\": null, \"audio\": {\"snooze\": {\"active\": null, \"until\": null}}, \"online\": true}}, \"meta\": {\"time\": \"2026-10-08T17:05:33Z\"}}",
+  "last_status": "{\"data\": {\"type\": \"device-status\", \"id\": \"ava1.ring.device.status.5DCRG2OMJL33TKD3QYNP5LSUFIQ7SVVLOL63NBLIT3I4YUUK2AYVXCNLJ7UVN4IEGEVPVQLO4SYDYAWYROVBLRCYIB2W6UKX\", \"attributes\": {\"reported_at\": \"2026-10-08T17:08:26Z\", \"state\": null, \"online\": true, \"audio\": {\"snooze\": {\"active\": null, \"until\": null}}}}, \"meta\": {\"time\": \"2026-10-08T17:35:01Z\"}}",
   "online": 1,
-  "updated_at": 1791479132.6943803
+  "updated_at": 1791480900.5739448
  },
  "frames": [
   {
@@ -63,9 +63,9 @@
    "origin": "live",
    "drift_ms": null,
    "path": "incidents/inc-1791479216289-d46ac1/frames/001-000.jpg",
-   "caption": "MOCK caption: synthetic frame, a blue band across the floor near the water heater.",
-   "caption_model": "mock",
-   "water_visible": 1,
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
    "created_at": 1791479229.1965914
   },
   {
@@ -138,9 +138,9 @@
    "origin": "live",
    "drift_ms": null,
    "path": "incidents/inc-1791479216289-d46ac1/frames/001-005.jpg",
-   "caption": "MOCK caption: synthetic frame, a blue band across the floor near the water heater.",
-   "caption_model": "mock",
-   "water_visible": 1,
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
    "created_at": 1791479229.2246935
   }
  ],
@@ -171,36 +171,6 @@
  "rover_log": [],
  "events": [
   {
-   "request_id": "ca7d95b7d1d841849a17e4615c509494",
-   "event_id": "simulated-flood-sensor_flood_cleared_1791479166869",
-   "type": "flood_cleared",
-   "device_id": "simulated-flood-sensor",
-   "account_id": "playground",
-   "timestamp_ms": 1791479166869,
-   "received_at": 1791479166.8691142,
-   "source": "synthetic"
-  },
-  {
-   "request_id": "2fb9cb2bba184be5bdd101027175faba",
-   "event_id": "simulated-flood-sensor_flood_detected_1791479175012",
-   "type": "flood_detected",
-   "device_id": "simulated-flood-sensor",
-   "account_id": "playground",
-   "timestamp_ms": 1791479175012,
-   "received_at": 1791479175.0128517,
-   "source": "synthetic"
-  },
-  {
-   "request_id": "9659a652305a48339ff7a2f5a8d08d5c",
-   "event_id": "simulated-flood-sensor_flood_cleared_1791479208152",
-   "type": "flood_cleared",
-   "device_id": "simulated-flood-sensor",
-   "account_id": "playground",
-   "timestamp_ms": 1791479208152,
-   "received_at": 1791479208.1529403,
-   "source": "synthetic"
-  },
-  {
    "request_id": "7218703577374e62947f9705b53c007d",
    "event_id": "simulated-flood-sensor_flood_detected_1791479216285",
    "type": "flood_detected",
@@ -226,10 +196,6 @@
   "gaps": [],
   "flags": [
    {
-    "kind": "model_captions",
-    "text": "Frame captions were written by mock and describe what is visible; they are not measurements and never state a cause."
-   },
-   {
     "kind": "simulated_sensor",
     "text": "The sensor event is simulated: Ring's Developer Playground has no sensors. The camera, its live session and its frames are Ring's Playground doorbell, reached through the Ring API."
    }
@@ -246,24 +212,6 @@
   "verdict": "complete"
  },
  "timeline": [
-  {
-   "ts_ms": 1791479166869,
-   "kind": "event",
-   "source": "synthetic",
-   "text": "flood_cleared from simulated-flood-sensor"
-  },
-  {
-   "ts_ms": 1791479175012,
-   "kind": "event",
-   "source": "synthetic",
-   "text": "flood_detected from simulated-flood-sensor"
-  },
-  {
-   "ts_ms": 1791479208152,
-   "kind": "event",
-   "source": "synthetic",
-   "text": "flood_cleared from simulated-flood-sensor"
-  },
   {
    "ts_ms": 1791479216285,
    "kind": "event",
@@ -299,8 +247,8 @@
   "source": "TEMPLATE: typical Canadian home water-damage claim intake questions. Replace with the insurer's own form.",
   "total": 12,
   "answered": 7,
-  "partial": 2,
-  "unanswered": 3,
+  "partial": 1,
+  "unanswered": 4,
   "rows": [
    {
     "id": "q1",
@@ -353,8 +301,8 @@
     "answered_by": [
      "extent_description"
     ],
-    "status": "partial",
-    "evidence": "MOCK caption: synthetic frame, a blue band across the floor near the water heater. (mock caption)"
+    "status": "unanswered",
+    "evidence": ""
    },
    {
     "id": "q7",
@@ -498,5 +446,5 @@
    }
   ]
  },
- "narrative": "A Ring flood sensor in the Water heater closet reported water and the incident lasted 1 minutes. 6 frames were captured from a Ring camera; a vision model judged water visible in 2 of them. 0 environmental readings were logged. The integrity section lists 0 gap(s) and 2 flag(s). This narrative describes captured evidence only and makes no claim about the cause."
+ "narrative": "A Ring flood sensor in the Water heater closet reported water and the incident lasted 1 minutes. 6 frames were captured from a Ring camera; a vision model judged water visible in 0 of them. 0 environmental readings were logged. The integrity section lists 0 gap(s) and 1 flag(s). This narrative describes captured evidence only and makes no claim about the cause."
 }

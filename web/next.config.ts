@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 // The server's paths are proxied so a single tunnel (one free ngrok domain) carries
 // Ring's webhook, token exchange and the web pages. /link stays a page here: Ring's
 // Account Link URL lands directly on the sign-in screen with the nonce intact.
+// Read at BUILD time: Next bakes rewrites into the build, so a build made for one
+// backend keeps proxying to it even if BACKEND_URL differs when `next start` runs.
 const backend = process.env.BACKEND_URL || "http://127.0.0.1:8765";
 
 const nextConfig: NextConfig = {

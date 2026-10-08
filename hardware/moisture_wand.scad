@@ -1,8 +1,8 @@
 // RenoScout moisture wand
-// A flat paddle that carries the moisture-mapping sensors — the differentiator a
+// A flat paddle that carries the moisture-mapping sensors, the differentiator a
 // depth camera can't do: DHT11 humidity/temp + a water-level sensor at the tip +
 // HC-SR04 for stand-off distance. Sensors strap on with zip ties (like the chassis)
-// so any module fits — no tight pockets to fail.
+// so any module fits, with no tight pockets to fail.
 //
 // OpenSCAD -> F6 -> Export STL. Cura: PLA, 0.2mm, 20% infill, NO supports, brim.
 // Prints flat, ~210 x 35 x 4 mm (fits the 225 bed). Water sensor at the tip (touches

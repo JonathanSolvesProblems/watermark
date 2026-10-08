@@ -19,14 +19,14 @@ class DamageFinding(BaseModel):
 
     area: str = Field(
         description="Room or location, best guess from the image, e.g. "
-        "'Basement — north wall' or 'Bathroom floor'."
+        "'Basement, north wall' or 'Bathroom floor'."
     )
     damage_type: str = Field(
         description="Short category, e.g. 'water intrusion', 'mold', 'crack', "
         "'delamination', 'staining', 'warping'."
     )
     severity: Severity = Field(
-        description="none, minor, moderate, or severe — from a restoration standpoint."
+        description="none, minor, moderate, or severe, from a restoration standpoint."
     )
     confidence: Confidence = Field(
         description="How sure you are this finding is real and correctly categorized "

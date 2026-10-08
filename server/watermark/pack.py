@@ -55,6 +55,11 @@ class PackBuilder:
         events = [e for e in self.db.events_between(since, (until + 60_000) if until else None)
                   if e.get("account_id") == inc.get("account_id") or e.get("device_id") in
                   (inc.get("sensor_device_id"), inc.get("camera_device_id"))]
+        # The sensor's own wet/dry events belong to this incident only between its opening
+        # and closing; outside that they are the previous or next incident's.
+        lo, hi = (inc.get("opened_at_ms") or 0) - 2_000, (until or int(time.time() * 1000)) + 2_000
+        events = [e for e in events if not (str(e.get("type", "")).startswith(("flood_", "freeze_"))
+                                            and not lo <= (e.get("timestamp_ms") or 0) <= hi)]
         for e in events:
             e.pop("raw", None)
         sensor = self.db.get_device(inc["sensor_device_id"]) or {}

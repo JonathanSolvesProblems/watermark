@@ -97,7 +97,7 @@ def build_markdown(results: list[ImageResult], generated_at: str) -> str:
         lines.append("_No damage findings were detected._")
     for i, (r, f) in enumerate(findings, 1):
         lines += [
-            f"### {i}. {f.area} — {f.damage_type} ({f.severity}, {f.confidence} confidence)",
+            f"### {i}. {f.area}: {f.damage_type} ({f.severity}, {f.confidence} confidence)",
             "",
             f"- **Photo:** `{r.path.name}`",
             f"- **Affected materials:** {', '.join(f.affected_materials) or 'n/a'}",

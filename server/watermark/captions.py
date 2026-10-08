@@ -90,10 +90,15 @@ def _extract_json(text: str) -> dict:
     return {"description": text}
 
 
-def make_captioner(settings) -> Captioner:
+def make_captioner(settings) -> Captioner | None:
+    """Bedrock when configured. The mock captioner describes the synthetic mock frame,
+    so it is only ever used in mock mode: on a real Ring frame its text would be false.
+    Anywhere else without Bedrock, frames stay uncaptioned and say so."""
     if settings.captions_backend == "bedrock":
         return BedrockCaptioner(settings.bedrock_model_id, settings.aws_region)
-    return MockCaptioner()
+    if settings.is_mock:
+        return MockCaptioner()
+    return None
 
 
 def narrative(incident: dict, frames: list[dict], readings: list[dict], integrity: dict, settings) -> str:

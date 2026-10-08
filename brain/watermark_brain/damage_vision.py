@@ -37,7 +37,7 @@ def encode_image(path: Path, max_dim: int = 1536, quality: int = 85) -> str:
 
     Source phone photos are often 3-4 MB / 4000px; a 1536px long edge is plenty
     for damage classification and roughly caps image tokens. Returns raw base64
-    (no data: prefix) — suitable for both the Claude and Ollama image fields.
+    (no data: prefix), suitable for both the Claude and Ollama image fields.
     """
     img = Image.open(path)
     img = ImageOps.exif_transpose(img)  # honor phone rotation

@@ -43,3 +43,9 @@ def test_simulated_sensor_is_flagged_in_integrity():
            "notes": {"simulated_sensor": True}}
     out = compute(inc, frames=[], health=[], captures=[], events=[], rover_log=[])
     assert any(f["kind"] == "simulated_sensor" for f in out["flags"])
+
+def test_no_mock_captions_outside_mock_mode(tmp_path):
+    from watermark.captions import MockCaptioner, make_captioner
+    assert make_captioner(Settings(mode="playground", data_dir=tmp_path)) is None
+    assert make_captioner(Settings(mode="live", data_dir=tmp_path)) is None
+    assert isinstance(make_captioner(Settings(mode="mock", data_dir=tmp_path)), MockCaptioner)

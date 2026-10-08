@@ -47,3 +47,5 @@ Thumbs.db
 .vscode/
 .idea/
 .next-preview/
+.next-check/
+demo/broll/

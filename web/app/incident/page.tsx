@@ -99,7 +99,7 @@ function IncidentInner() {
             </p>
           </div>
           <dl className="flex flex-wrap gap-x-10 gap-y-4">
-            <Reading n={st.frames} label="frames, Ring timestamps" />
+            <Reading n={st.frames} label="frames from the Ring camera" />
             <Reading n={`${d.claims.answered}/${d.claims.total}`} label="claim questions answered" />
             <Reading n={d.integrity.gaps.length} label="gaps disclosed" hatched={d.integrity.gaps.length > 0} />
           </dl>
@@ -117,7 +117,7 @@ function IncidentInner() {
       <section aria-labelledby="frames-h">
         <div className="flex items-baseline justify-between border-b border-seam pb-2 mb-4">
           <h2 id="frames-h" className="label">Frames from the Ring camera</h2>
-          <span className="text-[13px] text-stencil">newest first · time is Ring&apos;s own</span>
+          <span className="text-[13px] text-stencil">newest first · each frame keeps Ring&apos;s own time</span>
         </div>
         {d.frames.length === 0 ? (
           <div className="plate hatch p-6">

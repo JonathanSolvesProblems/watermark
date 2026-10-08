@@ -266,7 +266,10 @@ table.log {
   font-size: 14px;
 }
 table.log td {
-  padding: 0.45rem 0;
+  /* Vertical only: horizontal spacing comes from each cell's utility class, which a
+     shorthand here would override (table.log td outranks a single class). */
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
   border-bottom: 1px solid var(--seam);
   vertical-align: top;
 }
