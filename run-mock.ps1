@@ -12,6 +12,6 @@ Start-Process powershell -ArgumentList "-NoExit", "-Command",
   "cd '$root'; `$env:ROVER_SIMULATE='1'; `$env:WATERMARK_SERVER='http://localhost:8765'; & '$py' -m rover.agent"
 
 Start-Process powershell -ArgumentList "-NoExit", "-Command",
-  "cd '$root\web'; `$env:NEXT_PUBLIC_API_URL='http://localhost:8765'; if (-not (Test-Path .next)) { npm run build }; npm start"
+  "cd '$root\web'; if (-not (Test-Path .next\BUILD_ID)) { npm run build }; npm start"
 
 Write-Host "server http://localhost:8765  web http://localhost:3000  (dashboard -> Simulate: sensor wet)"

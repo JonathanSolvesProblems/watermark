@@ -80,3 +80,65 @@ Severity: **blocker** (could not proceed), **major** (hours lost or wrong design
 - **Workaround:** the app's home page tells the user to start from the Ring Appstore, and `/link` handles the nonce.
 
 <!-- Add entries below as they happen. Date each one. -->
+
+### 9. "Connect Ring account" in the portal does not link the account
+
+- **Task:** link my own Ring account to my private app, per the private-app FAQ ("Click Log in with Ring ... Ring sends an authorization code to your Token Exchange URL").
+- **Steps:** Developer Portal → Watermark → Connect → Connect Ring account, signed in with my Ring account. The portal then listed the account as connected.
+- **Expected:** a POST to the Token Exchange URL and a redirect to the Account Link URL.
+- **Actual:** nothing reached either URL (tunnel request log shows no call). Ring app → Control Center → Linked Accounts said "You have no linked accounts." The portal step only made the app visible to that account. The real link only happened after I opened ring.com/appstore, found Watermark and pressed Connect App, at which point the token exchange, the nonce redirect and the `app_integration_added` webhook all arrived within 25 seconds.
+- **Severity:** major (an hour of looking for a bug in my own token handler).
+- **Workaround:** after the portal Connect step, install the app from ring.com/appstore.
+- **Suggestion:** rename the button to "Authorize account to see this app", and say on that page and in FAQ Q10 that the account owner then installs it from the Ring Appstore.
+
+### 10. The Ring Appstore is missing from the Canadian Ring app
+
+- **Task:** install my private app from the Ring app, as the support article describes (menu → Apps → Explore Ring Appstore).
+- **Steps:** Ring app 3.114.0 on Android, Canadian account, primary owner, Pro trial active, camera online.
+- **Expected:** an Apps entry in the menu (the docs say private apps bypass location eligibility).
+- **Actual:** no Apps entry, before or after a force restart. ring.com/appstore in a desktop browser worked.
+- **Severity:** minor once found.
+- **Workaround:** use ring.com/appstore.
+- **Suggestion:** show Apps in the mobile menu whenever the account has a connected private app, regardless of country.
+
+### 11. Linked, but `/v1/devices` returns an empty list
+
+- **Task:** discover devices right after linking.
+- **Steps:** link completed (POST and PATCH app-integrations succeeded, `app_integration_added` received), then `GET /v1/devices`.
+- **Expected:** the camera, chime and flood sensor on the account.
+- **Actual:** `{"data": []}`. The `app_integration_added` payload carries no device list, so there is no way to tell from the partner side whether the user skipped device selection or consents are still activating. `GET /v1/accounts/me/app-integrations` returns 403, so the integration's state cannot be read back either.
+- **Cause found:** ring.com → My apps → Watermark showed "Inactive. Needs attention. No locations are connected." Pressing **Add Location** returned "There are currently no eligible locations available for subscription. We cannot sign you up for this service." The account is the primary owner, the location has a camera, chime and flood sensor online, and a Ring Pro trial started that day. The private-app FAQ (Q12, Q13) says a trial is accepted and private apps bypass location eligibility, so either the trial is not counted yet or the web Appstore applies the public-app eligibility check to a private app.
+- **Root cause (as far as the docs say):** the Test page of the developer guide carries a warning, "Only US Located Devices: Currently we only support devices located in the US." My location is in Canada. Disconnecting and reconnecting in the portal re-used the existing link without ever showing a location or device picker, and Add Location returned the same message. This contradicts the private-app FAQ (Q13: "Private apps bypass all location eligibility checks. Connected accounts can access the app regardless of their country or state").
+- **Severity:** blocker for any developer outside the US, in a hackathon advertised globally. Every step before device access works (token exchange, nonce link, signed webhooks), so the failure appears only after a developer has bought devices and a subscription.
+- **Workaround:** pending a reply from Ring DevRel.
+- **Suggestion:** resolve the contradiction in the docs; state the US-only restriction on the private-app page, the hackathon page and the Add Location error itself ("Watermark can only connect to locations in the US" rather than "no eligible locations available for subscription"); and either honour Q13 for private apps or offer non-US developers a sandbox account with test devices.
+- **Suggestion:** include the consented device ids (or a count) in `app_integration_added`, and allow GET on app-integrations so a partner can show "0 devices shared, go back and pick some."
+
+### 12. The Developer Playground is the only path outside the US, and the docs never mention it
+
+- **Task:** find a supported way to build the Ring track from Canada after device access was refused (entry 11).
+- **Steps:** searched the Ring docs MCP server for "Playground", "sandbox", "simulator" and "test devices"; read the private-app FAQ and the Test guide.
+- **Expected:** a pointer from the "Only US Located Devices" warning to the alternative.
+- **Actual:** no document mentions the Playground. I learned it exists from another entrant's question on the Devpost forum, answered by Ring DevRel ("the Playground is the only documented route that needs neither a US device nor an account link"). It lives in the developer console: a 30-minute OAuth token, one simulated DoorbellPro, and three live-view streams (Package, Vehicle, Motion).
+- **Severity:** major (a day spent on real-device linking that could never work from Canada).
+- **Workaround:** the Playground token, used by the same SDK and server code that the real account uses.
+- **Suggestion:** link the Playground from the US-only warning, the private-app FAQ and the hackathon page, and index it in the docs MCP server.
+
+### 13. Playground: live view works, image download is 403
+
+- **Task:** grab a still at a timestamp, the fallback when a live session is too short.
+- **Steps:** `GET /v1/devices/{id}/media/image/download?at_timestamp=...` with the Playground token, before and after a live session.
+- **Expected:** a 303 to a presigned image, or 416 if nothing was recorded.
+- **Actual:** 403. The token's only scope is `ava.v1:read`. A WHEP session on the same token returned 9 frames in 15 seconds, with Ring's timestamp burned into each frame.
+- **Severity:** minor.
+- **Workaround:** capture from the WHEP track only; disable the download fallback in Playground mode.
+- **Suggestion:** grant the media download scope to Playground tokens, or document which endpoints the Playground supports.
+
+### 14. Playground token lasts 30 minutes with no refresh
+
+- **Task:** keep a server running against the Playground for a demo session.
+- **Expected:** a refresh token, like a linked account.
+- **Actual:** a bare access token that expires in 30 minutes; "Closing this tab will clear the token."
+- **Severity:** paper cut.
+- **Workaround:** the server reads the token from a file and reports clearly when it has expired, so a fresh one can be pasted in.
+- **Suggestion:** issue Playground tokens with a refresh token, or a longer life for hackathon participants.

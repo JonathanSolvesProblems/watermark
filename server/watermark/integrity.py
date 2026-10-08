@@ -4,7 +4,7 @@ or the homeowner should be able to read it and know exactly how much to trust
 each part of the timeline.
 
 Ring's own tolerances drive the thresholds: image download returns the closest
-decodable frame within ±10 s of the requested time, so any frame further than
+decodable frame within Â±10 s of the requested time, so any frame further than
 that is flagged; `device_offline` lags the real loss of connectivity, so offline
 windows are reported as "at least".
 """
@@ -94,6 +94,11 @@ def compute(incident: dict[str, Any], frames: list[dict[str, Any]], health: list
             if notes.get("controlled_test"):
                 flags.append({"kind": "controlled_test", "text": "Controlled test: the sensor was placed in water on "
                                                                    "purpose. Devices, timestamps and captures are real."})
+            if notes.get("simulated_sensor"):
+                flags.append({"kind": "simulated_sensor", "text": "The sensor event is simulated: Ring's Developer "
+                                                                   "Playground has no sensors. The camera, its live session "
+                                                                   "and its frames are Ring's Playground doorbell, reached "
+                                                                   "through the Ring API."})
         except Exception:  # noqa: BLE001
             pass
 

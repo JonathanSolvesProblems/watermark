@@ -1,7 +1,7 @@
 """The incident state machine.
 
-    flood_detected  ──► open ──► (chime) ──► (dispatch rover) ──► capture loop ──► ...
-    flood_cleared   ──► close ──► build pack
+    flood_detected  â”€â”€â–º open â”€â”€â–º (chime) â”€â”€â–º (dispatch rover) â”€â”€â–º capture loop â”€â”€â–º ...
+    flood_cleared   â”€â”€â–º close â”€â”€â–º build pack
 
 Two things are deliberate:
 - Persist first. The webhook row goes in before anything else because Ring
@@ -131,7 +131,8 @@ class IncidentManager:
         camera_id, role = self._pick_camera(sensor, account_id)
         incident_id = f"inc-{now_ms()}-{uuid.uuid4().hex[:6]}"
         notes: dict[str, Any] = {"sensor_name": sensor.get("name"), "camera_role": role,
-                                 "controlled_test": bool((ev.raw.get("meta") or {}).get("controlled_test"))}
+                                 "controlled_test": bool((ev.raw.get("meta") or {}).get("controlled_test")),
+                                 "simulated_sensor": bool((ev.raw.get("meta") or {}).get("simulated_sensor"))}
         self.db.insert_incident({
             "id": incident_id, "account_id": account_id, "sensor_device_id": ev.device_id, "room": room,
             "kind": kind, "status": "open", "opened_at_ms": ev.timestamp_ms or now_ms(), "opened_source": source,

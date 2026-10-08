@@ -226,5 +226,5 @@ MINIMAL_SDP_OFFER = "\r\n".join([
 
 def make_capture_backend(settings) -> CaptureBackend:
     if settings.capture_backend == "whep":
-        return WhepCapture()
+        return WhepCapture(fallback_to_download=settings.capture_download_fallback)
     return MockCapture()

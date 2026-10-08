@@ -149,8 +149,12 @@ def build_timeline(inc, events, frames, captures, rover_log, health, chime) -> l
                       "text": f"Camera {'online' if h.get('online') else 'OFFLINE'} ({h.get('source')})"})
     first = min((f for f in frames if f.get("media_ms")), key=lambda f: f["media_ms"], default=None)
     if first:
+        # A recording download carries Ring's X-Media-Timestamp; a live-session frame is
+        # stamped on receipt, with Ring's own time burned into the image.
+        stamp = ("received from the live session; Ring's time is in the image" if first.get("origin") == "live"
+                 else "Ring media timestamp")
         items.append({"ts_ms": first["media_ms"], "kind": "first_frame", "source": "ring",
-                      "text": "First frame (Ring media timestamp)"})
+                      "text": f"First frame ({stamp})"})
     items.sort(key=lambda x: (x.get("ts_ms") or 0))
     return items
 

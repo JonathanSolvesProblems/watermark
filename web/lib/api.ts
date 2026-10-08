@@ -1,6 +1,8 @@
 // Thin client for the Watermark server. Everything the UI shows comes from here.
 
-export const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+// Empty means same origin: next.config.ts proxies the server's paths, so one public
+// domain serves both the pages and the API (Ring's link redirect can land on a phone).
+export const API = process.env.NEXT_PUBLIC_API_URL ?? "";
 
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
   const r = await fetch(`${API}${path}`, {
@@ -44,6 +46,7 @@ export type Route = { id: string; name: string; description: string };
 export type Incident = {
   id: string;
   kind: "flood" | "freeze";
+  sensor_device_id: string;
   room: string;
   status: "open" | "closed";
   opened_at_ms: number;
@@ -107,6 +110,8 @@ export type IncidentDetail = {
 
 export const api = {
   account: () => req<Account>("/api/account"),
+  linkPrefill: (nonce: string, time: number) =>
+    req<{ email?: string | null }>(`/api/link/prefill?nonce=${encodeURIComponent(nonce)}&time=${time}`),
   link: (email: string, nonce: string, time: number) =>
     req<{ status: string; account_id: string }>("/api/link", { method: "POST", body: JSON.stringify({ email, nonce, time }) }),
   deleteAccount: () => req<{ deleted: boolean; counts: Record<string, number> }>("/api/account", { method: "DELETE" }),

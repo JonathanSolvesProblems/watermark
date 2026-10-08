@@ -24,6 +24,7 @@ out/
 .pnpm-store/
 
 # runtime data
+tmp/
 data/
 !server/watermark/data/
 server/data/
@@ -45,3 +46,4 @@ build-video/render/
 Thumbs.db
 .vscode/
 .idea/
+.next-preview/

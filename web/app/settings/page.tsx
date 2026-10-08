@@ -19,52 +19,74 @@ export default function Settings() {
 
   function savePrefs(next: typeof prefs) {
     setPrefs(next);
-    try { localStorage.setItem("watermark.prefs", JSON.stringify(next)); } catch {}
+    try {
+      localStorage.setItem("watermark.prefs", JSON.stringify(next));
+    } catch {}
   }
 
   async function del() {
     const r = await api.deleteAccount();
-    setResult(`Deleted: ${Object.entries(r.counts).map(([k, v]) => `${v} ${k}`).join(", ")}. Nothing is retained.`);
+    setResult(`Deleted ${Object.entries(r.counts).map(([k, v]) => `${v} ${k}`).join(", ")}. Nothing is kept.`);
     setConfirm("");
   }
 
   return (
-    <div className="grid gap-10 max-w-2xl">
+    <div className="grid gap-12 max-w-3xl">
       <section>
-        <p className="label text-water">Settings</p>
-        <h1 className="text-3xl font-bold mt-1">Account</h1>
-        <dl className="mt-3 grid grid-cols-[140px_1fr] gap-y-1 text-sm font-sans">
-          <dt className="text-muted">Email</dt><dd>{acct?.email || "–"}</dd>
-          <dt className="text-muted">Ring link</dt><dd>{acct?.link_status || "–"}</dd>
-          <dt className="text-muted">Subscription</dt><dd>Managed in the Ring app under My Apps. Watermark cannot change it here.</dd>
+        <p className="label">Settings</p>
+        <h1 className="readout uppercase text-[48px] sm:text-[64px] mt-2">Account</h1>
+        <dl className="mt-4 plate grid grid-cols-[150px_1fr]">
+          <Row k="Email" v={acct?.email || "–"} />
+          <Row k="Ring link" v={linkLabel(acct)} />
+          <Row k="Subscription" v="Managed in the Ring app under My Apps. Watermark cannot change it here." />
         </dl>
       </section>
 
-      <section>
-        <div className="waterline pb-2 mb-3"><h2 className="text-xl font-bold">Notifications</h2></div>
-        <div className="grid gap-2 font-sans text-sm">
-          {([["chime", "Play the Ring Chime when water is detected"], ["push", "Push notification with the room name"], ["email", "Email me the pack when an incident closes"]] as const).map(([k, label]) => (
-            <label key={k} className="flex items-center gap-3">
-              <input type="checkbox" checked={prefs[k]} onChange={(e) => savePrefs({ ...prefs, [k]: e.target.checked })} />
+      <section aria-labelledby="notify-h">
+        <h2 id="notify-h" className="label border-b border-seam pb-2 mb-3">Notifications</h2>
+        <div className="grid gap-1">
+          {([
+            ["chime", "Play the Ring Chime when water is detected"],
+            ["push", "Send a push notification with the room name"],
+            ["email", "Email me the evidence pack when an incident closes"],
+          ] as const).map(([k, label]) => (
+            <label key={k} className="flex items-center gap-3 min-h-[44px] cursor-pointer">
+              <input type="checkbox" className="w-5 h-5 accent-current" checked={prefs[k]} onChange={(e) => savePrefs({ ...prefs, [k]: e.target.checked })} />
               {label}
             </label>
           ))}
         </div>
       </section>
 
-      <section>
-        <div className="waterline pb-2 mb-3"><h2 className="text-xl font-bold text-warn">Delete everything</h2></div>
-        <p className="text-sm font-sans text-muted">
-          Removes every incident, frame, reading, log and pack Watermark holds for this Ring account, including copies
-          in storage and anything sent to the caption model. Ring itself keeps its own recordings; unlink the app in the
-          Ring app to revoke access. This cannot be undone.
+      <section aria-labelledby="delete-h" className="plate hatch p-5">
+        <h2 id="delete-h" className="font-display text-[26px] font-bold uppercase">Delete everything</h2>
+        <p className="mt-2 text-[15px]">
+          Removes every incident, frame, reading, log and pack Watermark holds for this Ring account, including stored
+          copies and anything sent to the caption model. Ring keeps its own recordings; to stop Watermark seeing your
+          devices, remove it in the Ring app under My Apps. This cannot be undone.
         </p>
-        <div className="mt-3 flex gap-2">
-          <input className="field max-w-xs" placeholder='type "delete"' value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+        <div className="mt-4 flex flex-wrap gap-2">
+          <input className="field max-w-xs" aria-label='Type "delete" to confirm' placeholder='Type "delete"' value={confirm} onChange={(e) => setConfirm(e.target.value)} />
           <button className="btn-danger" disabled={confirm !== "delete"} onClick={del}>Delete my data</button>
         </div>
-        {result && <p className="mt-3 text-sm font-sans text-ok">{result}</p>}
+        {result && <p className="mt-3" role="status">{result}</p>}
       </section>
     </div>
   );
+}
+
+function Row({ k, v }: { k: string; v: string }) {
+  return (
+    <>
+      <dt className="label px-4 py-3 border-b border-seam">{k}</dt>
+      <dd className="px-4 py-3 border-b border-seam">{v}</dd>
+    </>
+  );
+}
+
+function linkLabel(acct: Account | null): string {
+  if (!acct) return "–";
+  if (acct.mode === "playground") return "Ring Developer Playground (no account link needed)";
+  if (acct.mode === "mock") return "Mock account";
+  return acct.link_status === "completed" ? "Linked" : acct.link_status || "Not linked";
 }

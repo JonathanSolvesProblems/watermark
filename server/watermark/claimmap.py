@@ -74,7 +74,10 @@ def _fields(pack: dict[str, Any]) -> dict[str, tuple[str, str]]:
     elif inc.get("opened_at_ms"):
         out["duration"] = ("partial", "incident still open; start time known")
     if frames:
-        out["photos_with_times"] = ("answered", f"{len(frames)} frames with Ring media timestamps, first at "
+        live = sum(1 for f in frames if f.get("origin") == "live")
+        where = ("with Ring's time burned into each image" if live == len(frames)
+                 else "with Ring media timestamps" if live == 0 else "with Ring timestamps (header or burned in)")
+        out["photos_with_times"] = ("answered", f"{len(frames)} frames from the Ring camera {where}, first at "
                                                 f"{_fmt(frames[0].get('media_ms'))}")
     captions = [f for f in frames if f.get("caption") and f.get("caption_model") not in ("error", None)]
     if captions:

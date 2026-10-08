@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import io
 import time
+from pathlib import Path
 from dataclasses import dataclass
 from typing import Any
 
@@ -48,6 +49,8 @@ class RingService:
     def client_for(self, account_id: str) -> RingClient:
         if self.settings.is_mock:
             return MockRing.instance(self.settings)  # type: ignore[return-value]
+        if self.settings.is_playground:
+            return PlaygroundRing.instance(self.settings)  # type: ignore[return-value]
         acct = self.db.get_account(account_id)
         if not acct or not acct.get("refresh_token"):
             raise Unauthorized(401, detail=f"no tokens stored for account {account_id}")
@@ -72,7 +75,7 @@ class RingService:
     def refresh_all(self) -> int:
         """Ring rotates refresh tokens on every exchange and they die after ~30 days
         of not being used, so refresh proactively (the docs suggest daily)."""
-        if self.settings.is_mock:
+        if self.settings.is_mock or self.settings.is_playground:
             return 0
         n = 0
         for acct in self.db.list_accounts():
@@ -114,6 +117,70 @@ class RingService:
                                   covered_by=existing.get("covered_by"))
             out.append(self.db.get_device(d.id))
         return out
+
+
+# ------------------------------------------------------------------------------------
+# Playground: Ring's Developer Playground through the real API, plus one simulated sensor.
+# ------------------------------------------------------------------------------------
+
+class PlaygroundRing:
+    """The real `RingClient` pointed at the Developer Playground account, which is the
+    documented route for developers outside the US. The Playground has one simulated
+    doorbell and no sensors, so a single flood sensor is simulated here and everything
+    it produces is labelled simulated downstream. Every other call goes to Ring.
+
+    The Playground token lasts 30 minutes with no refresh, so it is read from a file on
+    every request: pasting a fresh token takes effect without a restart."""
+
+    _inst: "PlaygroundRing | None" = None
+    ACCOUNT = "playground"
+    SENSOR = "simulated-flood-sensor"
+
+    @classmethod
+    def instance(cls, settings: Settings) -> "PlaygroundRing":
+        if cls._inst is None:
+            cls._inst = cls(settings)
+        return cls._inst
+
+    def __init__(self, settings: Settings) -> None:
+        self.settings = settings
+        self.faulted = False
+        self.client = RingClient(token_provider=self._token, base_url=settings.ring_api_base)
+
+    def _token(self) -> str:
+        path = Path(self.settings.playground_token_file)
+        token = path.read_text().strip() if path.exists() else ""
+        if not token:
+            raise Unauthorized(401, detail=f"no Playground token in {path}; generate one in the Ring developer console")
+        return token
+
+    def set_faulted(self, device_id: str, faulted: bool) -> None:
+        self.faulted = faulted
+
+    def list_devices(self, include=None) -> list[Device]:
+        return [*self.client.list_devices(), Device(id=self.SENSOR, name="Water heater sensor (simulated)")]
+
+    def status(self, device_id: str, component_id=None) -> DeviceStatus:
+        if device_id != self.SENSOR:
+            return self.client.status(device_id)
+        return DeviceStatus.from_json({"data": {"attributes": {
+            "online": True, "reported_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "flood_detection": {"faulted": self.faulted}, "freeze_detection": {"faulted": False},
+            "tamper_detection": {"detected": False}, "sensor_reporting_state": {"value": "active"}}}})
+
+    def capabilities(self, device_id: str, component_id=None) -> DeviceCapabilities:
+        if device_id == self.SENSOR:
+            return DeviceCapabilities(video_codecs=None, chime_play=False, audio_slots=None)
+        return self.client.capabilities(device_id)
+
+    def configurations(self, device_id: str, component_id=None) -> DeviceConfigurations:
+        if device_id == self.SENSOR:
+            return DeviceConfigurations(motion_detection_enabled=None, chime_slots=[], chime_volume=None,
+                                        temperature_threshold=None, humidity_threshold=None)
+        return self.client.configurations(device_id)
+
+    def __getattr__(self, name: str):
+        return getattr(self.client, name)
 
 
 # ------------------------------------------------------------------------------------

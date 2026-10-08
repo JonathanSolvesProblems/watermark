@@ -32,7 +32,7 @@ from .db import Database, now_ms
 from .dispatch import make_dispatcher
 from .incidents import IncidentManager
 from .pack import PackBuilder
-from .ring import MockRing, RingService
+from .ring import MockRing, PlaygroundRing, RingService
 
 log = logging.getLogger("watermark")
 
@@ -82,6 +82,25 @@ class AppState:
         self.background: list[asyncio.Task] = []
         if settings.is_mock:
             self._seed_mock()
+        if settings.is_playground:
+            self._seed_playground()
+
+    def _seed_playground(self) -> None:
+        """The Playground account: Ring's simulated doorbell is the fixed camera that
+        covers one simulated flood sensor. Discovery is real; if the token has expired,
+        the account still exists and discovery runs again on the next trigger."""
+        self.db.upsert_account(PlaygroundRing.ACCOUNT, email="Ring Developer Playground", link_status="completed",
+                               access_token="playground", refresh_token="playground", expires_at=time.time() + 10 ** 9)
+        try:
+            devices = self.ring.discover(PlaygroundRing.ACCOUNT)
+        except Exception as e:  # noqa: BLE001
+            log.warning("Playground discovery failed (token expired?): %s", e)
+            return
+        cams = [d for d in devices if d.get("kind") == "camera"]
+        self.db.upsert_device(PlaygroundRing.SENSOR, room="Water heater closet",
+                              covered_by=cams[0]["device_id"] if cams else None)
+        for cam in cams:
+            self.db.upsert_device(cam["device_id"], room="Water heater closet")
 
     def _seed_mock(self) -> None:
         """A linked mock account with a sensor, a rover cam, a fixed cam and a chime,
@@ -98,6 +117,8 @@ class AppState:
     def current_account_id(self) -> str | None:
         if self.settings.is_mock:
             return MockRing.ACCOUNT
+        if self.settings.is_playground:
+            return PlaygroundRing.ACCOUNT
         rows = self.db.list_accounts(link_status="completed")
         if not rows:
             return None
@@ -180,6 +201,20 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         """Ring's Account Link URL. Hand off to the web app's sign-in page with the
         nonce and time preserved (sign-in is mandatory per Ring)."""
         return RedirectResponse(f"{s.settings.web_origin}/link?nonce={nonce}&time={time_}", status_code=302)
+
+    @app.get("/api/link/prefill")
+    async def link_prefill(nonce: str = "", time_: int = Query(default=0, alias="time"), s: AppState = Depends(st)):
+        """Ring's UX guide: pre-fill the sign-up email from the Ring account the nonce
+        belongs to. The token exchange already stored it. Silent on any failure, because
+        the customer can always type it."""
+        if not nonce or not is_fresh(time_):
+            return {}
+        unclaimed = s.db.list_accounts(link_status="unclaimed")
+        try:
+            account_id = match_nonce(s.settings.ring_hmac_key, nonce, time_, [a["account_id"] for a in unclaimed])
+        except Exception:  # noqa: BLE001
+            return {}
+        return {"email": (s.db.get_account(account_id) or {}).get("email")}
 
     @app.post("/api/link")
     async def complete_link(body: LinkBody, s: AppState = Depends(st)):
@@ -376,11 +411,19 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             marked `synthetic`. In mock mode it also flips the mock sensor's state so
             reconciliation agrees with the event."""
             aid = s.current_account_id()
-            device_id = body.device_id or MockRing.SENSOR
+            if s.settings.is_playground:
+                device_id = body.device_id or PlaygroundRing.SENSOR
+                PlaygroundRing.instance(s.settings).set_faulted(device_id, body.action == "detected")
+                if not s.db.get_device(device_id):
+                    await asyncio.to_thread(s._seed_playground)
+            else:
+                device_id = body.device_id or MockRing.SENSOR
             if s.settings.is_mock:
                 MockRing.instance(s.settings).set_faulted(device_id, body.action == "detected")
             env = make_event(f"{body.kind}_{body.action}", device_id, account_id=aid or "unknown")
-            env["meta"]["controlled_test"] = body.controlled_test
+            # The Playground has no sensors: its event is simulated, not a sensor in real water.
+            env["meta"]["controlled_test"] = body.controlled_test and not s.settings.is_playground
+            env["meta"]["simulated_sensor"] = s.settings.is_playground
             result = await s.manager.handle_event(parse_event(env), source="synthetic")
             return result
 

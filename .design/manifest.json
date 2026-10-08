@@ -1,0 +1,82 @@
+{
+  "project": "watermark",
+  "date": "2026-10-08",
+  "mode": "redesign",
+  "platform": "web-app (Ring Appstore partner app, opened from the Ring app's browser and on a laptop; phone width matters)",
+  "family": "mechanical-industrial",
+  "metaphor": "a flood staff gauge bolted to the basement wall, read with a humidity indicator card: enamel staff with E-ticks carries time from sensor to dry; water is the indicator's pink",
+  "register": "precise, calm (a homeowner at 2 a.m. and an adjuster reading later; credible, never alarming)",
+  "expressive_axis": "structure: the enamel gauge staff runs through the incident and is the timeline",
+  "home_polarity": "dark",
+  "themes": "dark-default+light",
+  "category_convention_avoided": "Smart-home security apps and claims portals: white rounded cards, a corporate blue (Ring's own navy and blue included), stock line icons, a tidy stepper, a hero stat row. The previous Watermark build was the other default: Georgia on warm paper with hairline rules.",
+  "design_code": [
+    "Time is drawn on an enamel staff with E-ticks, not listed in a table, because an adjuster's first question is how long the water stood and a gauge answers that at a glance.",
+    "There is exactly one hue, the humidity-indicator pink, and it appears only where water is confirmed (sensor faulted, a frame the caption says shows water, the fill on the staff), because colour that means 'wet' everywhere else would make the evidence argue.",
+    "Anything the system could not verify is drawn as hatching, never as a colour, because the pack's credibility rests on disclosing gaps without dramatising them.",
+    "Readouts are set in condensed industrial numerals with tabular spacing on machined, square-cornered plates, because the product is an instrument record, not a dashboard of opinions."
+  ],
+  "anti_brief": [
+    "Red alarm styling or flashing: the user opens this mid-flood and an adjuster reads it later; panic colour reads as advocacy, not evidence.",
+    "Rounded cards and a blue accent: the category default, and Ring's own palette, which a partner app should not imitate.",
+    "Paper and serif documents: the attractor the previous build fell into."
+  ],
+  "axes": {
+    "canvas": "dark damp-concrete green-grey (home); limewashed concrete in light",
+    "chroma_budget": "achromatic + one semantic hue (wet)",
+    "type_voice": "condensed industrial display for readouts and labels + humanist body",
+    "structure": "gauge staff spine with plates hung off it; dashboard is a row of station gauges per sensor",
+    "density": "functional",
+    "edge": "square (0) with 2px on interactive plates",
+    "depth": "dark: lighter plates step up, inset bevel line on top edge; light: 1px rule + hard 1px drop line, no blur",
+    "ornament": "the gauge itself: E-ticks, stage marks, hatching",
+    "motion": "detented: water fill rises in steps; plates snap in",
+    "numerals": "tabular everywhere; seconds as integers; null shown as an en-dash"
+  },
+  "tokens": {
+    "dark": {
+      "concrete": "#1A1F1C",
+      "plate": "#242A26",
+      "plate_raised": "#2E3530",
+      "enamel_ink": "#E8EBE4",
+      "stencil": "#A3ADA6",
+      "seam": "#3A433D",
+      "wet": "#F2669F",
+      "staff": "#E4E6DE",
+      "tick": "#141816"
+    },
+    "light": {
+      "concrete": "#E3E6DF",
+      "plate": "#F3F4EF",
+      "plate_raised": "#FFFFFF",
+      "enamel_ink": "#151917",
+      "stencil": "#4E5852",
+      "seam": "#C3C9C0",
+      "wet": "#B0175C",
+      "staff": "#F7F7F2",
+      "tick": "#141816"
+    },
+    "wet_role": "confirmed water only: faulted sensor, a frame captioned as showing water, the fill on the staff",
+    "accent_hue_deg": 334,
+    "type_display": "Big Shoulders (variable, opsz axis; Google merged Big Shoulders Display into it)",
+    "type_body": "Commissioner",
+    "type_mono": null,
+    "scale_ratio": 1.333,
+    "base_size_px": 16,
+    "space_unit_px": 4,
+    "radius_scale": [0, 2],
+    "motion_duration_ms": [120, 480],
+    "motion_easing": "steps(6, end) for the water fill; cubic-bezier(0.2, 0, 0, 1) for plates"
+  },
+  "motion_brief": {
+    "explains": "that water was confirmed and how far the record has run; that a new frame arrived",
+    "signature": "the stage fill: the pink water level climbs the staff in six detented steps to the current mark",
+    "resting": "still; the only live element is a 1px tick that advances on the staff while an incident is open"
+  },
+  "contrast_checked": {
+    "dark": "ink/concrete 13.9, stencil/concrete 7.2, stencil/plate 6.3, wet/concrete 5.7, tick/staff 14.2",
+    "light": "ink/concrete 14.1, stencil/concrete 5.9, wet/concrete 5.3, wet/plate 6.1, white-on-wet 6.7"
+  },
+  "locked_inputs": "Ring UX design guide behaviours (Create Account emphasis, email pre-fill, linking confirmation with devices and online state, skippable first-visit tutorial, what's wrong / why it matters / where to fix it, names never ids, subscription status pointing to Ring My Apps, in-app data deletion, WCAG 2.2 AA, 'Ring app' terminology). No visual values are mandated by Ring.",
+  "notes": "Ledger check: family bans luminous-emissive (hackathon-workflow), toy-playful (moxie-library), organic-soft (nature-bingo). Mechanical-industrial last used by northbound (#2E3032, hue 48, signage) and dailies (#31363B, hue 152, follow-focus rows); canvas here is darker and green-tinted, hue 334, structure is a gauge spine. Hue 334 is near changelog-studio 338 (light press room, print-editorial) and differs on canvas, family and structure. Barlow Condensed (alprosolutions) and Public Sans (assay) avoided. No mono family."
+}

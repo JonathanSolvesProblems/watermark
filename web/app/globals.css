@@ -1,60 +1,272 @@
+/*
+  Watermark design code (full spec in .design/manifest.json)
+
+  Avoiding: the smart-home and claims-portal default (white rounded cards, a
+  corporate blue, stock icons, a stat row), and this project's own first build
+  (Georgia on paper with hairlines).
+
+  Metaphor: a flood staff gauge bolted to the basement wall, read together with
+  a humidity indicator card.
+
+  - Time is drawn on an enamel staff with E-ticks, because an adjuster's first
+    question is how long the water stood.
+  - One hue, the indicator pink, and only where water is confirmed, because
+    colour that means "wet" anywhere else would make the evidence argue.
+  - Unverified spans are hatching, never colour, because gaps are disclosed,
+    not dramatised.
+  - Condensed tabular numerals on square machined plates, because this is an
+    instrument record.
+*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --ink: #1b1f24;
-  --water: #2a6f9e;
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --concrete: #1a1f1c;
+  --plate: #242a26;
+  --plate-raised: #2e3530;
+  --ink: #e8ebe4;
+  --stencil: #a3ada6;
+  --seam: #3a433d;
+  --wet: #f2669f;
+  --on-wet: #141816;
+  --staff: #e4e6de;
+  --tick: #141816;
+  --hatch: rgba(232, 235, 228, 0.16);
+  /* dark plates step up in lightness; the top-edge bevel is the only "depth" */
+  --bevel: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --drop: none;
 }
 
-html { background: #f4f2ec; }
-body { color: var(--ink); font-family: Georgia, "Times New Roman", serif; }
-
-/* The waterline: a single rule that reads as a high-water mark, used as the
-   section divider everywhere instead of cards inside cards. */
-.waterline {
-  position: relative;
-  border-bottom: 1px solid #d9dee3;
+:root[data-theme="light"] {
+  color-scheme: light;
+  --concrete: #e3e6df;
+  --plate: #f3f4ef;
+  --plate-raised: #ffffff;
+  --ink: #151917;
+  --stencil: #4e5852;
+  --seam: #c3c9c0;
+  --wet: #b0175c;
+  --on-wet: #ffffff;
+  --staff: #f7f7f2;
+  --tick: #141816;
+  --hatch: rgba(21, 25, 23, 0.14);
+  --bevel: none;
+  /* light plates sit on the wall with a hard machined drop line, no blur */
+  --drop: 0 1px 0 #b8beb5;
 }
-.waterline::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 64px;
-  height: 3px;
-  background: var(--water);
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --concrete: #e3e6df;
+    --plate: #f3f4ef;
+    --plate-raised: #ffffff;
+    --ink: #151917;
+    --stencil: #4e5852;
+    --seam: #c3c9c0;
+    --wet: #b0175c;
+    --on-wet: #ffffff;
+    --staff: #f7f7f2;
+    --hatch: rgba(21, 25, 23, 0.14);
+    --bevel: none;
+    --drop: 0 1px 0 #b8beb5;
+  }
 }
 
+html {
+  background: var(--concrete);
+}
+body {
+  background: var(--concrete);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Stencilled label: what is painted beside a gauge, small caps, spaced. */
 .label {
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: 11px;
-  font-weight: 600;
+  font-family: var(--font-display), sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--stencil);
+}
+
+/* Readout: the number read off the staff. Condensed, tabular, large. */
+.readout {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.plate {
+  background: var(--plate);
+  border: 1px solid var(--seam);
+  box-shadow: var(--bevel), var(--drop);
+}
+.plate-raised {
+  background: var(--plate-raised);
+  border: 1px solid var(--seam);
+  box-shadow: var(--bevel), var(--drop);
+}
+
+/* Buttons are detented switches: square, a heavier bottom edge, a 1px travel. */
+.btn,
+.btn-ghost,
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.1rem;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: 15px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  border-radius: 2px;
+  border: 1px solid var(--ink);
+  border-bottom-width: 3px;
+  transition: transform 120ms cubic-bezier(0.2, 0, 0, 1), background-color 120ms;
 }
-
 .btn {
-  @apply inline-flex items-center gap-2 px-4 py-2 border border-ink bg-ink text-paper font-sans text-sm rounded-sm;
+  background: var(--ink);
+  color: var(--concrete);
 }
-.btn:hover { background: #2a6f9e; border-color: #2a6f9e; }
 .btn-ghost {
-  @apply inline-flex items-center gap-2 px-4 py-2 border border-ink bg-transparent text-ink font-sans text-sm rounded-sm;
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--seam);
+  border-bottom-color: var(--stencil);
 }
-.btn-ghost:hover { background: #fbfaf7; }
+.btn-ghost:hover {
+  background: var(--plate-raised);
+}
 .btn-danger {
-  @apply inline-flex items-center gap-2 px-4 py-2 border border-warn bg-transparent text-warn font-sans text-sm rounded-sm;
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--stencil);
+  background-image: repeating-linear-gradient(135deg, var(--hatch) 0 2px, transparent 2px 7px);
+}
+.btn:active,
+.btn-ghost:active,
+.btn-danger:active {
+  transform: translateY(1px);
+  border-bottom-width: 2px;
+}
+.btn:disabled,
+.btn-ghost:disabled,
+.btn-danger:disabled {
+  opacity: 0.55;
+  cursor: progress;
 }
 
-.stat { @apply border border-line bg-paper px-4 py-3; }
-.stat .n { @apply text-3xl font-bold leading-tight; }
-.stat .l { @apply text-muted text-xs font-sans; }
-
-table.log { @apply w-full text-sm; }
-table.log th { @apply text-left font-sans text-[11px] uppercase tracking-wider text-muted py-2 border-b border-line; }
-table.log td { @apply py-2 border-b border-line align-top; }
-
-input.field, select.field {
-  @apply w-full border border-line bg-white px-3 py-2 font-sans text-sm rounded-sm;
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
 }
-input.field:focus, select.field:focus { outline: 2px solid #2a6f9e; outline-offset: 1px; }
+
+/* Hatching: the only way the interface says "not verified". */
+.hatch {
+  background-image: repeating-linear-gradient(135deg, var(--hatch) 0 2px, transparent 2px 7px);
+}
+
+/* Wet indicator spot, as on a humidity indicator card: a ring when dry, filled when wet. */
+.spot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid var(--stencil);
+  flex: none;
+}
+.spot[data-wet="true"] {
+  background: var(--wet);
+  border-color: var(--wet);
+}
+.spot[data-off="true"] {
+  border-style: dashed;
+}
+
+input.field,
+select.field {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 0.85rem;
+  background: var(--plate-raised);
+  border: 1px solid var(--seam);
+  border-bottom: 2px solid var(--stencil);
+  border-radius: 2px;
+  color: var(--ink);
+  font-size: 16px;
+}
+input.field:focus,
+select.field:focus {
+  outline: none;
+  border-bottom-color: var(--ink);
+}
+
+/* The staff: enamel plate with E-ticks. Always light, in both themes, because it is a painted object on the wall. */
+.staff {
+  position: relative;
+  background: var(--staff);
+  color: var(--tick);
+  border: 1px solid var(--tick);
+}
+.staff-ticks {
+  background-image:
+    linear-gradient(to right, var(--tick) 0 2px, transparent 2px),
+    linear-gradient(to right, var(--tick) 0 1px, transparent 1px);
+  background-size: 10% 100%, 2% 45%;
+  background-repeat: repeat-x, repeat-x;
+  background-position: 0 0, 0 0;
+}
+.staff-fill {
+  background: var(--wet);
+  transform-origin: left center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* The signature: the water level climbs in six detented steps. */
+  .staff-fill[data-rise="true"] {
+    animation: stage-rise 480ms steps(6, end) both;
+  }
+  .plate-in {
+    animation: plate-in 240ms cubic-bezier(0.2, 0, 0, 1) both;
+  }
+}
+@keyframes stage-rise {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes plate-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+table.log {
+  width: 100%;
+  font-size: 14px;
+}
+table.log td {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--seam);
+  vertical-align: top;
+}
