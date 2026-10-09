@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Watermark brand sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,600;10..72,800&family=Commissioner:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Proposal, 2026-10-08. Every value cites .design/refs/NOTES.md by number. */
+:root {
+  --slate: #241D18;      /* N11, Béhuard slate board, a touch darker for text contrast */
+  --slate-2: #33291F;    /* N11, #423528 pulled toward the board */
+  --lime: #E6DCCD;       /* N10, limestone, lifted for ink on slate */
+  --lime-2: #A9967C;     /* N10 */
+  --line: #EF5A5F;       /* N14, the plaque's red line, lifted for a dark ground */
+  --steel: #C0C2C4;      /* N12 */
+  --iron: #2F1612;       /* N13 */
+  --canvas: var(--slate); --raised: var(--slate-2); --ink: var(--lime); --muted: var(--lime-2);
+}
+:root[data-theme="light"] {
+  --canvas: #EEE7DC;     /* N10, limestone washed for a page */
+  --raised: #DCDDDE;     /* N12, brushed steel plate */
+  --ink: var(--iron);    /* N13 */
+  --muted: #6B5A48;      /* N10/N11 */
+  --line: #A3121D;       /* N14, #740C13 lifted one step */
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--canvas); color: var(--ink); font: 16px/1.5 Commissioner, sans-serif; }
+/* N9/N10: limestone grain, never over text blocks' own colour, only the ground */
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.4 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+main { max-width: 1080px; margin: 0 auto; padding: 40px 16px 80px; }
+h1, h2 { font-family: "Big Shoulders", sans-serif; font-weight: 800; margin: 0; }
+h1 { font-size: 44px; letter-spacing: .01em; }
+h2 { font-size: 24px; margin: 56px 0 16px; }
+p { max-width: 64ch; color: var(--muted); margin: 6px 0; }
+.row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; }
+.cell { display: grid; gap: 8px; justify-items: start; }
+.cell small { color: var(--muted); font-size: 13px; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+button { font: inherit; background: none; color: var(--ink); border: 1.5px solid var(--muted); border-radius: 3px; padding: 6px 12px; cursor: pointer; }
+
+/* The signature device (N1): the high-water line. Event above, date below, rivet at each end. */
+.hwl { position: relative; width: 100%; padding: 0 18px; }
+.hwl .above, .hwl .below { font-family: "Big Shoulders", sans-serif; font-weight: 600; font-size: 20px; }
+.hwl .below { color: var(--muted); font-family: Commissioner, sans-serif; font-weight: 400; font-size: 15px; }
+.hwl .rule { position: relative; height: 3px; background: var(--line); margin: 6px -18px; }
+.hwl .rule::before, .hwl .rule::after { content: ""; position: absolute; top: -3.5px; width: 10px; height: 10px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--steel), #6d6f72); }
+.hwl .rule::before { left: 0; } .hwl .rule::after { right: 0; }
+
+.swatch { width: 120px; height: 72px; border-radius: 3px; border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); }
+.icons svg { width: 40px; height: 40px; }
+.ill svg { width: 280px; height: 200px; }
+.plate { background: var(--raised); border-radius: 3px; padding: 24px; position: relative; }
+.voice li { margin: 4px 0; }
+.voice del { color: var(--muted); }
+
+/* Béhuard board (N2): incident history as marks at their heights */
+.board { display: grid; grid-template-columns: 40px 1fr; gap: 0 16px; background: var(--raised); padding: 20px; border-radius: 3px; max-width: 560px; }
+.board .staff { grid-row: 1 / 5; background: repeating-linear-gradient(to bottom, var(--ink) 0 6px, transparent 6px 12px) left / 50% 100% no-repeat,
+  repeating-linear-gradient(to bottom, transparent 0 6px, var(--ink) 6px 12px) right / 50% 100% no-repeat; opacity: .85; }
+.board .mark { display: flex; align-items: center; gap: 10px; padding: 10px 0; }
+.board .mark i { width: 10px; height: 10px; transform: rotate(45deg); background: var(--line); flex: none; margin-left: -21px; }
+.board .tag { background: var(--canvas); padding: 4px 10px; border-radius: 2px; font-family: "Big Shoulders", sans-serif; font-weight: 600; }
+.board .tag span { font-family: Commissioner, sans-serif; font-weight: 400; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div style="display:flex;gap:14px;align-items:center">
+      <svg width="60" height="40" viewBox="0 0 48 32" style="color:var(--ink)"><use href="#logo"/></svg>
+      <h1>Watermark</h1>
+    </div>
+    <button onclick="var r=document.documentElement;r.dataset.theme=r.dataset.theme==='light'?'':'light'">Light / dark</button>
+  </div>
+  <p>Brand sheet, drawn from twelve photos of real flood gauges and high-water plaques (<code>.design/refs/NOTES.md</code>). Proposal for review before any page changes.</p>
+
+  <svg width="0" height="0" style="position:absolute">
+    <symbol id="logo" viewBox="0 0 48 32">
+      <rect x="1" y="1" width="46" height="30" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+      <circle cx="6" cy="6" r="1.6" fill="currentColor"/><circle cx="42" cy="6" r="1.6" fill="currentColor"/>
+      <circle cx="6" cy="26" r="1.6" fill="currentColor"/><circle cx="42" cy="26" r="1.6" fill="currentColor"/>
+      <rect x="11" y="8" width="26" height="3" fill="currentColor"/>
+      <rect x="1" y="14.5" width="46" height="3" fill="var(--line)"/>
+      <rect x="15" y="21" width="18" height="3" fill="currentColor"/>
+    </symbol>
+  </svg>
+
+  <h2>Logo: the high-water plaque</h2>
+  <p>A riveted plate split by the line, record above, date below (N1, N15). It is what the product makes: a plaque for one home's flood.</p>
+  <div class="row">
+    <div class="cell"><svg width="160" height="107" viewBox="0 0 48 32" style="color:var(--ink)"><use href="#logo"/></svg><small>160 px</small></div>
+    <div class="cell"><svg width="48" height="32" viewBox="0 0 48 32" style="color:var(--ink)"><use href="#logo"/></svg><small>48 px</small></div>
+    <div class="cell"><svg width="24" height="16" viewBox="0 0 48 32" style="color:var(--ink)"><use href="#logo"/></svg><small>24 px</small></div>
+    <div class="cell">
+      <svg width="64" height="64" viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#241D18"/>
+        <circle cx="6.5" cy="7" r="2" fill="#E6DCCD"/><circle cx="25.5" cy="7" r="2" fill="#E6DCCD"/>
+        <circle cx="6.5" cy="25" r="2" fill="#E6DCCD"/><circle cx="25.5" cy="25" r="2" fill="#E6DCCD"/>
+        <rect x="0" y="14" width="32" height="4.5" fill="#EF5A5F"/></svg>
+      <small>favicon, redrawn for 16 px: rivets and the line only</small>
+    </div>
+  </div>
+
+  <h2>Signature device: the high-water line</h2>
+  <p>One red rule with a rivet at each end, the event above and the date below, placed at the level on every screen that records water. It replaces the tracked caps labels as the thing a cropped screenshot is recognised by.</p>
+  <div class="plate" style="max-width:620px">
+    <div class="hwl">
+      <div class="above">Water reached the sensor, basement, by the heater</div>
+      <div class="rule"></div>
+      <div class="below">8 October 2026, 14:02:11 · first Ring frame 6.7 s later</div>
+    </div>
+  </div>
+
+  <h2>Incident history: the Béhuard board</h2>
+  <p>Each incident is a diamond at its height with a tag pointing at it, the way Béhuard records 1910 and 1982 (N2).</p>
+  <div class="board">
+    <div class="staff"></div>
+    <div class="mark"><i></i><div class="tag">Basement, by the heater <span>8 Oct 2026 · 6 frames · pack ready</span></div></div>
+    <div class="mark"><i></i><div class="tag">Laundry, under the sink <span>2 Oct 2026 · 4 frames</span></div></div>
+    <div class="mark"><i style="background:var(--muted)"></i><div class="tag">Basement, by the heater <span>Test · 30 Sep 2026</span></div></div>
+    <div class="mark"></div>
+  </div>
+
+  <h2>Palette</h2>
+  <p>Eyedropped from the photos, then adjusted for contrast. The wet accent moves from the invented pink to the plaque's red line.</p>
+  <div class="row">
+    <div class="cell"><div class="swatch" style="background:#241D18"></div><small>#241D18 slate board (N11)</small></div>
+    <div class="cell"><div class="swatch" style="background:#E6DCCD"></div><small>#E6DCCD limestone (N10)</small></div>
+    <div class="cell"><div class="swatch" style="background:#EF5A5F"></div><small>#EF5A5F line, dark (N14)</small></div>
+    <div class="cell"><div class="swatch" style="background:#A3121D"></div><small>#A3121D line, light (N14)</small></div>
+    <div class="cell"><div class="swatch" style="background:#C0C2C4"></div><small>#C0C2C4 steel plate (N12)</small></div>
+    <div class="cell"><div class="swatch" style="background:#2F1612"></div><small>#2F1612 cast iron (N13)</small></div>
+  </div>
+
+  <h2>Icons: one hand</h2>
+  <p>24 grid, 1.75 stroke, square caps like stamped plate; each carries one rivet dot (N15). No icon library.</p>
+  <div class="row icons" style="color:var(--ink)">
+    <!-- sensor: a puck on the floor with a drop -->
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M4 18h16M6 18v-3h12v3"/><path d="M12 4c2 3 3 4.5 3 6a3 3 0 0 1-6 0c0-1.5 1-3 3-6z"/><circle cx="12" cy="16.5" r=".9" fill="currentColor" stroke="none"/></svg><small>sensor</small></div>
+    <!-- camera -->
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><rect x="4" y="5" width="16" height="11" rx="2"/><circle cx="12" cy="10.5" r="3"/><path d="M9 20h6M12 16v4"/><circle cx="17" cy="7.5" r=".9" fill="currentColor" stroke="none"/></svg><small>camera</small></div>
+    <!-- rover -->
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><rect x="4" y="9" width="16" height="7"/><circle cx="7.5" cy="18" r="2"/><circle cx="16.5" cy="18" r="2"/><path d="M15 9V5h3"/><circle cx="8" cy="12.5" r=".9" fill="currentColor" stroke="none"/></svg><small>rover</small></div>
+    <!-- frame -->
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><rect x="3" y="5" width="18" height="14"/><path d="M3 15l5-4 4 3 3-2 6 4"/><circle cx="16" cy="9" r=".9" fill="currentColor" stroke="none"/></svg><small>frame</small></div>
+    <!-- clock -->
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><circle cx="12" cy="12" r="8"/><path d="M12 7v5h4"/><circle cx="12" cy="12" r=".9" fill="currentColor" stroke="none"/></svg><small>time</small></div>
+    <!-- pack: the plaque -->
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><rect x="3" y="6" width="18" height="12"/><path d="M3 12h18"/><circle cx="6" cy="9" r=".9" fill="currentColor" stroke="none"/><circle cx="18" cy="15" r=".9" fill="currentColor" stroke="none"/></svg><small>evidence pack</small></div>
+    <!-- staff -->
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M9 3v18M9 5h5M9 9h3M9 13h5M9 17h3"/><circle cx="16" cy="13" r=".9" fill="currentColor" stroke="none"/></svg><small>level</small></div>
+    <!-- humidity -->
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M12 3c3.5 5 5.5 8 5.5 10.5a5.5 5.5 0 0 1-11 0C6.5 11 8.5 8 12 3z"/><path d="M9 14h6"/><circle cx="12" cy="17" r=".9" fill="currentColor" stroke="none"/></svg><small>humidity</small></div>
+    <!-- link -->
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><rect x="3" y="9" width="8" height="6"/><rect x="13" y="9" width="8" height="6"/><path d="M11 12h2"/><circle cx="17" cy="12" r=".9" fill="currentColor" stroke="none"/></svg><small>link Ring</small></div>
+    <!-- export -->
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M12 4v11M8 8l4-4 4 4M5 14v6h14v-6"/><circle cx="12" cy="17.5" r=".9" fill="currentColor" stroke="none"/></svg><small>send pack</small></div>
+    <!-- delete -->
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/><circle cx="12" cy="13.5" r=".9" fill="currentColor" stroke="none"/></svg><small>delete</small></div>
+  </div>
+
+  <h2>Spot illustrations</h2>
+  <p>Same hand as the icons, for empty, onboarding and error states. They replace the hatched boxes.</p>
+  <div class="row ill" style="color:var(--ink)">
+    <div class="cell">
+      <!-- empty: a dry staff over cracked ground (N16) -->
+      <svg viewBox="0 0 280 200" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square">
+        <path d="M128 30v130M128 40h14M128 56h8M128 72h14M128 88h8M128 104h14M128 120h8M128 136h14"/>
+        <path d="M30 160h220"/>
+        <path d="M50 172l14 8 10-6 16 10M110 170l12 12 18-8M170 174l10 6 16-10 12 8M220 170l8 10" stroke-width="1.25"/>
+        <text x="140" y="196" fill="currentColor" stroke="none" font-family="Commissioner" font-size="12" text-anchor="middle" opacity=".7">No marks yet. The sensor is dry.</text>
+      </svg><small>empty: no incidents</small>
+    </div>
+    <div class="cell">
+      <!-- onboarding: camera looking down at a sensor on the floor -->
+      <svg viewBox="0 0 280 200" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square">
+        <path d="M30 40h220M30 160h220"/>
+        <rect x="58" y="40" width="30" height="20"/><circle cx="73" cy="56" r="6"/>
+        <path d="M73 66l90 84M73 66l40 84" stroke-dasharray="3 5" stroke-width="1.25"/>
+        <path d="M150 160v-6h30v6"/><path d="M165 128c4 6 6 9 6 12a6 6 0 0 1-12 0c0-3 2-6 6-12z"/>
+        <path d="M200 160v-56M200 112h8M200 128h8M200 144h8"/>
+        <text x="140" y="190" fill="currentColor" stroke="none" font-family="Commissioner" font-size="12" text-anchor="middle" opacity=".7">Point a camera at each sensor.</text>
+      </svg><small>onboarding: setup</small>
+    </div>
+    <div class="cell">
+      <!-- error: a plaque hanging from one rivet (N15) -->
+      <svg viewBox="0 0 280 200" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square">
+        <path d="M40 150h200" stroke-width="1.25" opacity=".5"/>
+        <circle cx="196" cy="48" r="3" stroke-width="1.25"/>
+        <g transform="rotate(28 96 48)"><rect x="86" y="38" width="120" height="70" rx="3"/><path d="M86 73h120" stroke="var(--line)" stroke-width="3"/><path d="M110 55h72M120 90h52" stroke-width="2.5"/></g>
+        <circle cx="96" cy="48" r="3.5" fill="currentColor"/>
+        <text x="140" y="180" fill="currentColor" stroke="none" font-family="Commissioner" font-size="12" text-anchor="middle" opacity=".7">Ring didn't answer. Nothing was lost.</text>
+      </svg><small>error: Ring unreachable</small>
+    </div>
+  </div>
+
+  <h2>Voice</h2>
+  <div class="row voice" style="align-items:flex-start;gap:48px">
+    <ul>
+      <li>Water reached the sensor at 14:02. The camera was looking 6.7 seconds later.</li>
+      <li>No marks yet. The sensor is dry.</li>
+      <li>This record cannot vouch for what happened before the sensor fired.</li>
+      <li>Send the pack to your adjuster.</li>
+      <li>Ring didn't answer. Nothing was lost; I'll try again.</li>
+    </ul>
+    <ul>
+      <li><del>Seamlessly</del>, <del>effortlessly</del></li>
+      <li><del>AI-powered insights</del></li>
+      <li><del>Peace of mind</del></li>
+      <li><del>Oops! Something went wrong</del></li>
+      <li><del>Your smart home, smarter</del></li>
+    </ul>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "ai_generated": true,
+  "provider": "local",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "subject": "a gas water heater standing on a concrete basement floor, a shallow puddle spreading from its base, a small round water sensor puck sitting in the edge of the puddle",
+  "references": [],
+  "transparent": false,
+  "lock_palette": null,
+  "direction_file": ".design/brand/art-direction.md",
+  "prompt": "a gas water heater standing on a concrete basement floor, a shallow puddle spreading from its base, a small round water sensor puck sitting in the edge of the puddle. A flat screenprint illustration, printed in three inks on warm limestone-coloured paper. Like a vintage enamel sign or a cast-iron flood plaque: flat opaque colour areas, no gradients. Thick dark brown-black outlines with slightly uneven weight, as if cut by hand. Inks: dark slate brown-black, warm limestone beige, and one deep plaque red used sparingly for water marks only. Light is flat and even, no shadows, no glow. One subject, seen from a slight three-quarter angle, centred, lots of empty background. Simple domestic objects in a basement: concrete floor, a wall, pipes, a water heater. No people.",
+  "date": "2026-10-09T14:29:42",
+  "runner": "ComfyUI",
+  "mode": "klein-base",
+  "text_encoder": "qwen_3_4b_fp8_mixed.safetensors",
+  "vae": "flux2-vae.safetensors",
+  "seed": 11,
+  "steps": 20,
+  "cfg": 4.0,
+  "negative": "text, letters, numbers, logos, 3D render, glossy plastic, isometric, neon, blue water, gradients, photorealism, smart-home glow, robots, light bulbs, purple., text, letters, numbers, words, caption, logo, watermark, signature, border, frame",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 166.0
+}

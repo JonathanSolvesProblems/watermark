@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 
 // The staff gauge: time from the sensor going wet to now (or to dry) painted on
-// an enamel staff. The pink fill is how long water stood; notches along the top
-// are frames from the Ring camera; hatching is a span the record cannot vouch for.
+// an enamel staff. The stain fill is how long water stood, with the red line at its
+// level; notches along the top are frames from the Ring camera, red where water is
+// visible; a dot screen is a span the record cannot vouch for.
 
 type Mark = { ms: number; label: string };
 type Notch = { ms: number; wet: boolean };
@@ -50,12 +51,16 @@ export default function Staff({
 
   return (
     <figure className="select-none" aria-label={`Water stood ${fmtElapsed(span)}${open ? " so far" : ""}`}>
+      <div className="flex gap-4 text-[13px] text-stencil mb-1" aria-hidden="true">
+        <span className="flex items-center gap-1.5"><span className="w-[3px] h-3 bg-ink" />frame from the Ring camera</span>
+        <span className="flex items-center gap-1.5"><span className="w-[3px] h-3 bg-line" />water seen in it</span>
+      </div>
       <div className="relative h-5 mb-1" aria-hidden="true">
         {notches.map((n) => (
           <span
             key={n.ms}
             className="notch-in absolute bottom-0 w-[3px] h-4 -translate-x-1/2"
-            style={{ left: at(n.ms), background: n.wet ? "var(--wet)" : "var(--ink)" }}
+            style={{ left: at(n.ms), background: n.wet ? "var(--line)" : "var(--ink)" }}
           />
         ))}
       </div>
@@ -76,7 +81,8 @@ export default function Staff({
               borderColor: "var(--tick)",
               left: at(g.start),
               width: `calc(${at(g.end ?? until)} - ${at(g.start)})`,
-              backgroundImage: "repeating-linear-gradient(135deg, rgba(20,24,22,.55) 0 2px, transparent 2px 7px)",
+              backgroundImage: "radial-gradient(rgba(27,42,71,.6) 1.1px, transparent 1.4px)",
+              backgroundSize: "6px 6px",
             }}
             title="Not verified"
           />
@@ -91,21 +97,28 @@ export default function Staff({
             />
           ))}
         </div>
-        {open && <div className="absolute inset-y-0 w-[2px] bg-tick" style={{ left: `${fillPct}%` }} aria-hidden="true" />}
+        {/* The E-band: alternating enamel blocks at every minor division, over the water. */}
+        <div className="absolute inset-x-0 bottom-0 h-3 bg-staff border-t border-tick" aria-hidden="true">
+          {ticks(axis, step).concat([{ at: 0, major: true }]).filter((_, i) => i % 2 === 0).map((t) => (
+            <span key={t.at} className="absolute inset-y-0 bg-tick"
+                  style={{ left: `${(t.at / axis) * 100}%`, width: `${(step / 5 / axis) * 100}%` }} />
+          ))}
+        </div>
+        <div className="staff-level absolute inset-y-0 w-[3px]" data-live={open} style={{ left: `calc(${fillPct}% - 1px)` }} aria-hidden="true" />
       </div>
-      <div className="relative h-6 mt-1 text-[12px] font-display font-bold tracking-wide text-stencil" aria-hidden="true">
+      <div className="relative h-6 mt-1 text-[12px] font-display font-bold text-stencil" aria-hidden="true">
         {numerals.map((t) => (
           <span key={t} className="absolute -translate-x-1/2" style={{ left: `${(t / axis) * 100}%` }}>
             {fmtElapsed(t)}
           </span>
         ))}
       </div>
-      <figcaption className="mt-3 grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
-        {marks.map((m) => (
-          <div key={m.label} className="flex items-baseline gap-3 border-t border-seam pt-2">
-            <span className="readout text-[22px]">+{fmtElapsed(m.ms - start)}</span>
-            <span className="text-[14px] text-stencil">{m.label}</span>
-          </div>
+      <figcaption className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-[14px]">
+        {[...marks].sort((a, b) => a.ms - b.ms).map((m) => (
+          <span key={m.label} className="whitespace-nowrap">
+            <span className="font-display font-bold text-[16px] mr-1.5">{fmtElapsed(m.ms - start)}</span>
+            <span className="text-stencil">{m.label}</span>
+          </span>
         ))}
       </figcaption>
     </figure>
@@ -130,10 +143,11 @@ function niceStep(ms: number): number {
 }
 
 export function fmtElapsed(ms: number): string {
+  if (ms > 0 && ms < 10000 && ms % 1000) return `${(ms / 1000).toFixed(1)}s`;
   const s = Math.max(0, Math.round(ms / 1000));
   if (s < 60) return `${s}s`;
   const m = Math.floor(s / 60);
-  if (m < 60) return s % 60 ? `${m}m${String(s % 60).padStart(2, "0")}` : `${m}m`;
+  if (m < 60) return `${m}:${String(s % 60).padStart(2, "0")}`;
   const h = Math.floor(m / 60);
-  return m % 60 ? `${h}h${String(m % 60).padStart(2, "0")}` : `${h}h`;
+  return `${h}:${String(m % 60).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 }

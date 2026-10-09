@@ -28,7 +28,7 @@ Mini challenges: AWS Builder, Open Source
 ```
 When a Ring Flood & Freeze sensor fires, Watermark plays the Ring Chime, sends a printed rover carrying a Ring Indoor Cam down a tape line to the room the sensor is in (or uses a fixed Indoor Cam that already sees it), opens a live session so the camera records, and pulls timestamped frames every few minutes until the sensor clears. It captions each frame with Amazon Bedrock, logs humidity from the rover's wand, and produces one evidence pack: timeline, frames with Ring's own media timestamps, drying curve, device health, an integrity section listing every gap it could not verify, and a map against the questions on a real insurance claim file. It never states a cause.
 
-On June 20, 2026 the city sewer backed up into 52 units of my condo. The mitigation report blamed heavy rain and floated my backyard shed. The only rebuttal was two phone videos I took because I happened to be home. Watermark is what I wish had been running at 2 a.m.
+On June 20, 2026 the city sewer backed up into 52 units of my condo. Mine also came in through the foundation, gaps beside the electrical panel and a basement window, one week after I had rebuilt from my first flood. The mitigation report blamed heavy rain and floated my backyard shed. The only rebuttal was two phone videos I took because I happened to be home. Watermark is what I wish had been running.
 
 Measured on a controlled test (real sensor, real water, real camera): first frame [N] s after the sensor, rover on station in [N] s, and the pack answers [N] of [M] questions on my real claim file. With the sensor scope switched off, the same test captured [N] frames.
 ```

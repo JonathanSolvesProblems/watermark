@@ -47,8 +47,7 @@ export default function Setup() {
   return (
     <div className="grid gap-12">
       <section>
-        <p className="label">Setup</p>
-        <h1 className="readout uppercase text-[48px] sm:text-[64px] mt-2">Rooms and cameras</h1>
+        <h1 className="headline text-[32px] sm:text-[40px]">Rooms and cameras</h1>
         <p className="mt-3 text-stencil max-w-2xl">
           Ring does not tell Watermark which room a sensor is in, so you do it once here. Device names and motion zones
           are changed in the Ring app; after changing them,{" "}
@@ -57,17 +56,17 @@ export default function Setup() {
           </button>
           .
         </p>
-        {err && <p className="plate hatch px-3 py-2 mt-3" role="alert">{err}</p>}
+        {err && <p className="plate border border-dashed border-stencil px-3 py-2 mt-3" role="alert">{err}</p>}
       </section>
 
       <section aria-labelledby="sensors-h">
-        <h2 id="sensors-h" className="label border-b border-seam pb-2 mb-4">Sensors</h2>
+        <h2 id="sensors-h" className="title border-b border-seam pb-2 mb-4">Sensors</h2>
         {sensors.length === 0 && <p className="text-stencil">No sensors shared with Watermark yet. Share one from the Ring app.</p>}
         <ul className="grid gap-4">
           {sensors.map((s) => (
             <li key={s.device_id} className="plate p-4 grid gap-4 md:grid-cols-[1fr_1fr_1fr_1fr] md:items-end">
               <div>
-                <p className="font-display text-[22px] font-bold uppercase leading-tight">{s.name}</p>
+                <p className="title text-[22px]">{s.name}</p>
                 <p className="text-[13px] text-stencil">{s.kind === "flood_freeze" ? "Flood & Freeze" : s.kind.replace("_", " ")}</p>
               </div>
               <Field label="Room">
@@ -100,7 +99,7 @@ export default function Setup() {
       </section>
 
       <section aria-labelledby="cams-h">
-        <h2 id="cams-h" className="label border-b border-seam pb-2 mb-2">Cameras</h2>
+        <h2 id="cams-h" className="title border-b border-seam pb-2 mb-2">Cameras</h2>
         <p className="text-[14px] text-stencil mb-3">Set the room to &ldquo;rover&rdquo; for the camera that rides on the rover.</p>
         <ul>
           {cameras.map((c) => (
@@ -124,13 +123,13 @@ export default function Setup() {
       </section>
 
       <section aria-labelledby="routes-h">
-        <h2 id="routes-h" className="label border-b border-seam pb-2 mb-2">Rover routes</h2>
+        <h2 id="routes-h" className="title border-b border-seam pb-2 mb-2">Rover routes</h2>
         <p className="text-[14px] text-stencil mb-3">A route is a tape line from the dock to a room. Its id must match the rover&apos;s routes.yaml.</p>
         <ul className="mb-4">
           {routes.map((r) => (
             <li key={r.id} className="py-3 border-b border-seam flex items-start justify-between gap-4">
               <div>
-                <span className="font-display font-bold uppercase tracking-wide">{r.name}</span>
+                <span className="font-display font-bold">{r.name}</span>
                 <span className="text-stencil text-[13px]"> · {r.id}</span>
                 <p className="text-[14px] text-stencil">{r.description}</p>
               </div>

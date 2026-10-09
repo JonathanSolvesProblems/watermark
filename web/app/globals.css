@@ -1,21 +1,18 @@
 /*
-  Watermark design code (full spec in .design/manifest.json)
+  Watermark design code. Laws: .design/brand/CHARTER.md. Found details: .design/refs/NOTES.md.
 
-  Avoiding: the smart-home and claims-portal default (white rounded cards, a
-  corporate blue, stock icons, a stat row), and this project's own first build
-  (Georgia on paper with hairlines).
+  Avoiding: the smart-home default (bright cyan-blue on white cards, stock icons), Ring's
+  own mark and colour (Program Requirements 3: nothing confusingly similar), and this
+  project's earlier builds (tracked caps, hatched boxes, an invented pink, brown and cream).
 
-  Metaphor: a flood staff gauge bolted to the basement wall, read together with
-  a humidity indicator card.
+  Metaphor: an enamel flood staff and the high-water plaque. Béhuard's board is enamel
+  white with navy E-marks and a red line for each flood; an evidence pack is that plaque
+  for one home.
 
-  - Time is drawn on an enamel staff with E-ticks, because an adjuster's first
-    question is how long the water stood.
-  - One hue, the indicator pink, and only where water is confirmed, because
-    colour that means "wet" anywhere else would make the evidence argue.
-  - Unverified spans are hatching, never colour, because gaps are disclosed,
-    not dramatised.
-  - Condensed tabular numerals on square machined plates, because this is an
-    instrument record.
+  - Enamel white is home and navy is ink, because the staff is a white enamel plate (2, 3).
+  - Red is a line, never an area, because a red puddle reads as blood (21).
+  - Water is enamel blue, so the gauge reads as water at a glance (owner, 2026-10-09).
+  - Unverified spans are a dot screen: disclosed, never dramatised.
 */
 
 @tailwind base;
@@ -23,57 +20,65 @@
 @tailwind utilities;
 
 :root,
+:root[data-theme="light"] {
+  color-scheme: light;
+  --concrete: #f0f1ee; /* enamel white, the staff's own plate (NOTES 2, 3) */
+  --plate: #e3e7ec;
+  --plate-raised: #f8f9f7;
+  --ink: #1b2a47; /* the navy of Béhuard's E-marks (NOTES 3), deepened for text */
+  --stencil: #4d5b74;
+  --seam: #c9d0da;
+  --line: #b3162a; /* the plaque's red line (NOTES 14) */
+  --on-line: #f8f9f7;
+  --staff: #f8f9f7;
+  --tick: #1b2a47;
+  --stain: #3d6fa8; /* water: enamel blue, the owner's call on 2026-10-09 */
+  --stain-hi: rgba(248, 249, 247, 0.6);
+  --dots: rgba(27, 42, 71, 0.3);
+  --grain-opacity: 0.12;
+  --bevel: none;
+  --drop: 0 1px 0 #c9d0da;
+}
+
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --concrete: #1a1f1c;
-  --plate: #242a26;
-  --plate-raised: #2e3530;
-  --ink: #e8ebe4;
-  --stencil: #a3ada6;
-  --seam: #3a433d;
-  --wet: #f2669f;
-  --on-wet: #141816;
-  --staff: #e4e6de;
-  --tick: #141816;
-  --hatch: rgba(232, 235, 228, 0.16);
-  /* dark plates step up in lightness; the top-edge bevel is the only "depth" */
-  --bevel: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --concrete: #16213a; /* the same navy enamel, as a ground at night */
+  --plate: #1d2a47;
+  --plate-raised: #253456;
+  --ink: #eef1f4;
+  --stencil: #a7b3c8;
+  --seam: #2f3f62;
+  --line: #f0626a; /* plaque red, lifted for a dark ground */
+  --on-line: #16213a;
+  --staff: #eef1f4; /* the staff stays a light enamel object in both themes */
+  --tick: #16213a;
+  --stain: #5c8dc9;
+  --stain-hi: rgba(238, 241, 244, 0.55);
+  --dots: rgba(238, 241, 244, 0.3);
+  --grain-opacity: 0.1;
+  --bevel: inset 0 1px 0 rgba(238, 241, 244, 0.05);
   --drop: none;
 }
 
-:root[data-theme="light"] {
-  color-scheme: light;
-  --concrete: #e3e6df;
-  --plate: #f3f4ef;
-  --plate-raised: #ffffff;
-  --ink: #151917;
-  --stencil: #4e5852;
-  --seam: #c3c9c0;
-  --wet: #b0175c;
-  --on-wet: #ffffff;
-  --staff: #f7f7f2;
-  --tick: #141816;
-  --hatch: rgba(21, 25, 23, 0.14);
-  --bevel: none;
-  /* light plates sit on the wall with a hard machined drop line, no blur */
-  --drop: 0 1px 0 #b8beb5;
-}
-
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    color-scheme: light;
-    --concrete: #e3e6df;
-    --plate: #f3f4ef;
-    --plate-raised: #ffffff;
-    --ink: #151917;
-    --stencil: #4e5852;
-    --seam: #c3c9c0;
-    --wet: #b0175c;
-    --on-wet: #ffffff;
-    --staff: #f7f7f2;
-    --hatch: rgba(21, 25, 23, 0.14);
-    --bevel: none;
-    --drop: 0 1px 0 #b8beb5;
+    color-scheme: dark;
+    --concrete: #16213a; /* the same navy enamel, as a ground at night */
+    --plate: #1d2a47;
+    --plate-raised: #253456;
+    --ink: #eef1f4;
+    --stencil: #a7b3c8;
+    --seam: #2f3f62;
+    --line: #f0626a; /* plaque red, lifted for a dark ground */
+    --on-line: #16213a;
+    --staff: #eef1f4; /* the staff stays a light enamel object in both themes */
+    --tick: #16213a;
+    --stain: #5c8dc9;
+    --stain-hi: rgba(238, 241, 244, 0.55);
+    --dots: rgba(238, 241, 244, 0.3);
+    --grain-opacity: 0.1;
+    --bevel: inset 0 1px 0 rgba(238, 241, 244, 0.05);
+    --drop: none;
   }
 }
 
@@ -86,23 +91,64 @@ body {
   font-family: var(--font-body), system-ui, sans-serif;
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+/* Limestone grain on every page ground (charter 13), under everything, never on text colour. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.4 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
 }
 
-/* Stencilled label: what is painted beside a gauge, small caps, spaced. */
+/* A note beside a reading: small, sentence case, muted. Not a tracked caps label. */
 .label {
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--stencil);
+}
+/* The two places a stencilled unit is allowed (charter 6): units on the gauge, column heads. */
+.caps {
   font-family: var(--font-display), sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--stencil);
+}
+/* Titles are set in the body face, bold and tight: the condensed display face is kept for
+   the wordmark and the numbers read off the staff, like the numerals on an enamel gauge. */
+.headline {
+  font-family: var(--font-body), sans-serif;
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+.title {
+  font-family: var(--font-body), sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
 /* Readout: the number read off the staff. Condensed, tabular, large. */
 .readout {
   font-family: var(--font-display), sans-serif;
   font-weight: 800;
-  line-height: 0.9;
+  line-height: 0.92;
   letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
 }
@@ -110,15 +156,17 @@ body {
 .plate {
   background: var(--plate);
   border: 1px solid var(--seam);
+  border-radius: 3px;
   box-shadow: var(--bevel), var(--drop);
 }
 .plate-raised {
   background: var(--plate-raised);
   border: 1px solid var(--seam);
+  border-radius: 3px;
   box-shadow: var(--bevel), var(--drop);
 }
 
-/* Buttons are detented switches: square, a heavier bottom edge, a 1px travel. */
+/* Buttons: cast plates with a 1px edge and a 1px travel. Sentence case. */
 .btn,
 .btn-ghost,
 .btn-danger {
@@ -127,14 +175,11 @@ body {
   gap: 0.5rem;
   min-height: 44px;
   padding: 0 1.1rem;
-  font-family: var(--font-display), sans-serif;
-  font-weight: 700;
+  font-family: var(--font-body), sans-serif;
+  font-weight: 600;
   font-size: 15px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: 2px;
+  border-radius: 3px;
   border: 1px solid var(--ink);
-  border-bottom-width: 3px;
   transition: transform 120ms cubic-bezier(0.2, 0, 0, 1), background-color 120ms;
 }
 .btn {
@@ -144,8 +189,7 @@ body {
 .btn-ghost {
   background: transparent;
   color: var(--ink);
-  border-color: var(--seam);
-  border-bottom-color: var(--stencil);
+  border-color: var(--stencil);
 }
 .btn-ghost:hover {
   background: var(--plate-raised);
@@ -153,14 +197,15 @@ body {
 .btn-danger {
   background: transparent;
   color: var(--ink);
-  border-color: var(--stencil);
-  background-image: repeating-linear-gradient(135deg, var(--hatch) 0 2px, transparent 2px 7px);
+  border-color: var(--line);
+}
+.btn-danger:hover {
+  background: var(--plate-raised);
 }
 .btn:active,
 .btn-ghost:active,
 .btn-danger:active {
   transform: translateY(1px);
-  border-bottom-width: 2px;
 }
 .btn:disabled,
 .btn-ghost:disabled,
@@ -170,27 +215,30 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--line);
   outline-offset: 2px;
 }
 
-/* Hatching: the only way the interface says "not verified". */
-.hatch {
-  background-image: repeating-linear-gradient(135deg, var(--hatch) 0 2px, transparent 2px 7px);
+/* Dot screen: the only way the interface says "not verified". */
+.dots {
+  background-image: radial-gradient(var(--dots) 1.1px, transparent 1.4px);
+  background-size: 6px 6px;
 }
 
-/* Wet indicator spot, as on a humidity indicator card: a ring when dry, filled when wet. */
+/* Status mark: a rivet when dry, the red diamond of the flood board when water is confirmed (charter 10). */
 .spot {
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 999px;
   border: 2px solid var(--stencil);
   flex: none;
 }
 .spot[data-wet="true"] {
-  background: var(--wet);
-  border-color: var(--wet);
+  border-radius: 1px;
+  transform: rotate(45deg) scale(0.9);
+  background: var(--line);
+  border-color: var(--line);
 }
 .spot[data-off="true"] {
   border-style: dashed;
@@ -204,14 +252,43 @@ select.field {
   background: var(--plate-raised);
   border: 1px solid var(--seam);
   border-bottom: 2px solid var(--stencil);
-  border-radius: 2px;
+  border-radius: 3px;
   color: var(--ink);
   font-size: 16px;
 }
 input.field:focus,
 select.field:focus {
   outline: none;
-  border-bottom-color: var(--ink);
+  border-bottom-color: var(--line);
+}
+
+/* The high-water line (charter 9): what happened above, the date below. A plain red rule, like the plaques. */
+.hwl-rule {
+  position: relative;
+  height: 3px;
+  background: var(--line);
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* The line draws across from the left, the way a mark is struck. */
+  .hwl-rule[data-draw="true"] {
+    animation: hwl-draw 520ms cubic-bezier(0.2, 0, 0, 1) 120ms both;
+    transform-origin: left center;
+  }
+}
+@keyframes hwl-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Illustrations are prints on the ground (charter 11): no disc, card or shadow behind. */
+.print {
+  display: block;
+  height: auto;
+  image-rendering: auto;
 }
 
 /* The staff: enamel plate with E-ticks. Always light, in both themes, because it is a painted object on the wall. */
@@ -221,17 +298,20 @@ select.field:focus {
   color: var(--tick);
   border: 1px solid var(--tick);
 }
-.staff-ticks {
-  background-image:
-    linear-gradient(to right, var(--tick) 0 2px, transparent 2px),
-    linear-gradient(to right, var(--tick) 0 1px, transparent 1px);
-  background-size: 10% 100%, 2% 45%;
-  background-repeat: repeat-x, repeat-x;
-  background-position: 0 0, 0 0;
+/* Water on the staff: the stain tone with a few highlights, as water looks on a floor (18). */
+.staff-fill,
+.staff-col-fill {
+  background-color: var(--stain);
 }
 .staff-fill {
-  background: var(--wet);
   transform-origin: left center;
+}
+.staff-col-fill {
+  transform-origin: bottom center;
+}
+/* The level's edge on the staff: the red line, where the water stands now. */
+.staff-level {
+  background: var(--line);
 }
 @media (prefers-reduced-motion: no-preference) {
   /* The signature: the water level climbs in six detented steps. */
@@ -244,20 +324,20 @@ select.field:focus {
 }
 /* The vertical staff on the home page: E-ticks every tenth, a heavy stroke every half. */
 .staff-col-ticks {
-  background-image:
-    repeating-linear-gradient(to top, var(--tick) 0 3px, transparent 3px 50%),
+  background-image: repeating-linear-gradient(to top, var(--tick) 0 3px, transparent 3px 50%),
     repeating-linear-gradient(to top, var(--tick) 0 1px, transparent 1px 10%);
   background-size: 100% 100%, 45% 100%;
   background-repeat: no-repeat;
-}
-.staff-col-fill {
-  background: var(--wet);
-  transform-origin: bottom center;
 }
 @media (prefers-reduced-motion: no-preference) {
   /* The home page's one moment: the water climbs to the stage mark in eight detents. */
   .staff-col-fill {
     animation: stage-rise-v 960ms steps(8, end) 250ms both;
+  }
+  /* The red line is struck at the level once the water has finished climbing. */
+  .staff-col-fill ~ .staff-level,
+  .staff + .staff-level {
+    animation: plate-in 200ms cubic-bezier(0.2, 0, 0, 1) 1210ms both;
   }
   /* A new frame lands on the staff as a notch dropping into place. */
   .notch-in {
@@ -266,6 +346,9 @@ select.field:focus {
   /* While water stands, the fill crawls with the clock. */
   .staff-fill[data-live="true"] {
     transition: width 1s linear;
+  }
+  .staff-level[data-live="true"] {
+    transition: left 1s linear;
   }
 }
 @keyframes stage-rise-v {

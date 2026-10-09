@@ -1,0 +1,25 @@
+{
+  "ai_generated": true,
+  "provider": "local",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "subject": "a small security camera on a wall shelf with its power cable unplugged and hanging down loose, the plug lying on the wooden floor",
+  "references": [],
+  "transparent": true,
+  "lock_palette": "#1b2a47,#f0f1ee,#3d6fa8,#b3162a,#c9d0da,#8fa7c7",
+  "direction_file": ".design/brand/art-direction.md",
+  "prompt": "a small security camera on a wall shelf with its power cable unplugged and hanging down loose, the plug lying on the wooden floor. A flat two-colour enamel sign illustration, like a vintage French flood gauge plate. Deep navy blue line work and shapes on an off-white enamel background. Thick navy outlines with slightly uneven weight, as if cut by hand. Flat opaque colour areas, no gradients. Inks: deep navy blue, off-white enamel, a soft mid blue used only for water, and one thin red line used sparingly. Water is drawn as a soft mid blue patch with a few small white highlights. Light is flat and even, no shadows, no glow. One subject, seen from a slight three-quarter angle, centred, lots of empty background. Simple domestic objects in a basement: a wooden plank floor, a wall, pipes, a water heater. No people. Isolated on a plain flat solid pure green #00FF00 background, nothing else behind it.",
+  "date": "2026-10-09T18:13:23",
+  "runner": "ComfyUI",
+  "mode": "klein-base",
+  "text_encoder": "qwen_3_4b_fp8_mixed.safetensors",
+  "vae": "flux2-vae.safetensors",
+  "seed": 22,
+  "steps": 20,
+  "cfg": 4.0,
+  "negative": "text, letters, numbers, logos, 3D render, glossy plastic, isometric, neon, cyan, purple, red puddle, blood, gradients, photorealism, smart-home glow, robots, light bulbs, brown, sepia., text, letters, numbers, words, caption, logo, watermark, signature, border, frame",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 179.0
+}

@@ -2,8 +2,11 @@
 
 **When a Ring sensor finds water, the camera goes to the water.**
 
-On June 20, 2026 the city sewer backed up into 52 units of my condo, mine included. The
-mitigation company's report said heavy rain, and floated my backyard shed as the cause.
+On June 20, 2026 the city sewer backed up into 52 units of my condo. Mine also came in
+through the foundation, gaps beside the electrical panel and a basement window, one week
+after I had finished rebuilding from my first flood (December 2025, a badly sloped drain
+pipe and a toilet leak). The mitigation company's report said heavy rain, and floated my
+backyard shed as the cause.
 The only reason that didn't stick was two phone videos I took while it was happening,
 because I happened to be home. Next time I won't be.
 

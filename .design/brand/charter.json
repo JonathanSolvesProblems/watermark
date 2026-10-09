@@ -1,0 +1,42 @@
+{
+  "allow_fonts": [],
+  "banned_fonts": [],
+  "banned_words": [
+    "peace of mind",
+    "smart home",
+    "seamless",
+    "AI-powered",
+    "something went wrong"
+  ],
+  "banned_hex": [
+    "#000000",
+    "#241D18",
+    "#B0175C",
+    "#E6DCCD",
+    "#EEE7DC",
+    "#F2669F",
+    "#FFFFFF"
+  ],
+  "allow_hex": [],
+  "title_punctuation": "forbid",
+  "max_tracked_caps_rules": 2,
+  "allow_long_dashes": false,
+  "forbid_regex": [
+    {
+      "pattern": "class=\"[^\"]*eyebrow",
+      "why": "no eyebrow labels above titles"
+    },
+    {
+      "pattern": "lucide|heroicons|phosphor|react-icons",
+      "why": "no icon library, use the brand set"
+    },
+    {
+      "pattern": "class(Name)?=\"[^\"]*\\bhatch\\b",
+      "why": "hatching as an empty state is retired, use the empty print"
+    },
+    {
+      "pattern": "--wet\\b",
+      "why": "the pink wet token is retired: water is a darkening, red is a line"
+    }
+  ]
+}

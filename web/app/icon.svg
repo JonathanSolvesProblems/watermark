@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- The wordmark's t, redrawn for tab size: a staff with the riveted high-water plate as
+       its crossbar, set high and off-centre with the t's hooked foot, so it never reads as a
+       medical cross. Dark tile so it holds on light and dark tab bars. -->
+  <rect width="32" height="32" rx="5" fill="#1B2A47"/>
+  <path d="M9 3h7v19a2 2 0 0 0 2 2h6v5h-8a7 7 0 0 1-7-7z" fill="#F0F1EE"/>
+  <rect x="4" y="8" width="24" height="6.5" fill="#EF5A5F"/>
+  <circle cx="24.5" cy="11.25" r="1.6" fill="#1B2A47"/>
+</svg>

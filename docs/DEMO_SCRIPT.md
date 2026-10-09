@@ -11,9 +11,10 @@ filmed by me and listed at the bottom.
 **0:00 The flood**
 [H1: stills from my two June 20 videos, address blurred]
 
-> On June 20th the city sewer backed up into fifty-two units of my condo, mine included.
-> The mitigation report blamed the rain, and my backyard shed. What stopped that was two
-> phone videos I happened to take. Next time, I might not be home.
+> On June 20th the city sewer backed up into fifty-two units of my condo. Mine came in
+> through the foundation and a basement window too, one week after I'd rebuilt from my
+> first flood. The mitigation report blamed the rain, and my backyard shed. What stopped
+> that was two phone videos I happened to take. Next time, I might not be home.
 
 **0:15 The idea**
 [H2: my real Flood & Freeze sensor going into a tray of water, label on screen:

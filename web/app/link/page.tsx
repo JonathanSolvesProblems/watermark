@@ -49,7 +49,7 @@ function LinkInner() {
             <span className="spot" aria-hidden="true" />
             <p className="label">Account linked</p>
           </div>
-          <h1 className="readout uppercase text-[48px] sm:text-[64px] mt-2">Ring is connected</h1>
+          <h1 className="headline text-[36px] sm:text-[48px] mt-2">Ring is connected</h1>
           <p className="mt-3 text-stencil">
             Ring has emailed you a confirmation naming this account. Watermark can now see these devices:
           </p>
@@ -65,7 +65,7 @@ function LinkInner() {
             </li>
           ))}
           {devices.length === 0 && (
-            <li className="px-4 py-3 hatch">
+            <li className="px-4 py-3">
               No devices yet. Ring can take a minute to share them; this list refreshes when you open the dashboard.
             </li>
           )}
@@ -86,10 +86,11 @@ function LinkInner() {
   }
 
   return (
+    <div>
     <div className="max-w-lg grid gap-6">
       <div>
         <p className="label">From the Ring app · step 2 of 2</p>
-        <h1 className="readout uppercase text-[48px] sm:text-[60px] mt-2">Create your Watermark account</h1>
+        <h1 className="headline text-[36px] sm:text-[46px] mt-2">Create your Watermark account</h1>
         <p className="mt-3 text-stencil">
           This is separate from your Ring account. One field: your email becomes your account, with no password to
           remember. Ring shows this address when it confirms the link.
@@ -114,12 +115,13 @@ function LinkInner() {
           </p>
         )}
         {err && (
-          <p className="hatch px-3 py-2" role="alert">
+          <p className="border border-dashed border-stencil rounded-[3px] px-3 py-2" role="alert">
             {err}
           </p>
         )}
         <button className="btn justify-center" disabled={busy}>{busy ? "Linking…" : "Create account and link Ring"}</button>
       </form>
+    </div>
     </div>
   );
 }

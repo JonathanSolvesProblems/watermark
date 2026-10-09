@@ -31,6 +31,6 @@ export default function Counter({ value, decimals = 0, steps = 10, ms = 600 }: {
     return () => clearInterval(t);
   }, [value, steps, ms]);
 
-  if (value == null) return <>–</>;
+  if (value == null) return <span className="text-stencil">none</span>;
   return <>{(shown ?? 0).toFixed(decimals)}</>;
 }

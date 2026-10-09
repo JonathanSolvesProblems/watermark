@@ -101,20 +101,54 @@ def make_captioner(settings) -> Captioner | None:
     return None
 
 
+def _n(count: int, noun: str) -> str:
+    return f"{count} {noun}{'' if count == 1 else 's'}"
+
+
+def _span(ms: int) -> str:
+    s = max(0, round(ms / 1000))
+    if s < 90:
+        return _n(s, "second")
+    m = round(s / 60)
+    return _n(m, "minute") if m < 90 else f"{m // 60} h {m % 60:02d} min"
+
+
 def narrative(incident: dict, frames: list[dict], readings: list[dict], integrity: dict, settings) -> str:
     """A short plain-language narrative for the pack. Bedrock when configured,
     otherwise a deterministic template built from the same data."""
     opened = incident.get("opened_at_ms")
     closed = incident.get("closed_at_ms")
-    dur = f"{(closed - opened) / 60000:.0f} minutes" if opened and closed else "an open incident"
-    n_water = sum(1 for f in frames if f.get("water_visible"))
+    room = incident.get("room") or "an unnamed room"
+    what = "Water reached" if incident.get("kind") == "flood" else "Freezing reached"
+    stood = f" and stood for {_span(closed - opened)}" if opened is not None and closed is not None else ", and it is still there"
+    words = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five"}
+    captioned = [f for f in frames if f.get("water_visible") is not None]
+    n_water = sum(1 for f in captioned if f.get("water_visible"))
+    first = min((f["media_ms"] for f in frames if f.get("media_ms")), default=None)
+    if not frames:
+        seen = "No frame came from a Ring camera."
+    else:
+        seen = f"The Ring camera sent {_n(len(frames), 'frame')}"
+        seen += f", the first {max(0, first - opened) / 1000:.1f} s after the sensor." if first is not None and opened is not None else "."
+        nc = len(captioned)
+        if nc:
+            which = ("both frames it described" if nc == 2 and n_water == 2 else
+                     f"all {nc} frames it described" if n_water == nc else f"{n_water} of the {nc} frames it described")
+            seen += f" The captions saw water in {which}." if n_water else " The captions saw no water."
+        else:
+            seen += " None of them is captioned."
+    gaps, flags = len(integrity.get("gaps", [])), len(integrity.get("flags", []))
+    count = lambda n, noun: f"{words.get(n, n)} {noun}{'' if n == 1 else 's'}".capitalize()
+    if gaps or flags:
+        parts = [count(gaps, "gap")] if gaps else []
+        parts += [("one note" if flags == 1 else f"{words.get(flags, flags)} notes")] if flags else []
+        vouch = f"{' and '.join(parts)[0].upper()}{' and '.join(parts)[1:]} {'is' if gaps + flags == 1 else 'are'} listed below."
+    else:
+        vouch = "Nothing is missing from the record."
+    rooms = f" {count(len(readings), 'room reading')} {'was' if len(readings) == 1 else 'were'} logged." if readings else ""
     template = (
-        f"A Ring {incident.get('kind', 'flood')} sensor in the {incident.get('room') or 'unnamed room'} reported "
-        f"{'water' if incident.get('kind') == 'flood' else 'a freeze condition'} and the incident lasted {dur}. "
-        f"{len(frames)} frames were captured from a Ring camera; a vision model judged water visible in {n_water} of them. "
-        f"{len(readings)} environmental readings were logged. "
-        f"The integrity section lists {len(integrity.get('gaps', []))} gap(s) and {len(integrity.get('flags', []))} flag(s). "
-        "This narrative describes captured evidence only and makes no claim about the cause."
+        f"{what} the sensor in {room}{stood}. {seen}{rooms} {vouch} "
+        "This describes what was recorded, not what caused it."
     )
     if settings.captions_backend != "bedrock":
         return template

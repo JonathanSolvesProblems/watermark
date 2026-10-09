@@ -49,3 +49,11 @@ Thumbs.db
 .next-preview/
 .next-check/
 demo/broll/
+
+# design working files: critique screenshots and raw generator output
+.design/shots/
+.design/brand/art/*.raw.png
+
+.design/brand/art/*.png
+.design/brand/art/*.webp
+

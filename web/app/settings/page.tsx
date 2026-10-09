@@ -33,17 +33,16 @@ export default function Settings() {
   return (
     <div className="grid grid-cols-1 gap-12 max-w-3xl min-w-0">
       <section>
-        <p className="label">Settings</p>
-        <h1 className="readout uppercase text-[48px] sm:text-[64px] mt-2">Account</h1>
+        <h1 className="headline text-[32px] sm:text-[40px]">Account</h1>
         <dl className="mt-4 plate grid grid-cols-[minmax(0,110px)_minmax(0,1fr)] sm:grid-cols-[150px_minmax(0,1fr)]">
-          <Row k="Email" v={acct?.email || "–"} />
+          <Row k="Email" v={acct?.email || "Not set"} />
           <Row k="Ring link" v={linkLabel(acct)} />
           <Row k="Subscription" v="Managed in the Ring app under My Apps. Watermark cannot change it here." />
         </dl>
       </section>
 
       <section aria-labelledby="notify-h">
-        <h2 id="notify-h" className="label border-b border-seam pb-2 mb-3">Notifications</h2>
+        <h2 id="notify-h" className="title border-b border-seam pb-2 mb-3">Notifications</h2>
         <div className="grid gap-1">
           {([
             ["chime", "Play the Ring Chime when water is detected"],
@@ -58,8 +57,8 @@ export default function Settings() {
         </div>
       </section>
 
-      <section aria-labelledby="delete-h" className="plate hatch p-5">
-        <h2 id="delete-h" className="font-display text-[26px] font-bold uppercase">Delete everything</h2>
+      <section aria-labelledby="delete-h" className="plate p-5 border-l-[3px] border-l-line">
+        <h2 id="delete-h" className="title text-[26px]">Delete everything</h2>
         <p className="mt-2 text-[15px]">
           Removes every incident, frame, reading, log and pack Watermark holds for this Ring account, including stored
           copies and anything sent to the caption model. Ring keeps its own recordings; to stop Watermark seeing your
@@ -85,7 +84,7 @@ function Row({ k, v }: { k: string; v: string }) {
 }
 
 function linkLabel(acct: Account | null): string {
-  if (!acct) return "–";
+  if (!acct) return "Not set";
   if (acct.mode === "playground") return "Ring Developer Playground (no account link needed)";
   if (acct.mode === "mock") return "Mock account";
   return acct.link_status === "completed" ? "Linked" : acct.link_status || "Not linked";

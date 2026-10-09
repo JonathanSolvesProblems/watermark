@@ -139,7 +139,8 @@ export const api = {
 
 export function fmtTime(ms: number | null | undefined): string {
   if (!ms) return "";
-  return new Date(ms).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  // Same hour style as fmtDate ("3:07 PM"), plus seconds, which evidence times need.
+  return new Date(ms).toLocaleTimeString([], { hour: "numeric", minute: "2-digit", second: "2-digit" });
 }
 
 export function fmtDate(ms: number | null | undefined): string {

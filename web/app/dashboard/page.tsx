@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import GaugeLink from "@/components/GaugeLink";
+import Print from "@/components/Print";
 import { api, fmtDate, fmtDuration, type Account, type Device, type Incident } from "@/lib/api";
 
 const SENSOR_KINDS = ["flood_freeze", "contact", "temperature_humidity", "air_quality"];
@@ -64,32 +65,28 @@ export default function Dashboard() {
 
   return (
     <div className="grid gap-12">
-      <section className="flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <div className="flex items-center gap-3">
-            <span className="spot" data-wet={open.length > 0} aria-hidden="true" />
-            <p className="label">{open.length ? "Water standing" : "All sensors dry"}</p>
-          </div>
-          <h1 className="readout uppercase text-[56px] sm:text-[80px] mt-2">
-            {open.length ? `${open.length} open incident${open.length > 1 ? "s" : ""}` : "Dry"}
-          </h1>
-          <p className="mt-2 text-stencil">{modeLine(acct)}</p>
+      {/* Test controls exist only without a real sensor, so they sit in a quiet bar, not the hero. */}
+      {canSimulate && (
+        <div className="-mt-4 flex flex-wrap items-center gap-x-4 border-b border-dashed border-seam pb-2 text-[14px] text-stencil">
+          <span>Test without water:</span>
+          <button className="underline underline-offset-4 min-h-[44px] hover:text-ink disabled:opacity-55" disabled={!!busy} onClick={() => run("wet", () => api.trigger("detected"))}>
+            {busy === "wet" ? "Sending…" : "Simulate sensor wet"}
+          </button>
+          <button className="underline underline-offset-4 min-h-[44px] hover:text-ink disabled:opacity-55" disabled={!!busy} onClick={() => run("dry", () => api.trigger("cleared"))}>
+            {busy === "dry" ? "Sending…" : "Simulate sensor dry"}
+          </button>
         </div>
-        {canSimulate && (
-          <div className="flex flex-wrap gap-2">
-            <button className="btn" disabled={!!busy} onClick={() => run("wet", () => api.trigger("detected"))}>
-              {busy === "wet" ? "Sending…" : "Simulate sensor wet"}
-            </button>
-            <button className="btn-ghost" disabled={!!busy} onClick={() => run("dry", () => api.trigger("cleared"))}>
-              {busy === "dry" ? "Sending…" : "Simulate sensor dry"}
-            </button>
-          </div>
-        )}
+      )}
+      <section>
+        <h1 className="headline text-[42px] sm:text-[56px]">
+          {open.length ? `${open.length} open incident${open.length > 1 ? "s" : ""}` : "Dry"}
+        </h1>
+        <p className="mt-2 text-stencil">{modeLine(acct)}</p>
       </section>
 
       {acct?.mode === "playground" && (
-        <p className="plate hatch px-4 py-3 text-[15px]">
-          <span className="label text-ink mr-2">Playground</span>
+        <p className="plate border border-dashed border-stencil px-4 py-3 text-[15px]">
+          <strong className="font-semibold mr-2">Playground.</strong>
           The camera is Ring&apos;s Developer Playground doorbell, reached through the real Ring API. Ring offers no
           sensors there, so the flood sensor is simulated, and every pack says so.
         </p>
@@ -97,7 +94,7 @@ export default function Dashboard() {
 
       {err && (
         <p className="plate px-4 py-3">
-          <span className="label mr-2">Server not answering</span>
+          <strong className="font-semibold mr-2">Server not answering.</strong>
           {err.includes("Failed to fetch") ? "Start Watermark's server, then this page reconnects by itself." : err}
         </p>
       )}
@@ -105,8 +102,8 @@ export default function Dashboard() {
       {tourOpen && <Tour onClose={closeTour} />}
 
       {unrouted.length > 0 && (
-        <section className="plate hatch p-4">
-          <p className="label text-ink">Setup needed</p>
+        <section className="plate p-4 border-l-[3px] border-l-line">
+          <p className="title text-[20px]">Setup needed</p>
           <p className="mt-1">
             <strong>{unrouted.map((s) => s.name).join(", ")}</strong> {unrouted.length > 1 ? "have" : "has"} no camera and no
             rover route. If water reaches {unrouted.length > 1 ? "them" : "it"}, the pack will have the sensor&apos;s times
@@ -116,32 +113,26 @@ export default function Dashboard() {
       )}
 
       <section aria-labelledby="stations-h">
-        <h2 id="stations-h" className="label border-b border-seam pb-2 mb-4">Sensors</h2>
+        <h2 id="stations-h" className="title border-b border-seam pb-2 mb-4">Sensors</h2>
         {sensors.length === 0 ? (
-          <Empty title="No sensors shared yet" body="Share a Flood & Freeze sensor with Watermark from the Ring app, then come back. Watermark only sees the devices you choose." />
+          <Empty print="setup" title="No sensors shared yet" body="Share a Flood & Freeze sensor with Watermark from the Ring app, then come back. Watermark only sees the devices you choose." />
         ) : (
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul>
+            {/* One unboxed row per sensor: name, room, state, the camera that answers it. */}
             {sensors.map((s) => {
               const wet = open.some((i) => i.sensor_device_id === s.device_id);
               const cam = cameras.find((c) => c.device_id === s.covered_by);
               return (
-                <li key={s.device_id} className="plate p-4 grid gap-3">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="font-display text-[22px] font-bold uppercase leading-tight">{s.name}</p>
-                      <p className="text-stencil text-[14px]">{s.room || "Room not set"}</p>
-                    </div>
-                    <span className="spot mt-1" data-wet={wet} data-off={!s.online} aria-hidden="true" />
-                  </div>
-                  <div className="staff h-4" aria-hidden="true">
-                    {wet && <div className="staff-fill absolute inset-0" data-rise="true" />}
-                  </div>
-                  <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[14px]">
-                    <dt className="text-stencil">State</dt>
-                    <dd>{!s.online ? "Offline" : wet ? "Wet" : "Dry"}</dd>
-                    <dt className="text-stencil">Camera</dt>
-                    <dd>{cam ? cam.name : s.route_id ? "Rover, by route" : "None"}</dd>
-                  </dl>
+                <li key={s.device_id} className="grid grid-cols-[16px_1fr_auto] sm:grid-cols-[16px_1.2fr_1fr_1fr] gap-x-4 gap-y-1 items-baseline py-3 border-b border-seam">
+                  <span className="spot translate-y-[2px]" data-wet={wet} data-off={!s.online} aria-hidden="true" />
+                  <span>
+                    <span className="title text-[20px]">{s.name}</span>
+                    <span className="block text-stencil text-[14px]">{s.room || "Room not set"}</span>
+                  </span>
+                  <span className={wet ? "font-semibold" : ""}>{!s.online ? "Offline" : wet ? "Wet now" : "Dry"}</span>
+                  <span className="col-start-2 sm:col-start-auto text-stencil text-[14px]">
+                    {cam ? `Watched by ${cam.name}` : s.route_id ? "The rover goes by route" : "No camera yet"}
+                  </span>
                 </li>
               );
             })}
@@ -151,35 +142,41 @@ export default function Dashboard() {
 
       <section aria-labelledby="incidents-h">
         <div className="flex items-baseline justify-between border-b border-seam pb-2 mb-4">
-          <h2 id="incidents-h" className="label">Incidents</h2>
+          <h2 id="incidents-h" className="title">Incidents</h2>
           <span className="text-[13px] text-stencil">{incidents.length} total</span>
         </div>
         {incidents.length === 0 ? (
-          <Empty title="Nothing recorded" body="The first time a sensor reports water, an incident opens here and the camera starts recording." />
+          <Empty print="empty" title="No marks yet. The sensor is dry" body="The first time a sensor reports water, a mark goes on this board and the camera starts recording." />
         ) : (
-          <ul className="grid gap-3">
+          <ol className="relative grid gap-4 pl-10">
+            {/* The flood board (charter 10): a staff down the left, each incident a diamond at
+                its place with a tag pointing at it, newest on top. */}
+            <span className="absolute left-0 top-0 bottom-0 w-5" aria-hidden="true">
+              <span className="staff block h-full">
+                <span className="staff-col-ticks absolute inset-0" />
+              </span>
+            </span>
             {incidents.map((i) => (
-              <li key={i.id} className="plate plate-in">
-                <GaugeLink href={`/incident?id=${i.id}`} view={`staff-${i.id}`} className="grid grid-cols-[96px_1fr] sm:grid-cols-[160px_1fr_auto] gap-4 p-3 items-center">
-                  <div className="aspect-video bg-concrete overflow-hidden relative">
+              <li key={i.id} className="relative plate-in">
+                <span
+                  className={`absolute -left-[31px] top-7 w-3 h-3 rotate-45 ${i.status === "open" || i.frame_count ? "bg-line" : "bg-stencil"}`}
+                  aria-hidden="true"
+                />
+                <span className="absolute -left-[22px] top-[33px] w-[22px] h-px bg-seam" aria-hidden="true" />
+                <GaugeLink href={`/incident?id=${i.id}`} view={`staff-${i.id}`} className="plate grid grid-cols-[96px_1fr] sm:grid-cols-[160px_1fr_auto] gap-4 p-3 items-center hover:bg-raised transition-colors">
+                  <div className="aspect-video bg-concrete overflow-hidden relative rounded-[2px]">
                     {i.first_frame_id ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={api.frameUrl(i.first_frame_id)} alt="" className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full hatch" aria-hidden="true" />
+                      <div className="w-full h-full dots" aria-hidden="true" />
                     )}
                   </div>
                   <div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="spot" data-wet={i.status === "open"} aria-hidden="true" />
-                      <span className="label">{i.status === "open" ? "Open" : "Closed"}</span>
-                      {i.notes?.controlled_test && <span className="label">· Controlled test</span>}
-                    </div>
-                    <p className="font-display text-[24px] font-bold uppercase leading-tight mt-1">
-                      {i.kind === "flood" ? "Water" : "Freeze"} in {i.room}
-                    </p>
-                    <p className="text-[14px] text-stencil">
-                      {fmtDate(i.opened_at_ms)} · stood {fmtDuration(i.opened_at_ms, i.closed_at_ms)} · {i.frame_count} frames
+                    <p className="title text-[22px]">{i.room}</p>
+                    <p className="text-[14px] text-stencil mt-1">
+                      {i.status === "open" ? "Water standing now" : `${i.kind === "flood" ? "Water" : "Freezing"} on ${fmtDate(i.opened_at_ms)}`} · stood {fmtDuration(i.opened_at_ms, i.closed_at_ms)} · {i.frame_count} frames
+                      {i.notes?.controlled_test && " · Controlled test. Real device."}
                     </p>
                     {/* The incident's gauge in miniature; on click it grows into the incident page's staff. */}
                     <div className="staff h-2 mt-2 overflow-hidden" style={{ viewTransitionName: `staff-${i.id}` }} aria-hidden="true">
@@ -199,7 +196,7 @@ export default function Dashboard() {
                 </GaugeLink>
               </li>
             ))}
-          </ul>
+          </ol>
         )}
       </section>
 
@@ -220,19 +217,13 @@ function modeLine(acct: Account | null): string {
 
 function Tour({ onClose }: { onClose: () => void }) {
   return (
-    <section className="plate p-5 grid gap-4" aria-labelledby="tour-h">
-      <div className="flex items-start justify-between gap-4">
-        <h2 id="tour-h" className="font-display text-[26px] font-bold uppercase leading-none">How Watermark works</h2>
-        <button className="btn-ghost" onClick={onClose}>Skip</button>
-      </div>
-      <ol className="grid gap-4 md:grid-cols-3 text-[15px]">
-        <li><span className="label block">1 · Tell it the room</span>In Setup, say which room each sensor is in and which camera sees it.</li>
-        <li><span className="label block">2 · Leave it</span>When a sensor reports water, the chime sounds and the camera records until the sensor is dry.</li>
-        <li><span className="label block">3 · Hand over the pack</span>Each incident becomes one evidence pack for your insurer, gaps included.</li>
+    <section className="flex flex-wrap items-center gap-x-6 gap-y-3 border-y border-seam py-4" aria-label="How Watermark works">
+      <ol className="flex flex-wrap gap-x-6 gap-y-1 text-[15px]">
+        <li><strong className="font-semibold">1.</strong> Say which room each sensor is in, in <Link href="/setup" className="underline">Setup</Link>.</li>
+        <li><strong className="font-semibold">2.</strong> Leave it. When water comes, the camera records until the sensor is dry.</li>
+        <li><strong className="font-semibold">3.</strong> Send the pack to your insurer.</li>
       </ol>
-      <p className="text-[14px] text-stencil">
-        Motion zones, device names and Smart Alerts are set in the Ring app, not here.
-      </p>
+      <button className="ml-auto text-[15px] underline underline-offset-4 min-h-[44px]" onClick={onClose}>Got it</button>
     </section>
   );
 }
@@ -240,7 +231,7 @@ function Tour({ onClose }: { onClose: () => void }) {
 function DeviceList({ title, devices, empty }: { title: string; devices: Device[]; empty: string }) {
   return (
     <div>
-      <h2 className="label border-b border-seam pb-2 mb-2">{title}</h2>
+      <h2 className="title border-b border-seam pb-2 mb-2">{title}</h2>
       {devices.length === 0 ? (
         <p className="text-stencil text-[15px]">{empty}</p>
       ) : (
@@ -263,11 +254,14 @@ function DeviceList({ title, devices, empty }: { title: string; devices: Device[
   );
 }
 
-function Empty({ title, body }: { title: string; body: string }) {
+function Empty({ title, body, print }: { title: string; body: string; print: "empty" | "setup" }) {
   return (
-    <div className="plate hatch p-6">
-      <p className="font-display text-[22px] font-bold uppercase">{title}</p>
-      <p className="mt-1 text-stencil max-w-2xl">{body}</p>
+    <div className="grid sm:grid-cols-[160px_1fr] gap-6 items-center">
+      <Print name={print} width={160} className="w-[120px] sm:w-[160px]" decorative />
+      <div>
+        <p className="title text-[22px]">{title}</p>
+        <p className="mt-1 text-stencil max-w-2xl">{body}</p>
+      </div>
     </div>
   );
 }

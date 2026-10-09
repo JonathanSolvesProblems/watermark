@@ -76,7 +76,7 @@ class PackBuilder:
             chime = []
         integ = integrity.compute(inc, frames, health, captures, events, rover_log, self.settings)
         pack: dict[str, Any] = {
-            "generated_at": time.strftime("%Y-%m-%d %H:%M:%S %Z"),
+            "generated_at": time.strftime("%Y-%m-%d %H:%M %z"),
             "incident": inc, "notes": notes, "chime": chime, "sensor": sensor, "camera": camera,
             "frames": frames, "readings": readings, "health": health, "captures": captures,
             "rover_log": rover_log, "events": events, "prior_incident_count": len(prior),
@@ -166,8 +166,9 @@ def build_timeline(inc, events, frames, captures, rover_log, health, chime) -> l
 
 def staff_svg(pack: dict[str, Any], width: int = 860) -> str:
     """The flood staff gauge, same as the app's: an enamel staff with E-ticks, the time
-    water stood as the one pink fill, frames as notches (pink where a caption saw water),
-    unverified spans hatched. Drawn as SVG so it survives printing and PDF export."""
+    water stood as an enamel-blue fill with the red line at its
+    level, frames as notches (red where a caption saw water), unverified spans as a dot
+    screen. Drawn as SVG so it survives printing and PDF export."""
     inc = pack["incident"]
     start = inc.get("opened_at_ms")
     if not start:
@@ -185,29 +186,43 @@ def staff_svg(pack: dict[str, Any], width: int = 860) -> str:
                  if axis / (s * 1000) <= 8), 43_200_000)
     parts = [f'<svg viewBox="0 0 {width} {top + h + 26}" width="100%" role="img" '
              f'aria-label="Water stood {_elapsed(span)}">',
-             '<defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" '
-             'patternTransform="rotate(45)"><rect width="2" height="7" fill="#141816" fill-opacity=".55"/></pattern></defs>']
+             '<defs><pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse">'
+             '<circle cx="3" cy="3" r="1.1" fill="#1b2a47" fill-opacity=".6"/></pattern>'
+             '<pattern id="stain" width="67" height="41" patternUnits="userSpaceOnUse">'
+             '<rect width="67" height="41" style="fill:var(--stain)"/></pattern></defs>']
     for f in pack.get("frames", []):
         if f.get("media_ms"):
-            colour = "var(--wet)" if f.get("water_visible") == 1 else "var(--ink)"
+            colour = "var(--line)" if f.get("water_visible") == 1 else "var(--ink)"
             parts.append(f'<rect x="{x(f["media_ms"]) - 1:.1f}" y="4" width="2.5" height="14" style="fill:{colour}"/>')
-    parts.append(f'<rect x="{left}" y="{top}" width="{w}" height="{h}" fill="#f7f7f2" stroke="#141816"/>')
-    parts.append(f'<rect x="{left}" y="{top}" width="{x(end) - left:.1f}" height="{h}" style="fill:var(--wet)"/>')
+    parts.append(f'<rect x="{left}" y="{top}" width="{w}" height="{h}" fill="#f8f9f7" stroke="#1b2a47"/>')
+    parts.append(f'<rect x="{left}" y="{top}" width="{x(end) - left:.1f}" height="{h}" fill="url(#stain)"/>')
     for g in pack.get("integrity", {}).get("gaps", []):
         gx = x(g["start_ms"])
         parts.append(f'<rect x="{gx:.1f}" y="{top}" width="{max(2.0, x(g.get("end_ms") or end) - gx):.1f}" '
-                     f'height="{h}" fill="url(#hatch)" stroke="#141816"/>')
+                     f'height="{h}" fill="url(#dots)" stroke="#1b2a47"/>')
     minor = step / 5
     i = 1
     while i * minor < axis:
         tx = x(start + i * minor)
         major = i % 5 == 0
         parts.append(f'<rect x="{tx - (1.5 if major else 0.5):.1f}" y="{top}" width="{3 if major else 1}" '
-                     f'height="{h if major else h * 0.42:.1f}" fill="#141816"/>')
+                     f'height="{h if major else h * 0.42:.1f}" fill="#1b2a47"/>')
         if major:
             parts.append(f'<text x="{tx:.1f}" y="{top + h + 18}" font-size="12" text-anchor="middle" '
                          f'class="tick">{_elapsed(i * minor)}</text>')
         i += 1
+    # The E-band along the staff's foot, same as the app: alternating blocks at every other
+    # minor division (Béhuard's E-marks, Buffumville's checkered scale).
+    band = 10
+    parts.append(f'<rect x="{left}" y="{top + h - band}" width="{w}" height="{band}" fill="#f8f9f7" stroke="#1b2a47"/>')
+    i = 0
+    while i * minor < axis:
+        bx = x(start + i * minor)
+        parts.append(f'<rect x="{bx:.1f}" y="{top + h - band}" width="{max(0.0, x(start + min((i + 1) * minor, axis)) - bx):.1f}" '
+                     f'height="{band}" fill="#1b2a47"/>')
+        i += 2
+    # The level: the red line where the water stood last, drawn over the ticks.
+    parts.append(f'<rect x="{x(end) - 1.5:.1f}" y="{top - 4}" width="3" height="{h + 8}" style="fill:var(--line)"/>')
     parts.append(f'<text x="{left}" y="{top + h + 18}" font-size="12" class="tick">0s</text></svg>')
     return "".join(parts)
 

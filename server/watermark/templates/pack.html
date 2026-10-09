@@ -6,84 +6,90 @@
 <title>Watermark evidence pack {{ pack.incident.id }}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,700;10..72,800&family=Commissioner:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,800&family=Commissioner:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <style>
-  /* Watermark design code (see .design/manifest.json). The pack is the record an
-     adjuster reads, usually printed, so its home is light: limewashed concrete and
-     enamel. One hue, the indicator pink, marks confirmed water and nothing else;
-     anything the record cannot vouch for is hatched, never coloured. */
+  /* Watermark design code (laws in .design/brand/CHARTER.md). The pack is the record an
+     adjuster reads, usually printed, so its home is light: enamel white and navy. It is
+     laid out as a high-water plaque: what happened above a red line, when below it. Red
+     is a line, never an area; water is enamel blue; unverified spans are a dot screen. */
   :root {
     color-scheme: light;
-    --concrete: #e3e6df; --plate: #f3f4ef; --raised: #ffffff; --ink: #151917; --stencil: #4e5852;
-    --seam: #c3c9c0; --wet: #b0175c; --staff: #f7f7f2; --tick: #141816;
-    --hatch: repeating-linear-gradient(135deg, rgba(21,25,23,.16) 0 2px, transparent 2px 7px);
+    --concrete: #f0f1ee; --plate: #e3e7ec; --raised: #f8f9f7; --ink: #1b2a47; --stencil: #4d5b74;
+    --seam: #c9d0da; --line: #b3162a; --stain: #3d6fa8; --staff: #f8f9f7; --tick: #1b2a47;
+    --dots: radial-gradient(rgba(27,42,71,.3) 1.1px, transparent 1.4px);
     --display: "Big Shoulders", "Arial Narrow", "Roboto Condensed", sans-serif;
-    --body: "Commissioner", "Segoe UI", system-ui, sans-serif;
+    --body: "Source Serif 4", Georgia, serif; /* a document an adjuster reads, like the engraved serif on the King's Lynn plaque (NOTES 1) */
+    --ui: "Commissioner", "Segoe UI", system-ui, sans-serif;
   }
   @media screen and (prefers-color-scheme: dark) {
     :root {
       color-scheme: dark;
-      --concrete: #1a1f1c; --plate: #242a26; --raised: #2e3530; --ink: #e8ebe4; --stencil: #a3ada6;
-      --seam: #3a433d; --wet: #f2669f;
-      --hatch: repeating-linear-gradient(135deg, rgba(232,235,228,.16) 0 2px, transparent 2px 7px);
+      --concrete: #16213a; --plate: #1d2a47; --raised: #253456; --ink: #eef1f4; --stencil: #a7b3c8;
+      --seam: #2f3f62; --line: #f0626a; --stain: #5c8dc9;
+      --dots: radial-gradient(rgba(238,241,244,.3) 1.1px, transparent 1.4px);
     }
   }
   * { box-sizing: border-box; }
   body { margin: 0; padding: 40px 24px; background: var(--concrete); color: var(--ink);
-         font: 15px/1.55 var(--body); font-variant-numeric: tabular-nums; }
-  .wrap { max-width: 920px; margin: 0 auto; }
-  .label { font: 700 12px/1.2 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--stencil); }
-  .readout { font-family: var(--display); font-weight: 800; line-height: .92; text-transform: uppercase; }
-  h1.readout { font-size: 54px; margin: 8px 0 6px; }
-  h2 { font: 700 13px/1.2 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--stencil);
-       margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--seam); }
+         font: 17px/1.6 var(--body); font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 680px; margin: 0 auto; }
+  .label { font-size: 13px; line-height: 1.3; color: var(--stencil); }
+  .readout { font-family: var(--display); font-weight: 800; line-height: .92; }
+  h1.readout { font: 700 40px/1.05 var(--ui); letter-spacing: -0.02em; margin: 0; }
+  h2 { font: 700 20px/1.2 var(--ui); margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--seam); }
+  .plaque { width: fit-content; max-width: 100%; }
+  .plaque .under { color: var(--stencil); }
+  .rule { position: relative; height: 3px; background: var(--line); margin: 10px 0; }
+  .brand { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 26px; font: 13px var(--ui); color: var(--stencil); }
+  .brand b { font: 800 22px var(--display); color: var(--ink); }
+  .brand b i { font-style: normal; color: var(--line); }
   .muted { color: var(--stencil); }
-  .plate { background: var(--plate); border: 1px solid var(--seam); box-shadow: 0 1px 0 #b8beb5; }
-  .hatch { background-image: var(--hatch); }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-  .tag { font: 700 12px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; padding: 8px 10px;
+  .plate { background: var(--plate); border: 1px solid var(--seam); border-radius: 3px; }
+  .dots { background-image: var(--dots); background-size: 6px 6px; }
+  .status-line { margin: 14px 0 0; font-weight: 600; }
+  .tag { font: 600 13px/1 var(--body); padding: 8px 10px; border-radius: 3px;
          border: 1px solid var(--seam); background: var(--plate); }
-  .head { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
+  .head { display: block; }
   .first .n { font-size: 112px; }
   .first .n small { font-size: 44px; color: var(--stencil); margin-left: 4px; }
-  .readings { display: flex; gap: 28px; flex-wrap: wrap; }
+  .summary { max-width: 60ch; font-size: 16px; margin: 12px 0 0; }
   .reading { border-left: 2px solid var(--seam); padding-left: 10px; }
   .reading .n { font-size: 38px; }
   .reading .l { font-size: 12px; color: var(--stencil); max-width: 13ch; line-height: 1.25; margin-top: 4px; }
   .staff svg { display: block; margin-top: 18px; }
-  .staff .tick { font: 700 12px var(--display); fill: var(--stencil); letter-spacing: .04em; }
+  .staff .tick { font: 700 12px var(--display); fill: var(--stencil); }
   table { width: 100%; border-collapse: collapse; }
   td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--seam); vertical-align: top; }
   td.t { font: 700 15px var(--display); white-space: nowrap; width: 1%; }
-  td.s { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--stencil); white-space: nowrap; width: 1%; }
-  .frames { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  td.s { font-size: 13px; color: var(--stencil); white-space: nowrap; width: 1%; }
+  .frames { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .frame { background: var(--plate); border: 1px solid var(--seam); }
   .frame .img { position: relative; }
   .frame img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
   .frame .stamp { position: absolute; left: 0; bottom: 0; background: var(--staff); color: var(--tick);
-                  font: 800 15px var(--display); padding: 2px 7px; letter-spacing: .03em; }
+                  font: 800 15px var(--display); padding: 2px 7px; }
   .frame .meta { padding: 9px 11px; font-size: 13px; }
   .spot { display: inline-block; width: 11px; height: 11px; border-radius: 99px; border: 2px solid var(--stencil);
           vertical-align: -1px; margin-right: 6px; }
-  .spot.wet { background: var(--wet); border-color: var(--wet); }
+  .spot.wet { border-radius: 1px; transform: rotate(45deg) scale(.85); background: var(--line); border-color: var(--line); }
   .gap { display: grid; grid-template-columns: 12px 1fr; margin: 8px 0; }
   .gap .bar { border-right: 1px solid var(--seam); }
   .gap .body, .flag { padding: 9px 12px; }
   .flag { margin: 8px 0; }
   .q { display: grid; grid-template-columns: 140px 1fr 1.1fr; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--seam); }
-  .status { font: 700 12px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; padding: 6px 8px;
+  .status { font: 600 13px/1 var(--body); padding: 6px 8px; border-radius: 3px;
             align-self: start; width: fit-content; }
   .status.answered { background: var(--ink); color: var(--concrete); }
   .status.partial { border: 1px solid var(--seam); background: var(--plate); }
-  .status.unanswered { background-image: var(--hatch); color: var(--stencil); }
+  .status.unanswered { border: 1px dashed var(--stencil); color: var(--stencil); }
   .aftermath td, .aftermath th { font-size: 13px; text-align: left; }
-  .aftermath th { font: 700 11px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--stencil);
+  .aftermath th { font: 600 13px var(--body); color: var(--stencil);
                   padding: 6px 10px 6px 0; border-bottom: 1px solid var(--seam); }
   footer { margin-top: 44px; padding-top: 14px; border-top: 1px solid var(--seam); font-size: 13px; color: var(--stencil); }
-  @media (max-width: 700px) { .head { grid-template-columns: 1fr; } .frames { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 700px) { .head { grid-template-columns: 1fr; } .summary { text-align: left; } .frames { grid-template-columns: 1fr 1fr; }
     .q { grid-template-columns: 1fr; gap: 4px; } h1.readout { font-size: 40px; } .first .n { font-size: 84px; } }
   @media print {
-    body { padding: 0; background: #fff; }
+    body { padding: 0; background: #f8f9f7; }
     .frames { grid-template-columns: repeat(2, 1fr); }
     .frame, .gap, .flag, .q, tr { break-inside: avoid; }
     h2 { break-after: avoid; }
@@ -93,30 +99,27 @@
 <body><div class="wrap">
 
 <header>
-  <div class="label">Watermark evidence pack · {{ pack.incident.id }}</div>
-  <h1 class="readout">{{ "Water" if pack.incident.kind == "flood" else "Freeze" }} in {{ pack.incident.room }}</h1>
-  <div class="muted">{{ pack.incident.opened_at_ms|ts }} to {{ pack.incident.closed_at_ms|ts if pack.incident.closed_at_ms else "still open" }} · generated {{ pack.generated_at }}</div>
-  <div class="tags">
-    {% if pack.notes.simulated_sensor %}<span class="tag hatch">Simulated sensor · Ring Playground camera</span>{% endif %}
-    {% if pack.notes.controlled_test %}<span class="tag">Controlled test. Real device.</span>{% endif %}
-    <span class="tag {{ '' if pack.integrity.verdict == 'complete' else 'hatch' }}">Evidence {{ pack.integrity.verdict }}</span>
+  <div class="brand"><b>Wa<i>t</i>ermark</b><span>Evidence pack {{ pack.incident.id }} · generated {{ pack.generated_at }}</span></div>
+  <div class="plaque">
+    <div class="over"><h1 class="readout">{{ pack.incident.room }}</h1></div>
+    <div class="rule"></div>
+    <div class="under">{{ "Water" if pack.incident.kind == "flood" else "Freezing" }} from {{ pack.incident.opened_at_ms|ts }} to {{ pack.incident.closed_at_ms|ts if pack.incident.closed_at_ms else "still open" }}</div>
   </div>
+  <p class="status-line">
+    {% if pack.notes.simulated_sensor %}Simulated sensor, Ring Playground camera. {% endif %}
+    {% if pack.notes.controlled_test %}Controlled test. Real device. {% endif %}
+    {{ "Only the sensor's times were recorded." if pack.integrity.verdict == "sensor-only" else "Evidence " ~ pack.integrity.verdict ~ "." }}
+  </p>
 </header>
 
 <section class="staff">
   <div class="head" style="margin-top:28px">
-    <div class="first">
-      <div class="label">Sensor to first frame</div>
-      <div class="readout n">{{ pack.integrity.stats.sensor_to_first_frame_s if pack.integrity.stats.sensor_to_first_frame_s is not none else "–" }}<small>s</small></div>
-    </div>
-    <div class="readings">
-      <div class="reading"><div class="readout n">{{ pack.integrity.stats.frames }}</div><div class="l">frames from the Ring camera</div></div>
-      <div class="reading"><div class="readout n">{{ pack.claims.answered }}/{{ pack.claims.total }}</div><div class="l">claim questions answered</div></div>
-      <div class="reading {{ 'hatch' if pack.integrity.gaps else '' }}"><div class="readout n">{{ pack.integrity.gaps|length }}</div><div class="l">gaps disclosed</div></div>
-    </div>
+<p class="summary">{% if pack.integrity.stats.sensor_to_first_frame_s is not none %}The first frame from the Ring camera arrived <strong>{{ pack.integrity.stats.sensor_to_first_frame_s }} s</strong> after the sensor went wet. {% else %}No frame arrived from the Ring camera. {% endif %}<strong>{{ pack.integrity.stats.frames }} frames</strong> in all.
+      <strong>{{ pack.claims.answered }} of {{ pack.claims.total }}</strong> claim questions answered.
+      {% if pack.integrity.gaps %}<span style="border-bottom:1px dashed var(--stencil)"><strong>{{ pack.integrity.gaps|length }}</strong> gap{{ "s" if pack.integrity.gaps|length > 1 }} disclosed below.</span>{% else %}No gaps in the record.{% endif %}</p>
   </div>
   {{ staff|safe }}
-  <p class="muted" style="font-size:13px;margin-top:6px">The pink is how long the sensor reported water. Notches above are frames, pink where the caption saw water. Hatched spans are times the record cannot vouch for.</p>
+  <p class="muted" style="font-size:13px;margin-top:6px">The blue fill is how long the sensor reported water, with the red line where it stood last. Notches above are frames, red where the caption saw water. Dotted spans are times the record cannot vouch for.</p>
 </section>
 
 <h2>What happened</h2>
@@ -150,7 +153,7 @@
 </div>
 {% if pack.frames|length > 24 %}<p class="muted">{{ pack.frames|length - 24 }} more frames in the JSON pack.</p>{% endif %}
 {% else %}
-<p class="plate hatch" style="padding:12px 14px">No frames were captured. The integrity section below says why.</p>
+<p class="plate" style="padding:12px 14px;border-style:dashed;border-color:var(--stencil)">No frames were captured. The integrity section below says why.</p>
 {% endif %}
 
 {% if chart %}
@@ -171,7 +174,7 @@
 
 <h2>What this record cannot vouch for</h2>
 {% for g in pack.integrity.gaps %}
-<div class="gap plate"><span class="bar hatch"></span><div class="body"><strong style="font-family:var(--display)">{{ g.start_ms|hms }}{% if g.end_ms %}–{{ g.end_ms|hms }}{% endif %}</strong> · {{ g.text }}</div></div>
+<div class="gap plate"><span class="bar dots"></span><div class="body"><strong style="font-family:var(--display)">{{ g.start_ms|hms }}{% if g.end_ms %} to {{ g.end_ms|hms }}{% endif %}</strong> · {{ g.text }}</div></div>
 {% endfor %}
 {% for fl in pack.integrity.flags %}
 <div class="flag plate">{{ fl.text }}</div>
@@ -181,7 +184,7 @@
 <h2>Against the questions on the claim file</h2>
 <p class="muted">{{ pack.claims.source }}</p>
 {% for q in pack.claims.rows %}
-<div class="q"><span class="status {{ q.status }}">{{ "Not answered" if q.status == "unanswered" else q.status }}</span><div>{{ q.question }}</div><div class="muted">{{ q.evidence }}</div></div>
+<div class="q"><span class="status {{ q.status }}">{{ "Not answered" if q.status == "unanswered" else ("Answered" if q.status == "answered" else "Partly answered") }}</span><div>{{ q.question }}</div><div class="muted">{{ q.evidence }}</div></div>
 {% endfor %}
 
 {% if pack.aftermath.available %}
