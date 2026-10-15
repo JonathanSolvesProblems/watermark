@@ -5,7 +5,11 @@
     "ablation": "docs/runs/ablation-run.json",
     "playground": "docs/runs/playground-series.json"
   },
-  "watch_files": ["README.md", "docs/DEMO_SCRIPT.md", "docs/SUBMISSION.md"],
+  "watch_files": [
+    "README.md",
+    "docs/DEMO_SCRIPT.md",
+    "docs/SUBMISSION.md"
+  ],
   "claims": [
     {
       "id": "playground_first_frame_median",
@@ -72,11 +76,11 @@
       "tolerance": 0
     },
     {
-      "id": "ablation_frames",
-      "text": "frames captured with the sensor scope off",
-      "docs_regex": "sensor scope off[^.]*?\\[?([0-9]+|N)\\]? frames",
+      "id": "ablation_motion_events",
+      "text": "motion recordings in the Ring app's event history while the tray filled, with Watermark off",
+      "docs_regex": "event history shows \\[?([0-9]+|N)\\]? motion recordings",
       "run": "ablation",
-      "path": "integrity.stats.frames",
+      "path": "ring_app_motion_events",
       "tolerance": 0
     }
   ]

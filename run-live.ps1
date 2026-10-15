@@ -29,6 +29,13 @@ if ($Stop) {
   Get-CimInstance Win32_Process -Filter "Name='powershell.exe'" |
     Where-Object { $_.CommandLine -match 'run-live\.ps1' -and $_.ProcessId -ne $PID } |
     ForEach-Object { Stop-Process -Id $_.ProcessId -Force }
+  # Parts the supervisor adopted rather than started (an older copy already serving) are
+  # not in pids.json, so also clear whatever holds the two ports, and the tunnel.
+  foreach ($port in 8765, 3000) {
+    Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue |
+      ForEach-Object { Stop-Component $_.OwningProcess }
+  }
+  Get-Process ngrok -ErrorAction SilentlyContinue | ForEach-Object { Stop-Component $_.Id }
   Write-Host "Watermark stopped."
   return
 }

@@ -39,12 +39,24 @@ def test_claimmap_counts():
         "health": [{"online": 1}], "captures": [{"outcome": "ok"}], "rover_log": [{"kind": "dispatched"}],
         "events": [], "prior_incident_count": 2,
     }
+    # The real questions from my June 2026 claim.
     out = claimmap.evaluate(pack)
-    assert out["total"] == 12
+    assert out["total"] == 7
     by_id = {r["id"]: r["status"] for r in out["rows"]}
-    assert by_id["q1"] == "answered" and by_id["q5"] == "answered" and by_id["q6"] == "answered"
-    assert by_id["q12"] == "unanswered" and by_id["q10"] == "unanswered" and by_id["q11"] == "partial"
-    assert out["answered"] == 9 and out["partial"] == 1
+    assert by_id["q1"] == "answered" and by_id["q2"] == "answered"
+    assert by_id["q3"] == "partial" and by_id["q4"] == "partial"
+    assert by_id["q5"] == by_id["q6"] == by_id["q7"] == "homeowner"
+    assert (out["answered"], out["partial"], out["homeowner"], out["unanswered"]) == (2, 2, 3, 0)
+
+    # Cause is refused by design whatever question set is loaded.
+    out = claimmap.evaluate(pack, {"source": "t", "questions": [
+        {"id": "c", "question": "What caused the water?", "answered_by": ["cause"], "by_design_unanswered": True}]})
+    assert out["rows"][0]["status"] == "unanswered" and "By design" in out["rows"][0]["evidence"]
+
+    # With no frames, the camera-based questions fall back honestly.
+    out = claimmap.evaluate({**pack, "frames": []})
+    by_id = {r["id"]: r["status"] for r in out["rows"]}
+    assert by_id["q2"] == "unanswered" and by_id["q3"] == "unanswered"
 
 
 def test_infer_kind():

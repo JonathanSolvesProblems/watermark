@@ -81,6 +81,7 @@
             align-self: start; width: fit-content; }
   .status.answered { background: var(--ink); color: var(--concrete); }
   .status.partial { border: 1px solid var(--seam); background: var(--plate); }
+  .status.homeowner { border: 1px solid var(--seam); color: var(--stencil); }
   .status.unanswered { border: 1px dashed var(--stencil); color: var(--stencil); }
   .aftermath td, .aftermath th { font-size: 13px; text-align: left; }
   .aftermath th { font: 600 13px var(--body); color: var(--stencil);
@@ -184,7 +185,7 @@
 <h2>Against the questions on the claim file</h2>
 <p class="muted">{{ pack.claims.source }}</p>
 {% for q in pack.claims.rows %}
-<div class="q"><span class="status {{ q.status }}">{{ "Not answered" if q.status == "unanswered" else ("Answered" if q.status == "answered" else "Partly answered") }}</span><div>{{ q.question }}</div><div class="muted">{{ q.evidence }}</div></div>
+<div class="q"><span class="status {{ q.status }}">{{ "Not answered" if q.status == "unanswered" else ("Answered" if q.status == "answered" else ("Yours to answer" if q.status == "homeowner" else "Partly answered")) }}</span><div>{{ q.question }}</div><div class="muted">{{ q.evidence }}</div></div>
 {% endfor %}
 
 {% if pack.aftermath.available %}

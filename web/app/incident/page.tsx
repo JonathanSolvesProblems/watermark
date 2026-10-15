@@ -265,7 +265,7 @@ function IncidentInner() {
           {d.claims.rows.map((q) => (
             <li key={q.id} className="grid sm:grid-cols-[150px_1fr_1.1fr] gap-x-6 gap-y-1 py-3 border-b border-seam">
               <span className={`self-start px-2 py-1 w-fit text-[13px] font-semibold rounded-[3px] ${q.status === "answered" ? "bg-ink text-concrete" : q.status === "partial" ? "plate text-ink" : "text-stencil border border-dashed border-stencil"}`}>
-                {q.status === "unanswered" ? "Not answered" : q.status === "answered" ? "Answered" : "Partly answered"}
+                {q.status === "unanswered" ? "Not answered" : q.status === "answered" ? "Answered" : q.status === "homeowner" ? "Yours to answer" : "Partly answered"}
               </span>
               <span>{q.question}</span>
               <span className="text-stencil text-[14px]">{q.evidence}</span>

@@ -34,6 +34,11 @@ def evaluate(pack: dict[str, Any], questions: dict[str, Any] | None = None) -> d
             rows.append({**item, "status": "unanswered", "evidence": "By design. Watermark records what happened; "
                                                                       "it does not determine cause."})
             continue
+        if item.get("by_homeowner"):
+            # About the house or the policy, not the incident: the homeowner answers these.
+            rows.append({**item, "status": "homeowner", "evidence": "Yours to answer: this is about the house or the "
+                                                                    "policy, not what the camera saw."})
+            continue
         statuses = [fields.get(k, ("unanswered", "")) for k in item["answered_by"]]
         best = max(statuses, key=lambda s: {"answered": 2, "partial": 1, "unanswered": 0}[s[0]])
         if best[0] == "answered":
@@ -41,8 +46,9 @@ def evaluate(pack: dict[str, Any], questions: dict[str, Any] | None = None) -> d
         elif best[0] == "partial":
             partial += 1
         rows.append({**item, "status": best[0], "evidence": best[1]})
+    homeowner = sum(1 for r in rows if r["status"] == "homeowner")
     return {"source": q.get("source"), "total": len(q["questions"]), "answered": answered, "partial": partial,
-            "unanswered": len(q["questions"]) - answered - partial, "rows": rows}
+            "homeowner": homeowner, "unanswered": len(q["questions"]) - answered - partial - homeowner, "rows": rows}
 
 
 def _fmt(ms: int | None) -> str:
@@ -79,6 +85,14 @@ def _fields(pack: dict[str, Any]) -> dict[str, tuple[str, str]]:
                  else "with Ring media timestamps" if live == 0 else "with Ring timestamps (header or burned in)")
         out["photos_with_times"] = ("answered", f"{len(frames)} frames from the Ring camera {where}, first at "
                                                 f"{_fmt(frames[0].get('media_ms'))}")
+        # What the camera saw, not a judgement: the frames let the adjuster see where the
+        # water was and whether it came from above ground. Watermark never names a source.
+        out["water_entry_visible"] = ("answered", f"{len(frames)} timed frames of where the water was in "
+                                                  f"{inc.get('room') or 'the room'}, for the adjuster to judge where it came in")
+        out["flooring_visible"] = ("partial", "the floor is in frame with Ring's time; what it is and when it was "
+                                              "laid are the homeowner's to add")
+        out["contents_visible"] = ("partial", "what was in the camera's view is on record with times; the itemized "
+                                              "list and costs are the homeowner's")
     captions = [f for f in frames if f.get("caption") and f.get("caption_model") not in ("error", None)]
     if captions:
         real = [c for c in captions if c.get("caption_model") != "mock"]

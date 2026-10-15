@@ -58,16 +58,16 @@ async def test_flood_to_pack(client, app):
     r = await client.post("/api/test/trigger", json={"kind": "flood", "action": "cleared"})
     assert r.json()["status"] == "closed"
     pack_row = await wait_for(lambda: s.db.latest_pack(incident_id), timeout=8)
-    assert pack_row and pack_row["questions_total"] == 12
+    assert pack_row and pack_row["questions_total"] == 7
 
     # 6. the pack says what it can and cannot prove
     r = await client.get(f"/api/incidents/{incident_id}")
     pack = r.json()
     assert pack["integrity"]["stats"]["frames"] >= 1
     assert pack["integrity"]["stats"]["sensor_to_first_frame_s"] is not None
-    assert pack["claims"]["answered"] >= 6
-    cause = [q for q in pack["claims"]["rows"] if q["id"] == "q12"][0]
-    assert cause["status"] == "unanswered" and "By design" in cause["evidence"]
+    # My adjuster's questions: when, and where the water was, come from the Ring frames;
+    # the house and policy questions are the homeowner's.
+    assert pack["claims"]["answered"] == 2 and pack["claims"]["homeowner"] == 3
     kinds = {f["kind"] for f in pack["integrity"]["flags"]}
     assert "controlled_test" in kinds and "model_captions" in kinds
     assert pack["readings"] and pack["readings"][0]["source"] == "wand"

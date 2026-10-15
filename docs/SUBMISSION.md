@@ -1,8 +1,8 @@
 # Submission fields
 
 One field, one fenced block, nothing else inside a section. Commentary lives in the
-Notes section at the bottom. Paste from the blocks only. Numbers in square brackets
-are placeholders until `docs/runs/` exists and `py tools/check_claims.py` is green.
+Notes section at the bottom. Paste from the blocks only. Every number traces to
+`docs/runs/` and `py tools/check_claims.py` must be green before pasting.
 
 ## Project name
 
@@ -13,7 +13,7 @@ Watermark
 ## Tagline
 
 ```
-Ring already tells you the basement is flooding. Watermark drives a camera to it and proves it to your insurer.
+Ring already tells you the basement is flooding. Watermark points a camera at the water and proves it to your insurer.
 ```
 
 ## Tracks and mini challenges
@@ -26,11 +26,11 @@ Mini challenges: AWS Builder, Open Source
 ## What it does
 
 ```
-When a Ring Flood & Freeze sensor fires, Watermark plays the Ring Chime, sends a printed rover carrying a Ring Indoor Cam down a tape line to the room the sensor is in (or uses a fixed Indoor Cam that already sees it), opens a live session so the camera records, and pulls timestamped frames every few minutes until the sensor clears. It captions each frame with Amazon Bedrock, logs humidity from the rover's wand, and produces one evidence pack: timeline, frames with Ring's own media timestamps, drying curve, device health, an integrity section listing every gap it could not verify, and a map against the questions on a real insurance claim file. It never states a cause.
+When a Ring Flood & Freeze sensor fires, Watermark plays the Ring Chime, opens a live session on a Ring Indoor Cam that already sees the room (which forces it to record), and keeps pulling frames with Ring's own time until the sensor reads dry. It produces one evidence pack: timeline, frames, room readings, device health, an integrity section listing every gap it could not verify, and a map against the questions my adjuster actually asked on my real claim. It never states a cause. A printed rover that carries the Indoor Cam down a tape line to the room is in progress.
 
-On June 20, 2026 the city sewer backed up into 52 units of my condo. Mine also came in through the foundation, gaps beside the electrical panel and a basement window, one week after I had rebuilt from my first flood. The mitigation report blamed heavy rain and floated my backyard shed. The only rebuttal was two phone videos I took because I happened to be home. Watermark is what I wish had been running.
+On June 20, 2026 the city sewer backed up into 52 units of my condo. Mine also came in through the foundation, gaps beside the electrical panel and a basement window, one week after I had rebuilt from my first flood. The mitigation report blamed heavy rain and floated my backyard shed. The only rebuttal was two phone videos I took because I happened to be home. Whether that water was sewer backup or clean rainwater decided which coverage limit applied. Watermark is what I wish had been running.
 
-Measured on a controlled test (real sensor, real water, real camera): first frame [N] s after the sensor, rover on station in [N] s, and the pack answers [N] of [M] questions on my real claim file. With the sensor scope switched off, the same test captured [N] frames.
+Measured through the real Ring API: the first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s. On one of those runs (first frame in 6.9 s), the pack answers 2 of 7 questions my adjuster asked and partly answers 2 more; the other 3 are about the house and the policy. With my real sensor in a tray in front of my real Indoor Cam, the Ring app's event history shows [N] motion recordings while the tray filled: slowly rising water does not trip motion detection, and that is the gap Watermark fills.
 ```
 
 ## How it works (technical)
@@ -40,41 +40,47 @@ Ring Partner API surfaces in the judged path: one-way account linking (HMAC nonc
 
 Server: FastAPI, dogfooding the typed Python SDK `ringpartner` I wrote for the Open Source challenge. Webhooks are persisted before anything else (Ring keeps no history for sensor events) and deduplicated on meta.request_id; a reconcile loop polls /status so a missed webhook can neither start nor end a capture silently, and events learned that way are marked so the pack can say which timestamps are Ring's.
 
-AWS: Bedrock (Nova Lite, Converse API with image blocks) captions frames and writes the narrative; AWS IoT Core carries the dispatch to the rover as a Thing; S3 holds frames and packs.
+Measured on Ring's Developer Playground: the camera is the Playground doorbell reached through the real API, and the sensor event is simulated, because the Playground has no sensors and Ring does not open device access to my region. Every pack says so on its first page.
 
-Rover: Raspberry Pi 4 on a printed 4WD chassis, L298N, four TT motors, three TCRT5000 line sensors, an Arduino wand (DHT11, water sensor, HC-SR04). Bang-bang line following with three guards: wet floor (the destination), obstacle, end-of-line crossbar. Every judged frame comes from the Ring camera it carries; the Pi never captures evidence.
+Rover (in progress): Raspberry Pi 4 on a printed 4WD chassis, L298N, four TT motors, three TCRT5000 line sensors, an Arduino wand (DHT11, water sensor, HC-SR04). Bang-bang line following with three guards: wet floor (the destination), obstacle, end-of-line crossbar. It runs on the Pi today and reaches its station in simulation; every judged frame comes from the Ring camera it carries, never from the Pi.
 
-Web: Next.js following the Ring UX design guide: passwordless account linking, device list with online state, redirect to the Ring app for device settings, subscription status pointer to My Apps, and a complete data-deletion action that reaches S3.
+Web: Next.js following the Ring UX design guide: passwordless account linking with email pre-fill, device list with online state, redirect to the Ring app for device settings, subscription status pointer to My Apps, a first-visit tutorial, and a complete data-deletion action.
 ```
 
 ## AWS Builder field
 
 ```
-Amazon Bedrock (bedrock-runtime Converse API, amazon.nova-lite-v1:0) captions every frame and writes the pack narrative: server/watermark/captions.py and brain/watermark_brain/backends.py (BedrockBackend). AWS IoT Core (MQTT over the AWS IoT Device SDK v2) delivers dispatch commands to the rover as a Thing: server/watermark/dispatch.py (IoTDispatcher) and rover/agent.py (IoTCommands). Amazon S3 stores frames and packs: server/watermark/blobs.py (S3BlobStore).
+Amazon S3 stores every frame and evidence pack: server/watermark/blobs.py (S3BlobStore). AWS IoT Core delivers dispatch commands to the rover as a Thing over MQTT (AWS IoT Device SDK v2): server/watermark/dispatch.py (IoTDispatcher) and rover/agent.py (IoTCommands). Amazon Bedrock (Converse API, amazon.nova-lite-v1:0) captions frames and writes the pack narrative when enabled: server/watermark/captions.py; AWS still blocks Bedrock on my account, so the measured packs say they carry no captions.
 ```
 
 ## Open Source field
 
 ```
-New project: ringpartner, a typed Python client for the Ring Partner API (devices, sensors, two-step media downloads, WHEP sessions, chime playback, webhook HMAC verification, account-linking nonce). MIT. Repo: [URL]. Contribution: PR to AmazonAppDev/ring-api-helloworld adding the sensor webhook event types to its normaliser, with tests. PR: [URL]. GitHub: JonathanSolvesProblems. Why it matters: the official sample predates the Early Access sensor scope, and no typed client for the official API existed; every Ring Appstore developer who touches sensors re-reads the same docs I did.
+New project: ringpartner, a typed Python client for the Ring Partner API (devices, sensors, two-step media downloads, WHEP sessions, chime playback, webhook HMAC verification, account-linking nonce). MIT. Repo: https://github.com/JonathanSolvesProblems/ring-partner-py. Watermark's server is built on it. GitHub: JonathanSolvesProblems. Why it matters: no typed client for the official Ring Partner API existed, and the Early Access sensor scope is newer than the official sample; every Ring Appstore developer who touches sensors re-reads the same docs I did.
 ```
 
 ## Repo, video, feedback
 
 ```
-Repo: [URL]
+Repo: https://github.com/JonathanSolvesProblems/watermark
 Video: [URL]
 ```
 
 ## Notes (never pasted)
 
-- **Repo is public with MIT, not private-with-collaborators.** Reasoning and the fallback
-  account list are in `docs/REPOS.md`. If it ever goes private, the six DevRel accounts get
-  added on submission day, because the invitations expire after 7 days.
-- The Open Source mini needs its own public repo, `ring-partner-py`, split out of `sdk/`.
-  Commands are in `docs/REPOS.md`.
-
-- The tagline is 111 characters. Read it aloud once, logged out, on the live page, at T-48h.
-- "[N]" placeholders are enforced by `tools/check_claims.py`. Do not hand-edit numbers; copy the run file.
-- Product feedback and the friction log are separate fields; their sources are `docs/PRODUCT_FEEDBACK.md` and `docs/FRICTION_LOG.md`.
-- If the rover fails the Sept 26 gate, delete "sends a printed rover ... or" from "What it does" and lead with the fixed camera.
+- **Two public repos, both MIT:** `watermark` (the submission) and `ring-partner-py`
+  (split from `sdk/` with `git subtree split`). Published 2026-10-15. PHASE0.md was removed
+  from all history before publishing and is gitignored.
+- **AWS field truth table, update before pasting:** S3 is claimed only once a measured
+  pack is confirmed in the bucket. IoT Core is claimed only once the rover has received a
+  dispatch over MQTT. If either is not true by Oct 21, delete its sentence. If Bedrock is
+  unblocked by Oct 20, re-run captions on a Playground pack and drop the "still blocks" clause.
+- **Open Source contribution:** the PR to AmazonAppDev/ring-api-helloworld (sensor webhook
+  types in its normaliser) is not opened. Either open it by Oct 20 and add "Contribution:
+  PR <URL>" to the field, or leave the field as the new project only.
+- **The ablation count** comes from the Ring app's event history after the tray test,
+  recorded in `docs/runs/ablation-run.json` as `ring_app_motion_events` with a screenshot.
+- The tagline is 115 characters. Read it aloud once, logged out, on the live page, at T-48h.
+- Product feedback and the friction log are separate fields; their sources are
+  `docs/PRODUCT_FEEDBACK.md` and `docs/FRICTION_LOG.md`.
+- Never mention the eligibility region, the address or the claim number in any field.

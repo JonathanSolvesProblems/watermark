@@ -11,34 +11,35 @@ The only reason that didn't stick was two phone videos I took while it was happe
 because I happened to be home. Next time I won't be.
 
 Watermark is a Ring Appstore app. A Ring Flood & Freeze sensor fires; the Ring Chime
-plays; a printed rover carrying a Ring Indoor Cam follows a tape line to the room (or a
-fixed Indoor Cam that already sees it takes over); a live session forces the camera to
-record; frames with Ring's own timestamps land every few minutes until the sensor
-clears. What comes out is one evidence pack: timeline, frames with captions, humidity,
-device health, an **integrity section that lists every gap it could not verify**, and a
-map against the questions on a real insurance claim file. It never states a cause.
+plays; a Ring Indoor Cam that already sees the room opens a live session, which forces it
+to record; frames with Ring's own time land until the sensor reads dry. A printed rover
+that carries the Indoor Cam down a tape line to the room is in progress, and the demo
+leads with the fixed camera. What comes out is one evidence pack: timeline, frames, room
+readings, device health, an **integrity section that lists every gap it could not
+verify**, and a map against the questions my adjuster actually asked. It never states a
+cause.
 
 Built for the Ring track of [Build, Ship, Shape: Amazon Developer Hackathon](https://amazonappdev2026.devpost.com/),
-with the AWS Builder and Open Source mini-challenges. MIT.
+with the AWS Builder and Open Source mini-challenges. MIT. The typed Ring Partner API
+client it is built on is its own repo:
+[ring-partner-py](https://github.com/JonathanSolvesProblems/ring-partner-py).
 
-> Numbers in this README and in `docs/` are placeholders until a real run is committed
-> under `docs/runs/`. `py tools/check_claims.py` fails the build if the prose and the data
-> disagree.
+> Every number below traces to a committed run under `docs/runs/`.
+> `py tools/check_claims.py` fails the build if the prose and the data disagree.
 
 ## What it measures
 
-- **Measured on Ring's Developer Playground (October 8 and 9, 2026):** the first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s. The camera is the Playground's doorbell reached through the real Ring API; the sensor is simulated, because Ring offers no sensors in the Playground and limits real device access to US locations. Every run's evidence pack is in `docs/runs/playground/`, and `docs/runs/playground-series.json` is the summary.
-- **Sensor to first frame:** first frame at [N] s after the sensor event, graded by Ring's own `X-Media-Timestamp`.
-- **Rover on station in [N] s** after the sensor, graded by the rover's report against the sensor timestamp.
-- **Claim questions:** the pack answers [N] of [M] questions on my real claim file. Cause is refused by design.
-- **Ablation:** same controlled test with the sensor scope off captured [N] frames, because rising water does not trip motion detection. That number is what Ring's sensor contributes.
+- **Sensor to first frame, through the real Ring API:** the first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s (Ring Developer Playground, October 8 and 9, 2026). The camera is the Playground's doorbell reached through the real Ring API; the sensor is simulated, because Ring offers no sensors in the Playground and does not open device access to my account's region. Every pack is in `docs/runs/playground/`; `docs/runs/playground-series.json` is the summary.
+- **My real claim's questions:** on one of those runs (`docs/runs/demo-run.json`, first frame in 6.9 s), the pack answers 2 of 7 questions my adjuster asked on my June 2026 claim and partly answers 2 more. The two it answers are when the water started and how long it stood, and where it was: the frames that would have settled whether it was sewer backup or clean rainwater, which decided which coverage limit applied. The other three are about the house and the policy, and are mine to answer. Cause is refused by design.
+- **What Ring alone records:** with my real Flood & Freeze sensor in a tray and my real Indoor Cam pointed at it, the Ring app alerts on the sensor, but its event history shows [N] motion recordings while the tray filled, because slowly rising water does not trip motion detection. That gap is what Watermark fills. (Filmed as a controlled test with real devices; the count is read from the Ring app's own event history.)
+- **Captions:** Watermark captions frames with Amazon Bedrock (Nova Lite) when it is enabled. AWS still blocks Bedrock on my account, so the measured packs carry no captions and say so.
 
 ## Run it in five minutes with nothing but Python and Node
 
 ```sh
 py -m venv .venv
 .venv\Scripts\pip install -e sdk -e "server[dev]" -e brain -e "rover[dev]"
-.venv\Scripts\python -m pytest                      # 48 tests, no network
+.venv\Scripts\python -m pytest                      # 53 tests, no network
 
 cd server && set MODE=mock && ..\.venv\Scripts\python -m uvicorn watermark.main:app --port 8765
 cd web && npm install && set NEXT_PUBLIC_API_URL=http://localhost:8765 && npm run build && npm start
