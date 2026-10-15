@@ -1,11 +1,14 @@
 {
  "what": "seconds from a simulated flood sensor event to the first frame from Ring's Developer Playground doorbell, through the real Ring API (WHEP live view)",
- "measured_at": "2026-10-08 13:08:53 Eastern Daylight Time",
- "n": 5,
- "with_frames": 5,
- "median_s": 6.7,
+ "measured_at": [
+  "2026-10-08 13:08:53 Eastern Daylight Time",
+  "2026-10-09 20:00:43 Eastern Daylight Time"
+ ],
+ "n": 10,
+ "with_frames": 10,
+ "median_s": 6.85,
  "min_s": 6.6,
- "max_s": 7.1,
+ "max_s": 11.2,
  "runs": [
   {
    "run": 1,
@@ -14,7 +17,8 @@
    "frames": 6,
    "sessions_ok": 1,
    "sessions_total": 1,
-   "verdict": "complete"
+   "verdict": "complete",
+   "date": "2026-10-08"
   },
   {
    "run": 2,
@@ -23,7 +27,8 @@
    "frames": 6,
    "sessions_ok": 1,
    "sessions_total": 1,
-   "verdict": "complete"
+   "verdict": "complete",
+   "date": "2026-10-08"
   },
   {
    "run": 3,
@@ -32,7 +37,8 @@
    "frames": 6,
    "sessions_ok": 1,
    "sessions_total": 1,
-   "verdict": "complete"
+   "verdict": "complete",
+   "date": "2026-10-08"
   },
   {
    "run": 4,
@@ -41,7 +47,8 @@
    "frames": 6,
    "sessions_ok": 1,
    "sessions_total": 1,
-   "verdict": "complete"
+   "verdict": "complete",
+   "date": "2026-10-08"
   },
   {
    "run": 5,
@@ -50,11 +57,63 @@
    "frames": 6,
    "sessions_ok": 1,
    "sessions_total": 1,
-   "verdict": "complete"
+   "verdict": "complete",
+   "date": "2026-10-08"
+  },
+  {
+   "run": 6,
+   "incident_id": "inc-1791590021908-b16689",
+   "sensor_to_first_frame_s": 11.2,
+   "frames": 39,
+   "sessions_ok": 1,
+   "sessions_total": 1,
+   "verdict": "complete",
+   "date": "2026-10-09"
+  },
+  {
+   "run": 7,
+   "incident_id": "inc-1791590111532-3b8a72",
+   "sensor_to_first_frame_s": 7.1,
+   "frames": 39,
+   "sessions_ok": 1,
+   "sessions_total": 1,
+   "verdict": "complete",
+   "date": "2026-10-09"
+  },
+  {
+   "run": 8,
+   "incident_id": "inc-1791590196691-6800fe",
+   "sensor_to_first_frame_s": 6.9,
+   "frames": 39,
+   "sessions_ok": 1,
+   "sessions_total": 1,
+   "verdict": "complete",
+   "date": "2026-10-09"
+  },
+  {
+   "run": 9,
+   "incident_id": "inc-1791590281580-d72d63",
+   "sensor_to_first_frame_s": 6.8,
+   "frames": 39,
+   "sessions_ok": 1,
+   "sessions_total": 1,
+   "verdict": "complete",
+   "date": "2026-10-09"
+  },
+  {
+   "run": 10,
+   "incident_id": "inc-1791590366342-1bceb5",
+   "sensor_to_first_frame_s": 6.9,
+   "frames": 39,
+   "sessions_ok": 1,
+   "sessions_total": 1,
+   "verdict": "complete",
+   "date": "2026-10-09"
   }
  ],
  "caveats": [
   "The sensor is simulated; the Playground has no sensors.",
-  "The first frame's time is when Watermark received it from the live session; Ring's own time is burned into the image."
+  "The first frame's time is when Watermark received it from the live session; Ring's own time is burned into the image.",
+  "Two sessions on different days with different tokens. The 11.2 s run was the first of the second session, after the Playground camera had been idle."
  ]
 }

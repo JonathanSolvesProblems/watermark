@@ -41,12 +41,12 @@ it did and did not record]
 > and the sensor event is simulated. Every page says so.
 
 **0:52 The measurement**
-[Screen: 02-incident-gauge.webm. On screen: "The first Ring frame arrived 6.7 s after the
-sensor event, median of 5 runs, range 6.6 to 7.1 s."]
+[Screen: 02-incident-gauge.webm. On screen: "The first Ring frame arrived 6.85 s after the
+sensor event, median of 10 runs, range 6.6 to 11.2 s."]
 
 > The sensor fires, Watermark opens a live session, and the first Ring frame is in hand in
-> under seven seconds. Five runs, median six point seven. The pink bar is how long the water
-> stood; each notch is a frame.
+> about seven seconds. Ten runs on two days, median six point eight five. The blue bar is
+> how long the water stood; each notch is a frame.
 
 **1:08 The frames**
 [Screen: 03-incident-frames.webm, Ring's own timestamp burned into every frame]
@@ -71,7 +71,7 @@ sensor event, median of 5 runs, range 6.6 to 7.1 s."]
 
 - 0:15 "Controlled test. Real device."
 - 0:37 "Camera: Ring Developer Playground, real Ring API. Sensor event: simulated."
-- 0:52 "The first Ring frame arrived 6.7 s after the sensor event, median of 5 runs, range 6.6 to 7.1 s."
+- 0:52 "The first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s."
 - 1:08 "Ring's timestamp, burned in by Ring."
 
 ## Screen b-roll (recorded automatically, `demo/broll/`)
@@ -79,7 +79,7 @@ sensor event, median of 5 runs, range 6.6 to 7.1 s."]
 | Clip | What it shows | Used at |
 |---|---|---|
 | `01-dashboard.webm` | Dashboard in Playground mode: the hatched notice, the sensor gauge, five incidents | 0:37 |
-| `02-incident-gauge.webm` | Incident page: 6.7 s readout, the staff gauge rising, the marks below | 0:52 |
+| `02-incident-gauge.webm` | Incident page: 6.85 s readout, the staff gauge rising, the marks below | 0:52 |
 | `03-incident-frames.webm` | Glide to the six Ring frames with Ring's timestamps | 1:08 |
 | `04-incident-integrity.webm` | Timeline, "what this record cannot vouch for", the claim map | 1:20 |
 | `05-pack.webm` | The evidence pack, scrolled top to bottom | 1:26 |

@@ -14,9 +14,9 @@ const MARKS = [
     body: "A Ring Flood & Freeze sensor fires. Watermark stores the event before anything else, because Ring keeps no history for sensor events.",
   },
   {
-    at: "6.7 s",
+    at: "6.85 s",
     title: "The camera goes to the water",
-    body: "An Indoor Cam that already sees the room, or the rover carrying one down a tape line. Every frame carries Ring's time. 6.7 s is the median of my five measured Ring Playground runs, with a simulated sensor.",
+    body: "An Indoor Cam that already sees the room, or the rover carrying one down a tape line. Every frame carries Ring's time. 6.85 s is the median of my 10 measured Ring Playground runs, with a simulated sensor.",
   },
   {
     at: "When dry",

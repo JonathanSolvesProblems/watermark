@@ -1,0 +1,945 @@
+{
+ "generated_at": "2026-10-09 19:55 -0400",
+ "incident": {
+  "id": "inc-1791590021908-b16689",
+  "account_id": "playground",
+  "sensor_device_id": "simulated-flood-sensor",
+  "room": "Water heater closet",
+  "kind": "flood",
+  "status": "closed",
+  "opened_at_ms": 1791590021906,
+  "opened_source": "synthetic",
+  "closed_at_ms": 1791590103183,
+  "closed_source": "synthetic",
+  "camera_device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+  "camera_role": "fixed",
+  "rover_dispatched_at_ms": null,
+  "rover_on_station_at_ms": null,
+  "rover_stop_reason": null,
+  "chime_status": "[]",
+  "notes": "{\"sensor_name\": \"Water heater sensor (simulated)\", \"camera_role\": \"fixed\", \"controlled_test\": false, \"simulated_sensor\": true}"
+ },
+ "notes": {
+  "sensor_name": "Water heater sensor (simulated)",
+  "camera_role": "fixed",
+  "controlled_test": false,
+  "simulated_sensor": true
+ },
+ "chime": [],
+ "sensor": {
+  "device_id": "simulated-flood-sensor",
+  "account_id": "playground",
+  "name": "Water heater sensor (simulated)",
+  "kind": "flood_freeze",
+  "room": "Water heater closet",
+  "route_id": null,
+  "covered_by": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+  "chime_audio_ref": null,
+  "last_status": "{\"data\": {\"attributes\": {\"online\": true, \"reported_at\": \"2026-10-09T23:54:46Z\", \"flood_detection\": {\"faulted\": true}, \"freeze_detection\": {\"faulted\": false}, \"tamper_detection\": {\"detected\": false}, \"sensor_reporting_state\": {\"value\": \"active\"}}}}",
+  "online": 1,
+  "updated_at": 1791590086.603731
+ },
+ "camera": {
+  "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+  "account_id": "playground",
+  "name": "Playground Device",
+  "kind": "camera",
+  "room": "Water heater closet",
+  "route_id": null,
+  "covered_by": null,
+  "chime_audio_ref": null,
+  "last_status": "{\"data\": {\"type\": \"device-status\", \"id\": \"ava1.ring.device.status.5DCRG2OMJL33TKD3QYNP5LSUFIQ7SVVLOL63NBLIT3I4YUUK2AYVXCNLJ7UVN4IEGEVPVQLO4SYDYAWYROVBLRCYIB2W6UKX\", \"attributes\": {\"audio\": {\"snooze\": {\"active\": null, \"until\": null}}, \"reported_at\": \"2026-10-09T23:52:16Z\", \"state\": null, \"online\": true}}, \"meta\": {\"time\": \"2026-10-09T23:53:41Z\"}}",
+  "online": 1,
+  "updated_at": 1791590021.900346
+ },
+ "frames": [
+  {
+   "id": 1,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590033124,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-000.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.728607
+  },
+  {
+   "id": 2,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590034139,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-001.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.7342925
+  },
+  {
+   "id": 3,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590035153,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-002.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.740352
+  },
+  {
+   "id": 4,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590036202,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-003.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.7460186
+  },
+  {
+   "id": 5,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590037268,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-004.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.751512
+  },
+  {
+   "id": 6,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590038289,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-005.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.7563987
+  },
+  {
+   "id": 7,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590039318,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-006.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.7619884
+  },
+  {
+   "id": 8,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590040337,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-007.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.7693355
+  },
+  {
+   "id": 9,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590041353,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-008.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.776547
+  },
+  {
+   "id": 10,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590042361,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-009.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.7839713
+  },
+  {
+   "id": 11,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590043373,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-010.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.790625
+  },
+  {
+   "id": 12,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590044398,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-011.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.7960389
+  },
+  {
+   "id": 13,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590045423,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-012.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.799911
+  },
+  {
+   "id": 14,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590046633,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-013.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.806386
+  },
+  {
+   "id": 15,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590047662,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-014.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8097847
+  },
+  {
+   "id": 16,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590048664,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-015.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8135827
+  },
+  {
+   "id": 17,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590049671,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-016.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8173754
+  },
+  {
+   "id": 18,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590050683,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-017.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8223767
+  },
+  {
+   "id": 19,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590051685,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-018.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8277602
+  },
+  {
+   "id": 20,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590052707,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-019.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8340096
+  },
+  {
+   "id": 21,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590053713,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-020.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8387425
+  },
+  {
+   "id": 22,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590054731,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-021.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.844167
+  },
+  {
+   "id": 23,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590055940,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-022.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8488069
+  },
+  {
+   "id": 24,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590056949,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-023.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8540978
+  },
+  {
+   "id": 25,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590057965,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-024.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8582146
+  },
+  {
+   "id": 26,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590058972,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-025.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8631625
+  },
+  {
+   "id": 27,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590060024,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-026.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8674986
+  },
+  {
+   "id": 28,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590061044,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-027.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8725784
+  },
+  {
+   "id": 29,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590062074,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-028.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8767157
+  },
+  {
+   "id": 30,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590063099,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-029.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8829696
+  },
+  {
+   "id": 31,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590064116,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-030.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8893123
+  },
+  {
+   "id": 32,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590065118,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-031.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8928275
+  },
+  {
+   "id": 33,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590066138,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-032.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.8963995
+  },
+  {
+   "id": 34,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590067149,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-033.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.900075
+  },
+  {
+   "id": 35,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590068154,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-034.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.9039335
+  },
+  {
+   "id": 36,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590069325,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-035.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.9078355
+  },
+  {
+   "id": 37,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590070350,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-036.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.9112837
+  },
+  {
+   "id": 38,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590071351,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-037.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.9146965
+  },
+  {
+   "id": 39,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "requested_ms": null,
+   "media_ms": 1791590072366,
+   "origin": "live",
+   "drift_ms": null,
+   "path": "incidents/inc-1791590021908-b16689/frames/001-038.jpg",
+   "caption": null,
+   "caption_model": null,
+   "water_visible": null,
+   "created_at": 1791590082.9194038
+  }
+ ],
+ "readings": [],
+ "health": [
+  {
+   "id": 1,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "ts_ms": 1791590022216,
+   "online": 1,
+   "source": "status"
+  }
+ ],
+ "captures": [
+  {
+   "id": 1,
+   "incident_id": "inc-1791590021908-b16689",
+   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
+   "session_no": 1,
+   "started_ms": 1791590022218,
+   "ended_ms": 1791590082719,
+   "frames": 39,
+   "outcome": "ok",
+   "detail": "session=2f41f31c-775c-4581-a95c-54c7197ee4fe?location=ava1.ring.whep.location.SONHKQZDIDNOJ7XUNG7MYEMIYFLHVPLKFL4ISUYSHPXATDXVGKMFPF6IVWPZ4QNOCHMOH5A2PKPXESWKEVORJHVZEH552AGWKC4B4X7QDFU4WUKW5IL5NALY3YASVGK3YYXR3PBUS36JOZKV5ST3RKN5XHKLJ4QBDI2JPA5TX7E5DV2S5N7IEGSZJC7PCF53G4S2YWJPASYDRCX45OYGZOJDTOJUI2D4LWB3JB64S2SKSPCQ2HILBO3UVXXAI2ZDJSGYHYEZXZ57X2SRV5VVYFALU2PL3Y5VF4QHPOX2RUTRHCDULDCK3STK2QK4MKHLW3PAT2Y"
+  }
+ ],
+ "rover_log": [],
+ "events": [
+  {
+   "request_id": "ecffe673bcf44af4ac4f9f7e4b6562ca",
+   "event_id": "simulated-flood-sensor_flood_detected_1791590021906",
+   "type": "flood_detected",
+   "device_id": "simulated-flood-sensor",
+   "account_id": "playground",
+   "timestamp_ms": 1791590021906,
+   "received_at": 1791590021.907075,
+   "source": "synthetic"
+  },
+  {
+   "request_id": "34753a1f186448c787e4f69b9a953bfe",
+   "event_id": "simulated-flood-sensor_flood_cleared_1791590103183",
+   "type": "flood_cleared",
+   "device_id": "simulated-flood-sensor",
+   "account_id": "playground",
+   "timestamp_ms": 1791590103183,
+   "received_at": 1791590103.1840568,
+   "source": "synthetic"
+  }
+ ],
+ "prior_incident_count": 0,
+ "integrity": {
+  "gaps": [],
+  "flags": [
+   {
+    "kind": "simulated_sensor",
+    "text": "The sensor event is simulated: Ring's Developer Playground has no sensors. The camera, its live session and its frames are Ring's Playground doorbell, reached through the Ring API."
+   }
+  ],
+  "stats": {
+   "frames": 39,
+   "sessions_total": 1,
+   "sessions_ok": 1,
+   "sensor_to_first_frame_s": 11.2,
+   "sensor_to_dispatch_s": null,
+   "sensor_to_on_station_s": null,
+   "duration_s": 81.3
+  },
+  "verdict": "complete"
+ },
+ "timeline": [
+  {
+   "ts_ms": 1791590021906,
+   "kind": "event",
+   "source": "synthetic",
+   "text": "flood_detected from simulated-flood-sensor"
+  },
+  {
+   "ts_ms": 1791590022216,
+   "kind": "health",
+   "source": "status",
+   "text": "Camera online (status)"
+  },
+  {
+   "ts_ms": 1791590022218,
+   "kind": "capture",
+   "source": "ring",
+   "text": "Capture session 1: 39 frame(s), ok"
+  },
+  {
+   "ts_ms": 1791590033124,
+   "kind": "first_frame",
+   "source": "ring",
+   "text": "First frame (received from the live session; Ring's time is in the image)"
+  },
+  {
+   "ts_ms": 1791590103183,
+   "kind": "event",
+   "source": "synthetic",
+   "text": "flood_cleared from simulated-flood-sensor"
+  }
+ ],
+ "claims": {
+  "source": "TEMPLATE: typical Canadian home water-damage claim intake questions. Replace with the insurer's own form.",
+  "total": 12,
+  "answered": 7,
+  "partial": 1,
+  "unanswered": 4,
+  "rows": [
+   {
+    "id": "q1",
+    "question": "When did you first become aware of the water?",
+    "answered_by": [
+     "first_detection_time"
+    ],
+    "status": "answered",
+    "evidence": "2026-10-09 19:53:41 (synthetic)"
+   },
+   {
+    "id": "q2",
+    "question": "Where in the home did the water appear?",
+    "answered_by": [
+     "location_in_home"
+    ],
+    "status": "answered",
+    "evidence": "Water heater closet"
+   },
+   {
+    "id": "q3",
+    "question": "How did you discover it?",
+    "answered_by": [
+     "detection_source"
+    ],
+    "status": "answered",
+    "evidence": "Ring flood sensor 'Water heater sensor (simulated)'"
+   },
+   {
+    "id": "q4",
+    "question": "How long was the water present before it was addressed?",
+    "answered_by": [
+     "duration"
+    ],
+    "status": "answered",
+    "evidence": "81 seconds, from 2026-10-09 19:53:41 to 2026-10-09 19:55:03"
+   },
+   {
+    "id": "q5",
+    "question": "Do you have photographs or video, with dates and times?",
+    "answered_by": [
+     "photos_with_times"
+    ],
+    "status": "answered",
+    "evidence": "39 frames from the Ring camera with Ring's time burned into each image, first at 2026-10-09 19:53:53"
+   },
+   {
+    "id": "q6",
+    "question": "Describe the extent of the water (depth, area, surfaces affected).",
+    "answered_by": [
+     "extent_description"
+    ],
+    "status": "unanswered",
+    "evidence": ""
+   },
+   {
+    "id": "q7",
+    "question": "What were the conditions in the room afterwards (humidity, temperature, drying)?",
+    "answered_by": [
+     "environmental_readings"
+    ],
+    "status": "unanswered",
+    "evidence": ""
+   },
+   {
+    "id": "q8",
+    "question": "Were any detection devices installed and were they working at the time?",
+    "answered_by": [
+     "device_health_log"
+    ],
+    "status": "answered",
+    "evidence": "1 camera health checks (1 online), 1 capture sessions logged, sensor battery/signal in status log"
+   },
+   {
+    "id": "q9",
+    "question": "Have you had previous water incidents at this address?",
+    "answered_by": [
+     "prior_incidents"
+    ],
+    "status": "answered",
+    "evidence": "0 earlier incident(s) recorded by Watermark at this account"
+   },
+   {
+    "id": "q10",
+    "question": "Was anyone home at the time, and who entered the area?",
+    "answered_by": [
+     "people_present"
+    ],
+    "status": "unanswered",
+    "evidence": "no contact sensor events; Watermark does not identify people"
+   },
+   {
+    "id": "q11",
+    "question": "What steps did you take to stop or mitigate the water?",
+    "answered_by": [
+     "actions_taken"
+    ],
+    "status": "partial",
+    "evidence": "chime announced; mitigation by people is not recorded"
+   },
+   {
+    "id": "q12",
+    "question": "What was the source or cause of the water?",
+    "answered_by": [
+     "cause"
+    ],
+    "by_design_unanswered": true,
+    "status": "unanswered",
+    "evidence": "By design. Watermark records what happened; it does not determine cause."
+   }
+  ]
+ },
+ "aftermath": {
+  "available": true,
+  "backend": "mock",
+  "frames_analyzed": 6,
+  "findings": [
+   {
+    "area": "frame 1",
+    "damage_type": "water intrusion",
+    "severity": "minor",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-1.jpg"
+   },
+   {
+    "area": "frame 8",
+    "damage_type": "water intrusion",
+    "severity": "minor",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-8.jpg"
+   },
+   {
+    "area": "frame 16",
+    "damage_type": "water intrusion",
+    "severity": "severe",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-16.jpg"
+   },
+   {
+    "area": "frame 23",
+    "damage_type": "water intrusion",
+    "severity": "moderate",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-23.jpg"
+   },
+   {
+    "area": "frame 31",
+    "damage_type": "water intrusion",
+    "severity": "minor",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-31.jpg"
+   },
+   {
+    "area": "frame 39",
+    "damage_type": "water intrusion",
+    "severity": "moderate",
+    "confidence": "low",
+    "affected_materials": [
+     "drywall",
+     "baseboard"
+    ],
+    "description": "MOCK finding for offline pipeline testing (no model was run).",
+    "recommended_action": "Remove and replace affected drywall/baseboard; dry the cavity.",
+    "photo": "frame-39.jpg"
+   }
+  ]
+ },
+ "narrative": "Water reached the sensor in Water heater closet and stood for 81 seconds. The Ring camera sent 39 frames, the first 11.2 s after the sensor. None of them is captioned. One note is listed below. This describes what was recorded, not what caused it."
+}
