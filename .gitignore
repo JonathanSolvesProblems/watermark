@@ -60,3 +60,6 @@ demo/broll/
 # run-live.ps1 supervisor logs, pids and remembered mode
 logs/
 
+# private hackathon strategy, never published
+PHASE0.md
+
