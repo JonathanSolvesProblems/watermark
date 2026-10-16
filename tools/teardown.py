@@ -5,6 +5,9 @@ it prints what it would do. Run with --apply to do it.
     py tools/teardown.py            # list everything that would be removed
     py tools/teardown.py --apply    # remove it
 
+Uses the named AWS profile `watermark` (never `default`, which a later project can
+overwrite). Created 2026-10-16 with the same key as the build.
+
 Releases rather than stops: a stopped instance still bills for its disk. Afterwards,
 by hand: revoke the `watermark` IAM user's access key, rotate the Ring client secret and
 the ngrok authtoken, and move the live link to a static archive page (see README).
@@ -24,8 +27,10 @@ KEY_PAIR, SECURITY_GROUP = "watermark-demo", "watermark-demo"
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true")
+    ap.add_argument("--profile", default="watermark")
     a = ap.parse_args()
     act = "REMOVE" if a.apply else "would remove"
+    boto3.setup_default_session(profile_name=a.profile)
     regions = [r["RegionName"] for r in boto3.client("ec2", region_name="us-east-1").describe_regions()["Regions"]]
 
     for region in regions:
