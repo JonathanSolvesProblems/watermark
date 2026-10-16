@@ -114,7 +114,10 @@ New, one controlled test with the real devices, landscape, 1080p or 4K, 30 fps:
    of H3 and screen-record it, plus a screenshot. Count the motion recordings in that window.
    That count fills `ring_app_motion_events` in `docs/runs/ablation-run.json` and the
    "[N] motion recordings" line. Whatever it shows is what the script says.
-7. **Optional, me on camera.** Standing by the basement window, one line: "This is where the
+7. **Optional, the Chime gap.** In the Ring app, the Chime (Hallway) > Audio Settings > Chime
+   Alerts, screen-recorded: only Flood Cam motion is offered; the flood sensor is not on the
+   list. Ring cannot make the Chime sound for water; Watermark does it through the API.
+8. **Optional, me on camera.** Standing by the basement window, one line: "This is where the
    water came in on June 20th." Ten seconds of a real person in the real room.
 
 Crop anything in the Ring app that shows my email, my address or my location name.
