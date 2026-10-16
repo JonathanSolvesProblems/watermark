@@ -27,6 +27,8 @@ client it is built on is its own repo:
 > Every number below traces to a committed run under `docs/runs/`.
 > `py tools/check_claims.py` fails the build if the prose and the data disagree.
 
+**Live demo:** https://pendant-entourage-supper.ngrok-free.dev, a read-only replay of my recorded Ring Playground runs (real Ring frames with Ring's own timestamps).
+
 ## What it measures
 
 - **Sensor to first frame, through the real Ring API:** the first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s (Ring Developer Playground, October 8 and 9, 2026). The camera is the Playground's doorbell reached through the real Ring API; the sensor is simulated, because Ring offers no sensors in the Playground and does not open device access to my account's region. Every pack is in `docs/runs/playground/`; `docs/runs/playground-series.json` is the summary.

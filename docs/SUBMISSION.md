@@ -63,6 +63,7 @@ New project: ringpartner, a typed Python client for the Ring Partner API (device
 
 ```
 Repo: https://github.com/JonathanSolvesProblems/watermark
+Live demo: https://pendant-entourage-supper.ngrok-free.dev
 Video: [URL]
 ```
 
