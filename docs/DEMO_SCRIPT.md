@@ -1,93 +1,112 @@
-# Demo script (v3, after the first measured runs)
+# Demo script (v4)
 
-Target about 110 seconds, spoken at an easy pace. Every number on screen comes from
-`docs/runs/playground-series.json`; `py tools/check_claims.py` fails if this file and
-the run data disagree. Narration is in plain text; what is on screen is in brackets.
-Screen clips are in `demo/broll/` (made by `tools/record_broll.py`); hardware shots are
-filmed by me and listed at the bottom.
+About 2:30, spoken at an easy pace (about 340 words). Judges are not required to watch past
+3:00, so the strongest material is first: my real flood, then the real Ring devices, then the
+gap Ring leaves, then Watermark closing it. Every number on screen is checked by
+`py tools/check_claims.py` against `docs/runs/`. No music, or royalty-free only. No third-party
+logos: skip the fill-valve and battery photos (branded packaging), blur plates and house numbers.
 
 ## Script
 
-**0:00 The flood**
-[H1: stills from my two June 20 videos, address blurred]
+**0:00 My basement** (Potential Impact)
+[My June 20 clip: water running across the hardwood under the window. Lower third:
+"My basement, 20 June 2026, 4:35 PM".]
 
-> On June 20th the city sewer backed up into fifty-two units of my condo. Mine came in
-> through the foundation and a basement window too, one week after I'd rebuilt from my
-> first flood. The mitigation report blamed the rain, and my backyard shed. What stopped
-> that was two phone videos I happened to take. Next time, I might not be home.
+> June 20th, 4:35 in the afternoon. This is my basement. Water's coming in under the window
+> and through the foundation, across a floor I'd laid the week before.
 
-**0:15 The idea**
-[H2: my real Flood & Freeze sensor going into a tray of water, label on screen:
-"Controlled test. Real device."]
+**0:12 Why it mattered**
+[December ceiling clip, then me pumping by the electrical panel.]
 
-> So I built Watermark. A Ring flood sensor knows the moment water arrives. Watermark
-> turns that moment into evidence: a Ring camera records, and it all lands in one pack for
-> my insurer.
+> It was my second flood in seven months. The sewer backed up into fifty-two units that day,
+> and the mitigation report blamed the rain. My insurer needed to know: sewer, or clean
+> rainwater? That decided my coverage. My only proof was my phone, because I happened to be
+> home.
 
-**0:27 The real alert**
-[H3: my phone, the Ring app's flood alert arriving]
+**0:32 The idea** (Quality of the Idea)
+[H1 the kit, H2 the camera aimed at the tray.]
 
-> That's Ring telling me, on my phone. What Ring doesn't do is film it. A slow puddle
-> doesn't trip motion detection.
+> So I built Watermark, a Ring Appstore app that turns a flood sensor's alert into evidence
+> an insurer can use.
 
-[H5: the Ring app's event history for the Indoor Cam over the same minutes, showing what
-it did and did not record]
+**0:41 The real devices**
+[H3 the slow pour, label "Controlled test. Real device." Then H4, the Ring alert on my phone.]
 
-**0:37 The honest part**
-[Screen: 01-dashboard.webm, the hatched Playground notice in view]
+> Real sensor, real Indoor Cam. I fill the tray slowly, the way a basement floods. Ring
+> alerts my phone right away.
 
-> One honest note: Ring only opens real devices to partner apps in the US, and I'm in
-> Canada. So here the camera is Ring's Developer Playground, through the real Ring API,
-> and the sensor event is simulated. Every page says so.
+**0:51 The gap** (Quality of the Idea: understanding the end user)
+[H6 the Indoor Cam's event history for those minutes. Then H7, the Chime's alert list.]
 
-**0:52 The measurement**
-[Screen: 02-incident-gauge.webm. On screen: "The first Ring frame arrived 6.85 s after the
-sensor event, median of 10 runs, range 6.6 to 11.2 s."]
+> But the camera's history for those minutes shows [N] recordings. Slow water doesn't trip
+> motion detection. And the Chime can't sound for a flood sensor at all.
 
-> The sensor fires, Watermark opens a live session, and the first Ring frame is in hand in
-> about seven seconds. Ten runs on two days, median six point eight five. The blue bar is
-> how long the water stood; each notch is a frame.
+(Say the real count from H6, whatever it is, and adjust the next sentence to match.)
 
-**1:08 The frames**
-[Screen: 03-incident-frames.webm, Ring's own timestamp burned into every frame]
+**1:03 Watermark closes it** (Tech Implementation)
+[Screen: dashboard, then an incident page filling with Ring frames, Ring's timestamp in the
+corner. On-screen text below.]
 
-> These are Ring's frames, with Ring's own time stamped in. Ring's test camera watches a
-> bird feeder, not my basement, so instead of guessing about water, the page says "not
-> captioned".
+> When the sensor fires, Watermark opens a live session through the Ring Partner API, which
+> makes the camera record, and keeps pulling frames with Ring's own timestamp until it's dry.
+> Across ten runs on Ring's Developer Playground, the first frame landed in under seven
+> seconds. The sensor there is simulated, and the pack says so.
 
-**1:20 What it won't claim**
-[Screen: 04-incident-integrity.webm, then 05-pack.webm]
+**1:28 What you hand the insurer** (Design)
+[The evidence pack: the plaque header with the red line, the timeline, the frames, the section
+on what the record cannot vouch for, then the claim questions. On-screen text below.]
 
-> Every pack lists what it can't vouch for, like a simulated sensor or a camera that went
-> offline, and it never states a cause. That's the adjuster's call. The timeline is mine.
+> You get one evidence pack: the timeline, the frames, device health, and what the record
+> can't vouch for. Against the seven questions my adjuster actually asked, it answers the two
+> that mattered, when the water came and where it was, and partly answers two more. It never
+> names a cause.
 
-**1:34 Close**
-[H6: the sensor, the Indoor Cam and the Chime on a table, then the Watermark wordmark]
+**1:50 What it's built on** (Tech Implementation)
+[Architecture card: sensor webhook, live session, chime playback, account linking, AWS IoT
+Core, S3. Then the rover clip if it passed its trials, otherwise the IoT dispatch log.]
 
-> A Ring flood sensor, a Ring camera, and a record that starts the second the water does.
-> That's Watermark.
+> It's built on the Ring Partner API, through a Python client I open-sourced. A rover I
+> printed can carry the camera to the room, with its orders sent through AWS IoT Core.
+
+**2:05 Who it's for** (Potential Impact)
+[Wide shot of the street under water, plates blurred.]
+
+> Fifty-two units flooded in my building that day. A property manager or insurer with
+> sensors in every unit gets this record for all of them, without anyone home. And for Ring,
+> the flood sensor becomes a reason to add a camera.
+
+**2:24 Close**
+[Final shot: the evidence pack, the plaque header and its red line, slow push in. Wordmark.]
+
+> Next time water comes in, I won't need to be home.
 
 ## On-screen text, exact
 
-- 0:15 "Controlled test. Real device."
-- 0:37 "Camera: Ring Developer Playground, real Ring API. Sensor event: simulated."
-- 0:52 "The first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s."
-- 1:08 "Ring's timestamp, burned in by Ring."
+- 0:00 lower third: "My basement, 20 June 2026, 4:35 PM"
+- 0:41: "Controlled test. Real device."
+- 0:51: "Ring app event history, Indoor Cam, during the fill: [N] motion recordings"
+- 1:03: "The first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s. Ring Developer Playground; sensor simulated."
+- 1:28: "The pack answers 2 of 7 questions my adjuster asked; it partly answers 2 more."
+- 1:50: "Rover dispatch over AWS IoT Core: on station 7.7 seconds after the sensor (simulated drive)."
+- 2:24: "Watermark. github.com/JonathanSolvesProblems/watermark"
 
-## Screen b-roll (recorded automatically, `demo/broll/`)
+## How the script maps to the judging criteria
 
-| Clip | What it shows | Used at |
+| Criterion | Where it is earned |
+|---|---|
+| Tech Implementation | 1:03 and 1:50: live sessions, sensor webhooks, chime playback and account linking from the Ring Partner API; the open-source client; IoT Core dispatch; real Ring frames with Ring's timestamps |
+| Design | 1:28: one finished artifact a homeowner hands over, plus the dashboard and incident page at 1:03 |
+| Potential Impact | 0:00 and 2:05: my own two floods, 52 units in one building, property managers and insurers as the next audience |
+| Quality of the Idea | 0:51: the gap only someone who owns the devices finds (slow water does not trip motion, the Chime cannot sound for a sensor), and the refusal to name a cause |
+
+## Screen b-roll (record with `tools/record_broll.py` against the live link)
+
+| Clip | What | Used at |
 |---|---|---|
-| `01-dashboard.webm` | Dashboard in Playground mode: the hatched notice, the sensor gauge, five incidents | 0:37 |
-| `02-incident-gauge.webm` | Incident page: 6.85 s readout, the staff gauge rising, the marks below | 0:52 |
-| `03-incident-frames.webm` | Glide to the six Ring frames with Ring's timestamps | 1:08 |
-| `04-incident-integrity.webm` | Timeline, "what this record cannot vouch for", the claim map | 1:20 |
-| `05-pack.webm` | The evidence pack, scrolled top to bottom | 1:26 |
-| `06-link.webm`, `07-setup.webm`, `08-home.webm` | Account link, setup and home pages, if a beat needs cover | spare |
-| `ring-frame-*.jpg` | Full-size Ring frames for stills | spare |
-
-Re-record with `py tools/record_broll.py --incident <id>` against a server holding the
-measured Playground runs.
+| `01-dashboard` | Dashboard with the recorded runs, then a click into an incident | 1:03 |
+| `02-incident` | Incident page: the Ring frame, the sentence with the time to first frame, the gauge | 1:03 |
+| `03-pack` | The evidence pack, slow scroll from the plaque header to the claim questions | 1:28, 2:24 |
+| `04-iot` | The IoT dispatch record (`docs/runs/iot-dispatch.json`) or the rover clip | 1:50 |
 
 ## Hardware shots I film myself
 
