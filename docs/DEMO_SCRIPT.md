@@ -91,22 +91,35 @@ measured Playground runs.
 
 ## Hardware shots I film myself
 
-1. **H1, June 20 stills.** Two frames from the phone videos of the flood (window well,
-   panel wall). Blur the address and anything with a unit number.
-2. **H2, sensor into water.** The Flood & Freeze sensor lowered into a shallow tray, at the
-   water heater if possible. Steady shot, 5 to 8 seconds, label added in edit.
-3. **H3, the Ring app alert.** Screen-record the phone as the flood alert arrives, with the
-   phone's clock visible. Do H2 and H3 in the same take if a second person can hold the phone.
-4. **H4, the Indoor Cam on the tray.** Point Flood Cam at the tray while the water goes in,
-   then export that clip from the Ring app. Spare footage if Ring recorded anything.
-5. **H5, the motion check.** In the Ring app, open Flood Cam's event history for the minutes
-   of H2 and screen-record it. Whatever it shows is what the script says: if a motion event
-   did appear, change the 0:27 line to match before recording the voice.
-6. **H6, closing table shot.** Sensor, Indoor Cam and Chime side by side on a plain surface.
+Already shot (in `demo/broll/flood/`, picks in `FOOTAGE.md`, not committed): the December
+ceiling, the June window well, me pumping by the electrical panel where it came up from the
+foundation, the wet floor, the flooded street. Blur house numbers and plates.
+
+New, one controlled test with the real devices, landscape, 1080p or 4K, 30 fps:
+
+1. **H1, the kit.** Flood & Freeze sensor, Indoor Cam and Chime side by side on a plain
+   surface. 5 s, slow push in.
+2. **H2, the setup in place.** The Indoor Cam on a shelf or the floor, aimed at a shallow tray
+   on the basement floor, ideally near the window or the water heater. 5 s.
+3. **H3, water reaches the sensor.** The sensor in the empty tray, then water poured in
+   slowly, a cup at a time, so the level rises over about 2 minutes. That slow rise is the
+   point: it is how a basement floods. Film it steady, 20 to 30 s of usable footage, and note
+   the clock time when the water first touches the sensor. "Controlled test. Real device."
+   goes on in the edit.
+4. **H4, the Ring alert.** Screen-record the phone as the flood alert arrives, clock visible.
+   Same take as H3 if someone can hold the phone, otherwise right after with the clock in shot.
+5. **H5, what the camera saw.** In the Ring app, open the Indoor Cam's live view while the tray
+   is wet and screen-record 5 s: proof the camera could see the water.
+6. **H6, the ablation.** In the Ring app, open the Indoor Cam's event history for the minutes
+   of H3 and screen-record it, plus a screenshot. Count the motion recordings in that window.
+   That count fills `ring_app_motion_events` in `docs/runs/ablation-run.json` and the
+   "[N] motion recordings" line. Whatever it shows is what the script says.
+7. **Optional, me on camera.** Standing by the basement window, one line: "This is where the
+   water came in on June 20th." Ten seconds of a real person in the real room.
+
+Crop anything in the Ring app that shows my email, my address or my location name.
 
 ## Before recording the voice
 
-- `py tools/check_claims.py` is green.
-- H5 has been watched and the 0:27 line matches what it showed.
-- The claim map still says TEMPLATE until the real June claim questions replace
-  `server/watermark/claim_questions.json`; the script does not quote a count from it.
+- `py tools/check_claims.py` is green, with the H6 count committed.
+- H6 has been watched and the ablation line matches what it showed.
