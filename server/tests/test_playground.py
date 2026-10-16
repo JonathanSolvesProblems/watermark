@@ -49,3 +49,29 @@ def test_no_mock_captions_outside_mock_mode(tmp_path):
     assert make_captioner(Settings(mode="playground", data_dir=tmp_path)) is None
     assert make_captioner(Settings(mode="live", data_dir=tmp_path)) is None
     assert isinstance(make_captioner(Settings(mode="mock", data_dir=tmp_path)), MockCaptioner)
+
+
+def test_replay_is_read_only(monkeypatch):
+    """The judged link serves recorded runs: no test endpoints, no background calls to Ring."""
+    from watermark.config import Settings
+    monkeypatch.setenv("MODE", "playground")
+    monkeypatch.setenv("REPLAY", "1")
+    s = Settings.from_env()
+    assert s.replay and s.is_playground and not s.dev_tools
+    monkeypatch.delenv("REPLAY")
+    assert Settings.from_env().dev_tools
+
+def test_replay_refuses_every_write(tmp_path, monkeypatch):
+    """A judge clicking Delete everything on the replay link must not erase the recorded runs."""
+    from fastapi.testclient import TestClient
+    from watermark.app import create_app
+    from watermark.config import Settings
+    monkeypatch.setenv("MODE", "playground")
+    monkeypatch.setenv("REPLAY", "1")
+    monkeypatch.setenv("DATA_DIR", str(tmp_path))
+    with TestClient(create_app(Settings.from_env())) as c:
+        assert c.get("/api/account").status_code == 200
+        for method, path in [("delete", "/api/account"), ("post", "/api/incidents/x/pack"),
+                             ("post", "/api/incidents/x/close"), ("post", "/api/test/trigger")]:
+            r = getattr(c, method)(path)
+            assert r.status_code == 403 and "read-only" in r.json()["detail"], (method, path, r.status_code)

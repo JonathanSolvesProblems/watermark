@@ -32,6 +32,8 @@ class Settings:
     public_base_url: str = "http://localhost:8000"
     web_origin: str = "http://localhost:3000"
     dev_tools: bool = True                  # exposes /api/test/* (always on in mock)
+    # Read-only: serve recorded runs, no simulate, no background calls to Ring (the judged link)
+    replay: bool = False
 
     # Ring partner credentials (Developer Portal)
     ring_client_id: str | None = None
@@ -78,7 +80,8 @@ class Settings:
             data_dir=Path(_env("DATA_DIR", "data") or "data"),
             public_base_url=_env("PUBLIC_BASE_URL", "http://localhost:8000") or "http://localhost:8000",
             web_origin=_env("WEB_ORIGIN", "http://localhost:3000") or "http://localhost:3000",
-            dev_tools=_env_bool("DEV_TOOLS", mode in ("mock", "playground")),
+            dev_tools=_env_bool("DEV_TOOLS", mode in ("mock", "playground")) and not _env_bool("REPLAY"),
+            replay=_env_bool("REPLAY"),
             ring_client_id=_env("RING_CLIENT_ID"),
             ring_client_secret=_env("RING_CLIENT_SECRET"),
             ring_hmac_key=_env("RING_HMAC_KEY", "mock-signing-key") or "mock-signing-key",

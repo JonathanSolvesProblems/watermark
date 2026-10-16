@@ -27,6 +27,7 @@ export type Account = {
   email?: string;
   link_status?: string;
   mode?: string;
+  replay?: boolean;
 };
 
 export type Device = {

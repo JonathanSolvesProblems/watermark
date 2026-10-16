@@ -7,8 +7,9 @@
 # Usage: .\run-live.ps1                  (mode from logs\mode.txt, else mock)
 #        .\run-live.ps1 -Mode live       (real Ring account; the choice is remembered)
 #        .\run-live.ps1 -Mode playground (paste a fresh token into tmp\playground_token.txt)
+#        .\run-live.ps1 -Mode replay     (the judged link: recorded Playground runs, read-only)
 #        .\run-live.ps1 -Stop            (stop everything, including the supervisor)
-param([ValidateSet("", "live", "mock", "playground")][string]$Mode = "", [switch]$Stop)
+param([ValidateSet("", "live", "mock", "playground", "replay")][string]$Mode = "", [switch]$Stop)
 
 $root = $PSScriptRoot
 $logs = Join-Path $root "logs"
@@ -57,6 +58,11 @@ if (-not $domain) { throw "PUBLIC_BASE_URL is empty in server\.env" }
 # Live, mock and playground keep separate databases so a test never mixes with real evidence.
 $vars["MODE"] = $Mode
 $vars["DATA_DIR"] = "data\$Mode"
+if ($Mode -eq "replay") {
+  # The judged link: recorded Ring Playground runs, read-only, frames where they were recorded.
+  $vars["MODE"] = "playground"; $vars["DATA_DIR"] = "data\playground-oct9"
+  $vars["REPLAY"] = "1"; $vars["BLOB_BACKEND"] = "local"
+}
 $envSetup = ($vars.GetEnumerator() | ForEach-Object { "`$env:$($_.Key)='$($_.Value -replace "'", "''")'" }) -join "; "
 
 $parts = [ordered]@{

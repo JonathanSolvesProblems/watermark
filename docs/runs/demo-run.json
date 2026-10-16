@@ -1,10 +1,10 @@
 {
- "generated_at": "2026-10-15 18:29 -0400",
+ "generated_at": "2026-10-16 05:40 -0400",
  "incident": {
   "id": "inc-1791590196691-6800fe",
   "account_id": "playground",
   "sensor_device_id": "simulated-flood-sensor",
-  "room": "Water heater closet",
+  "room": "Ring Playground camera",
   "kind": "flood",
   "status": "closed",
   "opened_at_ms": 1791590196689,
@@ -29,22 +29,22 @@
  "sensor": {
   "device_id": "simulated-flood-sensor",
   "account_id": "playground",
-  "name": "Water heater sensor (simulated)",
+  "name": "Simulated flood sensor",
   "kind": "flood_freeze",
-  "room": "Water heater closet",
+  "room": "Ring Playground camera",
   "route_id": null,
   "covered_by": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
   "chime_audio_ref": null,
-  "last_status": "{\"data\": {\"attributes\": {\"online\": true, \"reported_at\": \"2026-10-10T00:01:46Z\", \"flood_detection\": {\"faulted\": false}, \"freeze_detection\": {\"faulted\": false}, \"tamper_detection\": {\"detected\": false}, \"sensor_reporting_state\": {\"value\": \"active\"}}}}",
+  "last_status": "{\"data\": {\"attributes\": {\"online\": true, \"reported_at\": \"2026-10-15T22:34:39Z\", \"flood_detection\": {\"faulted\": false}, \"freeze_detection\": {\"faulted\": false}, \"tamper_detection\": {\"detected\": false}, \"sensor_reporting_state\": {\"value\": \"active\"}}}}",
   "online": 1,
-  "updated_at": 1791590506.6805482
+  "updated_at": 1792103679.4550006
  },
  "camera": {
   "device_id": "ava1.ring.device.KBJR5MES7VUPTYTZIBQ6DZXAUTDSMXJE3TLTBDQ5DQXRSUWTH4CPJKCQITXGR5HNLSRXD3UGKGCX6A2PWTX2S3MTL52X5D77",
   "account_id": "playground",
   "name": "Playground Device",
   "kind": "camera",
-  "room": "Water heater closet",
+  "room": "Ring Playground camera",
   "route_id": null,
   "covered_by": null,
   "chime_audio_ref": null,
@@ -763,7 +763,7 @@
      "water_entry_visible"
     ],
     "status": "answered",
-    "evidence": "39 timed frames of where the water was in Water heater closet, for the adjuster to judge where it came in"
+    "evidence": "39 timed frames of where the water was in Ring Playground camera, for the adjuster to judge where it came in"
    },
    {
     "id": "q3",
@@ -894,5 +894,5 @@
    }
   ]
  },
- "narrative": "Water reached the sensor in Water heater closet and stood for 77 seconds. The Ring camera sent 39 frames, the first 6.9 s after the sensor. None of them is captioned. One note is listed below. This describes what was recorded, not what caused it."
+ "narrative": "Water reached the sensor in Ring Playground camera and stood for 77 seconds. The Ring camera sent 39 frames, the first 6.9 s after the sensor. None of them is captioned. One note is listed below. This describes what was recorded, not what caused it."
 }

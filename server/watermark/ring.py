@@ -158,7 +158,7 @@ class PlaygroundRing:
         self.faulted = faulted
 
     def list_devices(self, include=None) -> list[Device]:
-        return [*self.client.list_devices(), Device(id=self.SENSOR, name="Water heater sensor (simulated)")]
+        return [*self.client.list_devices(), Device(id=self.SENSOR, name="Simulated flood sensor")]
 
     def status(self, device_id: str, component_id=None) -> DeviceStatus:
         if device_id != self.SENSOR:

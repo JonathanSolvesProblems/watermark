@@ -42,7 +42,7 @@ export default function Dashboard() {
   const cameras = devices.filter((d) => d.kind === "camera");
   const chimes = devices.filter((d) => d.kind === "chime");
   const unrouted = sensors.filter((s) => s.kind === "flood_freeze" && !s.route_id && !s.covered_by);
-  const canSimulate = acct?.mode === "mock" || acct?.mode === "playground";
+  const canSimulate = acct?.mode === "mock" || (acct?.mode === "playground" && !acct?.replay);
 
   async function run(label: string, fn: () => Promise<unknown>) {
     setBusy(label);
@@ -89,6 +89,7 @@ export default function Dashboard() {
           <strong className="font-semibold mr-2">Playground.</strong>
           The camera is Ring&apos;s Developer Playground doorbell, reached through the real Ring API. Ring offers no
           sensors there, so the flood sensor is simulated, and every pack says so.
+          {acct.replay && " These are my recorded runs from 9 October 2026: real Ring frames, read-only."}
         </p>
       )}
 

@@ -82,7 +82,8 @@ class AppState:
         self.background: list[asyncio.Task] = []
         if settings.is_mock:
             self._seed_mock()
-        if settings.is_playground:
+        # Replay serves what is already recorded; there is no token to discover with.
+        if settings.is_playground and not settings.replay:
             self._seed_playground()
 
     def _seed_playground(self) -> None:
@@ -97,10 +98,10 @@ class AppState:
             log.warning("Playground discovery failed (token expired?): %s", e)
             return
         cams = [d for d in devices if d.get("kind") == "camera"]
-        self.db.upsert_device(PlaygroundRing.SENSOR, room="Water heater closet",
+        self.db.upsert_device(PlaygroundRing.SENSOR, room="Ring Playground camera",
                               covered_by=cams[0]["device_id"] if cams else None)
         for cam in cams:
-            self.db.upsert_device(cam["device_id"], room="Water heater closet")
+            self.db.upsert_device(cam["device_id"], room="Ring Playground camera")
 
     def _seed_mock(self) -> None:
         """A linked mock account with a sensor, a rover cam, a fixed cam and a chime,
@@ -132,8 +133,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @contextlib.asynccontextmanager
     async def lifespan(app: FastAPI):
-        state.background.append(asyncio.create_task(_reconcile_loop(state)))
-        state.background.append(asyncio.create_task(_refresh_loop(state)))
+        if not settings.replay:
+            state.background.append(asyncio.create_task(_reconcile_loop(state)))
+            state.background.append(asyncio.create_task(_refresh_loop(state)))
         try:
             yield
         finally:
@@ -245,7 +247,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             return {"linked": False}
         acct = s.db.get_account(aid) or {}
         return {"linked": acct.get("link_status") == "completed", "account_id": aid, "email": acct.get("email"),
-                "link_status": acct.get("link_status"), "mode": s.settings.mode}
+                "link_status": acct.get("link_status"), "mode": s.settings.mode, "replay": s.settings.replay}
 
     @app.delete("/api/account")
     async def delete_account(s: AppState = Depends(st)):
@@ -324,6 +326,16 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                         "frame_count": len(frames), "first_frame_id": frames[0]["id"] if frames else None,
                         "pack": pack})
         return out
+
+    @app.middleware("http")
+    async def replay_is_read_only(request, call_next):
+        # The judged link replays recorded runs. Nothing a visitor clicks may change or
+        # delete them: every write to the API is refused with a plain explanation.
+        if (settings.replay and request.method in ("POST", "PUT", "PATCH", "DELETE")
+                and request.url.path.startswith("/api/")):
+            return JSONResponse({"detail": "This is a read-only replay of my recorded Ring Playground runs, "
+                                           "so nothing here can be changed or deleted."}, status_code=403)
+        return await call_next(request)
 
     @app.get("/api/incidents/{incident_id}")
     async def get_incident(incident_id: str, s: AppState = Depends(st)):
