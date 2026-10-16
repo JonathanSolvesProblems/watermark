@@ -13,8 +13,9 @@ logos: skip the fill-valve and battery photos (branded packaging), blur plates a
 "5 December 2025". Then the June clip: water across the hardwood under the basement window.
 Lower third: "20 June 2026, 4:35 PM".]
 
-> December 5th. Water's coming through my ceiling from the bathroom above. The repairs took
-> months. June 20th, one week after they finished, 4:35 in the afternoon. Now it's coming in
+> December 5th. Water's coming through my ceiling from the bathroom above. The ceiling had
+> asbestos, so getting the insurer and the condo to approve removing it safely took over six
+> months. June 20th, one week after the repairs finished, 4:35 in the afternoon. Now it's coming in
 > under my basement window and through the foundation, right across the new floor.
 
 **0:16 Why it mattered**
