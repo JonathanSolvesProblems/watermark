@@ -10,7 +10,7 @@ logos: skip the fill-valve and battery photos (branded packaging), blur plates a
 
 **0:00 Two floods** (Potential Impact)
 [December clip: the opened ceiling above the dining area, blanket on the floor. Lower third:
-"4 December 2025". Then the June clip: water across the hardwood under the basement window.
+"5 December 2025". Then the June clip: water across the hardwood under the basement window.
 Lower third: "20 June 2026, 4:35 PM".]
 
 > December 5th. Water's coming through my ceiling from the bathroom above. The repairs took
