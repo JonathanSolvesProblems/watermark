@@ -13,7 +13,7 @@ logos: skip the fill-valve and battery photos (branded packaging), blur plates a
 "4 December 2025". Then the June clip: water across the hardwood under the basement window.
 Lower third: "20 June 2026, 4:35 PM".]
 
-> December 4th. Water's coming through my ceiling from the bathroom above. The repairs took
+> December 5th. Water's coming through my ceiling from the bathroom above. The repairs took
 > months. June 20th, one week after they finished, 4:35 in the afternoon. Now it's coming in
 > under my basement window and through the foundation, right across the new floor.
 
@@ -83,7 +83,7 @@ Core, S3. Then the rover clip if it passed its trials, otherwise the IoT dispatc
 
 ## On-screen text, exact
 
-- 0:00 lower thirds: "4 December 2025", then "20 June 2026, 4:35 PM"
+- 0:00 lower thirds: "5 December 2025", then "20 June 2026, 4:35 PM"
 - 0:41: "Controlled test. Real device."
 - 0:51: "Ring app event history, Indoor Cam, during the fill: [N] motion recordings"
 - 1:03: "The first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s. Ring Developer Playground; sensor simulated."
