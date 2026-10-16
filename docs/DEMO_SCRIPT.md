@@ -1,27 +1,28 @@
 # Demo script (v4)
 
-About 2:30, spoken at an easy pace (about 340 words). Judges are not required to watch past
-3:00, so the strongest material is first: my real flood, then the real Ring devices, then the
+About 2:35, spoken at an easy pace (about 350 words). Judges are not required to watch past
+3:00, so the strongest material is first: my two real floods, then the real Ring devices, then the
 gap Ring leaves, then Watermark closing it. Every number on screen is checked by
 `py tools/check_claims.py` against `docs/runs/`. No music, or royalty-free only. No third-party
 logos: skip the fill-valve and battery photos (branded packaging), blur plates and house numbers.
 
 ## Script
 
-**0:00 My basement** (Potential Impact)
-[My June 20 clip: water running across the hardwood under the window. Lower third:
-"My basement, 20 June 2026, 4:35 PM".]
+**0:00 Two floods** (Potential Impact)
+[December clip: the opened ceiling above the dining area, blanket on the floor. Lower third:
+"4 December 2025". Then the June clip: water across the hardwood under the basement window.
+Lower third: "20 June 2026, 4:35 PM".]
 
-> June 20th, 4:35 in the afternoon. This is my basement. Water's coming in under the window
-> and through the foundation, across a floor I'd laid the week before.
+> December 4th. Water's coming through my ceiling from the bathroom above. The repairs took
+> months. June 20th, one week after they finished, 4:35 in the afternoon. Now it's coming in
+> under my basement window and through the foundation, right across the new floor.
 
-**0:12 Why it mattered**
-[December ceiling clip, then me pumping by the electrical panel.]
+**0:16 Why it mattered**
+[Me pumping by the electrical panel, then the wet floor.]
 
-> It was my second flood in seven months. The sewer backed up into fifty-two units that day,
-> and the mitigation report blamed the rain. My insurer needed to know: sewer, or clean
-> rainwater? That decided my coverage. My only proof was my phone, because I happened to be
-> home.
+> The sewer backed up into fifty-two units that day, and the mitigation report blamed the rain.
+> My insurer needed to know: sewer, or clean rainwater? That decided my coverage. Both times,
+> my only proof was my phone, because I happened to be home.
 
 **0:32 The idea** (Quality of the Idea)
 [H1 the kit, H2 the camera aimed at the tray.]
@@ -82,7 +83,7 @@ Core, S3. Then the rover clip if it passed its trials, otherwise the IoT dispatc
 
 ## On-screen text, exact
 
-- 0:00 lower third: "My basement, 20 June 2026, 4:35 PM"
+- 0:00 lower thirds: "4 December 2025", then "20 June 2026, 4:35 PM"
 - 0:41: "Controlled test. Real device."
 - 0:51: "Ring app event history, Indoor Cam, during the fill: [N] motion recordings"
 - 1:03: "The first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s. Ring Developer Playground; sensor simulated."
@@ -96,7 +97,7 @@ Core, S3. Then the rover clip if it passed its trials, otherwise the IoT dispatc
 |---|---|
 | Tech Implementation | 1:03 and 1:50: live sessions, sensor webhooks, chime playback and account linking from the Ring Partner API; the open-source client; IoT Core dispatch; real Ring frames with Ring's timestamps |
 | Design | 1:28: one finished artifact a homeowner hands over, plus the dashboard and incident page at 1:03 |
-| Potential Impact | 0:00 and 2:05: my own two floods, 52 units in one building, property managers and insurers as the next audience |
+| Potential Impact | 0:00 and 2:05: both of my floods on my own footage, 52 units in one building, property managers and insurers as the next audience |
 | Quality of the Idea | 0:51: the gap only someone who owns the devices finds (slow water does not trip motion, the Chime cannot sound for a sensor), and the refusal to name a cause |
 
 ## Screen b-roll (record with `tools/record_broll.py` against the live link)
