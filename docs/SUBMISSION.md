@@ -50,7 +50,7 @@ Web: Next.js following the Ring UX design guide: passwordless account linking wi
 ## AWS Builder field
 
 ```
-Amazon S3 stores every frame and evidence pack: server/watermark/blobs.py (S3BlobStore). AWS IoT Core delivers dispatch commands to the rover as a Thing over MQTT (AWS IoT Device SDK v2): server/watermark/dispatch.py (IoTDispatcher) and rover/agent.py (IoTCommands). Amazon Bedrock (Converse API, amazon.nova-lite-v1:0) captions frames and writes the pack narrative when enabled: server/watermark/captions.py; AWS still blocks Bedrock on my account, so the measured packs say they carry no captions.
+AWS IoT Core delivers the dispatch to the rover: the rover is a Thing (rover-1) with its own X.509 certificate and a least-privilege policy that only lets it receive its own command topic; the server publishes over MQTT with SigV4. Measured: a flood event reached the rover through IoT Core and it reported on station 7.7 s after the sensor (docs/runs/iot-dispatch.json; server/watermark/dispatch.py, rover/agent.py, tools/iot_setup.py). Amazon S3 stores frames and evidence packs (server/watermark/blobs.py). The judged demo runs on Amazon EC2 (a Graviton t4g.small) as three systemd services that restart on failure and on reboot (tools/ec2_services.sh). Amazon Bedrock (Converse API, Nova Lite) captions frames and writes the pack narrative when enabled (server/watermark/captions.py); AWS still blocks Bedrock on my account, so the measured packs say they carry no captions.
 ```
 
 ## Open Source field
@@ -72,10 +72,12 @@ Video: [URL]
 - **Two public repos, both MIT:** `watermark` (the submission) and `ring-partner-py`
   (split from `sdk/` with `git subtree split`). Published 2026-10-15. PHASE0.md was removed
   from all history before publishing and is gitignored.
-- **AWS field truth table, update before pasting:** S3 is claimed only once a measured
-  pack is confirmed in the bucket. IoT Core is claimed only once the rover has received a
-  dispatch over MQTT. If either is not true by Oct 21, delete its sentence. If Bedrock is
-  unblocked by Oct 20, re-run captions on a Playground pack and drop the "still blocks" clause.
+- **AWS field truth table (checked 2026-10-16):** IoT Core true (docs/runs/iot-dispatch.json).
+  S3 true (packs in the bucket). EC2 true (instance i-0ef6aeb869c1fe94f serves the live link,
+  survived a reboot in 26 s). Bedrock still blocked: if it is unblocked by Oct 20, re-run
+  captions on a Playground pack and drop the "still blocks" clause.
+- **Teardown Dec 4:** `py tools/teardown.py --apply`, then revoke keys by hand (the script
+  prints the list).
 - **Open Source contribution:** the PR to AmazonAppDev/ring-api-helloworld (sensor webhook
   types in its normaliser) is not opened. Either open it by Oct 20 and add "Contribution:
   PR <URL>" to the field, or leave the field as the new project only.

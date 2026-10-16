@@ -1,0 +1,37 @@
+{
+ "what": "Rover dispatch delivered over AWS IoT Core (MQTT): the server publishes with SigV4, the rover subscribes with its Thing certificate and has no other command channel",
+ "measured_at": "2026-10-16 05:56:11 -0400",
+ "thing": "rover-1",
+ "topic": "watermark/rover/rover-1/commands",
+ "rover_transport": "iot",
+ "rover_hardware": "simulated (ROVER_SIMULATE=1); the same agent code that runs on the Pi",
+ "incident_id": "inc-1792144539675-6cb8c5",
+ "sensor_to_on_station_s": 7.7,
+ "stop_reason": "wet",
+ "rover_log": [
+  {
+   "kind": "dispatched",
+   "message": "route route-water-heater to Water heater closet"
+  },
+  {
+   "kind": "ack",
+   "message": "route route-water-heater: Hall to water heater"
+  },
+  {
+   "kind": "wet",
+   "message": "wand touched water after 7.55 s"
+  },
+  {
+   "kind": "telemetry",
+   "message": ""
+  },
+  {
+   "kind": "telemetry",
+   "message": ""
+  },
+  {
+   "kind": "telemetry",
+   "message": ""
+  }
+ ]
+}
