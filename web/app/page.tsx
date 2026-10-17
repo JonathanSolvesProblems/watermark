@@ -40,7 +40,7 @@ export default function Home() {
         <div>
           <h1 className="headline text-[38px] sm:text-[52px] max-w-[18ch]">The camera goes to the water when the sensor finds it</h1>
           <p className="mt-6 text-[18px] leading-relaxed text-stencil max-w-xl">
-            On June 20, 2026 the city sewer backed up into 52 units of my condo. Mine also came in through the
+            On June 20, 2026 the city sewer backed up into more than 60 units of my condo. Mine also came in through the
             foundation, gaps beside the electrical panel and a basement window, one week after I had finished rebuilding
             from my first flood. The mitigation report blamed heavy rain. The only thing that stopped it was two phone
             videos I took because I happened to be home. Watermark is the record I wish had been running.

@@ -2,7 +2,7 @@
 
 **When a Ring sensor finds water, the camera goes to the water.**
 
-On June 20, 2026 the city sewer backed up into 52 units of my condo. Mine also came in
+On June 20, 2026 the city sewer backed up into more than 60 units of my condo. Mine also came in
 through the foundation, gaps beside the electrical panel and a basement window, one week
 after I had finished rebuilding from my first flood (December 2025, a badly sloped drain
 pipe and a toilet leak). The mitigation company's report said heavy rain, and floated my
