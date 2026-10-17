@@ -69,15 +69,15 @@ export default function Home() {
         <figure className="grid gap-3 lg:order-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/flood/ceiling-2025-12-04.jpg"
+            src="/flood/ceiling-2025-12-05.jpg"
             width={900}
             height={1600}
-            alt="My dining room on 4 December 2025: the ceiling opened up under a leaking bathroom, a blanket on the floor catching the water"
+            alt="My dining room on 5 December 2025: the ceiling opened up under a leaking bathroom, a blanket on the floor catching the water"
             className="w-full max-w-[420px] max-h-[640px] object-cover lg:ml-auto rounded-[3px]"
             loading="lazy"
           />
           <figcaption className="text-[14px] text-stencil lg:text-right max-w-[420px] lg:ml-auto">
-            The first flood, 4 December 2025: through the dining room ceiling. Again, only my phone was recording.
+            The first flood, 5 December 2025: through the dining room ceiling. Again, only my phone was recording.
           </figcaption>
         </figure>
         <div className="lg:order-1">
