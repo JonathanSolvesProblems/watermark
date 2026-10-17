@@ -24,7 +24,7 @@ PROMPT = (
 @dataclass
 class Caption:
     description: str
-    water_visible: bool
+    water_visible: bool | None   # None: this captioner does not judge wetness
     extent: str
     confidence: str
     model: str
@@ -72,6 +72,40 @@ class BedrockCaptioner(Captioner):
         )
 
 
+class RekognitionCaptioner(Captioner):
+    """Amazon Rekognition DetectLabels. Labels, not prose: it records what is in view
+    (the floor, the walls, what stands on them) with its confidence.
+
+    It does not judge wetness. On my own June flood footage it labelled a film of
+    water across the hardwood exactly as it labelled the dry floor before the flood
+    ("Floor, Hardwood"), so a "no water" from it would be false on a real flood. The
+    sensor is the record of water; this only ever adds a yes when Rekognition itself
+    reports a water label clearly, and otherwise says nothing about it.
+    Used because Bedrock is blocked on the account this was built on."""
+
+    WATER = {"Water", "Flood", "Puddle"}
+    WATER_MIN = 80.0
+    model = "rekognition:DetectLabels"
+
+    def __init__(self, region: str, client=None):
+        if client is None:
+            import boto3  # lazy
+            client = boto3.client("rekognition", region_name=region)
+        self.client = client
+
+    def caption(self, jpeg: bytes, context: str = "") -> Caption:
+        labels = self.client.detect_labels(Image={"Bytes": jpeg}, MaxLabels=10, MinConfidence=55)["Labels"]
+        seen = ", ".join(f"{lb['Name']} {lb['Confidence']:.0f}%" for lb in labels) or "nothing recognised"
+        water = max((lb["Confidence"] for lb in labels if lb["Name"] in self.WATER), default=0.0)
+        return Caption(
+            description=f"Labels seen: {seen}.",
+            water_visible=True if water >= self.WATER_MIN else None,
+            extent="not measured: label detection does not estimate extent",
+            confidence="high" if water >= 90 else "medium" if water >= self.WATER_MIN else "low",
+            model=self.model,
+        )
+
+
 def _extract_json(text: str) -> dict:
     text = text.strip()
     if text.startswith("```"):
@@ -96,6 +130,8 @@ def make_captioner(settings) -> Captioner | None:
     Anywhere else without Bedrock, frames stay uncaptioned and say so."""
     if settings.captions_backend == "bedrock":
         return BedrockCaptioner(settings.bedrock_model_id, settings.aws_region)
+    if settings.captions_backend == "rekognition":
+        return RekognitionCaptioner(settings.aws_region)
     if settings.is_mock:
         return MockCaptioner()
     return None
@@ -131,10 +167,15 @@ def narrative(incident: dict, frames: list[dict], readings: list[dict], integrit
         seen = f"The Ring camera sent {_n(len(frames), 'frame')}"
         seen += f", the first {max(0, first - opened) / 1000:.1f} s after the sensor." if first is not None and opened is not None else "."
         nc = len(captioned)
+        labelled = [f for f in frames if f.get("caption") and f.get("water_visible") is None
+                    and f.get("caption_model") not in (None, "error")]
         if nc:
             which = ("both frames it described" if nc == 2 and n_water == 2 else
                      f"all {nc} frames it described" if n_water == nc else f"{n_water} of the {nc} frames it described")
             seen += f" The captions saw water in {which}." if n_water else " The captions saw no water."
+        elif labelled:
+            seen += (f" {_n(len(labelled), 'frame').capitalize()} carry labels of what was in view; the labels "
+                     "do not judge wetness, so the sensor is the record of water.")
         else:
             seen += " None of them is captioned."
     gaps, flags = len(integrity.get("gaps", [])), len(integrity.get("flags", []))

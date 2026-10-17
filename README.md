@@ -34,7 +34,7 @@ client it is built on is its own repo:
 - **Sensor to first frame, through the real Ring API:** the first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s (Ring Developer Playground, October 8 and 9, 2026). The camera is the Playground's doorbell reached through the real Ring API; the sensor is simulated, because Ring offers no sensors in the Playground and does not open device access to my account's region. Every pack is in `docs/runs/playground/`; `docs/runs/playground-series.json` is the summary.
 - **My real claim's questions:** on one of those runs (`docs/runs/demo-run.json`, first frame in 6.9 s), the pack answers 2 of 7 questions my adjuster asked on my June 2026 claim and partly answers 2 more. The two it answers are when the water started and how long it stood, and where it was: the frames that would have settled whether it was sewer backup or clean rainwater, which decided which coverage limit applied. The other three are about the house and the policy, and are mine to answer. Cause is refused by design.
 - **What Ring alone records:** with my real Flood & Freeze sensor in a tray and my real Indoor Cam pointed at it, the Ring app alerts on the sensor, but its event history shows [N] motion recordings while the tray filled, because slowly rising water does not trip motion detection. That gap is what Watermark fills. (Filmed as a controlled test with real devices; the count is read from the Ring app's own event history.)
-- **Captions:** Watermark captions frames with Amazon Bedrock (Nova Lite) when it is enabled. AWS still blocks Bedrock on my account, so the measured packs carry no captions and say so.
+- **Captions:** the judged packs carry Amazon Rekognition labels on 5 frames per run (`docs/runs/rekognition-labels.json`). They describe what is in view and never claim a floor is dry. Prose captions from Amazon Bedrock are wired but AWS blocks Bedrock on my account.
 
 ## Run it in five minutes with nothing but Python and Node
 
@@ -87,9 +87,14 @@ so far are in `docs/FRICTION_LOG.md`.
 
 ## AWS
 
-Bedrock (Converse API, Nova Lite) captions every frame and writes the narrative. AWS IoT
-Core carries dispatch commands to the rover as a Thing. S3 holds frames and packs. All
-three are behind one environment variable each and default to local mocks.
+Amazon Rekognition labels what is in the captioned frames (`CAPTIONS_BACKEND=rekognition`),
+and the flooring question in the claim map cites the floor material it names. It does not
+judge wetness: on my June flood footage it labelled water on hardwood the same as the dry
+floor, so it can add "water visible" but never "no water", and the sensor stays the record.
+Bedrock (Converse API, Nova Lite) is wired for prose captions and the narrative, but AWS
+blocks it on my account. AWS IoT Core carries dispatch commands to the rover as a Thing.
+S3 holds frames and packs. EC2 serves the judged link. Each is behind one environment
+variable and defaults to a local mock.
 
 ## Honesty
 

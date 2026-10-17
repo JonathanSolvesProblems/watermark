@@ -51,7 +51,7 @@ class Settings:
     first_capture_delay_s: int = 0
 
     # captions (AWS Builder)
-    captions_backend: str = "mock"          # mock | bedrock
+    captions_backend: str = "mock"          # mock | bedrock | rekognition
     bedrock_model_id: str = "amazon.nova-lite-v1:0"
     aws_region: str = "us-east-1"
 

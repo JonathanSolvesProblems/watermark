@@ -63,3 +63,7 @@ logs/
 # private hackathon strategy, never published
 PHASE0.md
 
+# my voice takes and the edit plan (it carries the full transcript)
+demo/narration/
+*.edit-plan.json
+

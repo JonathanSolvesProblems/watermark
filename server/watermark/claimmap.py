@@ -58,6 +58,23 @@ def _fmt(ms: int | None) -> str:
     return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(ms / 1000))
 
 
+FLOOR_MATERIALS = ("Hardwood", "Laminate", "Tile", "Carpet", "Vinyl", "Linoleum", "Concrete", "Marble")
+
+
+def _floor_labels(frames: list[dict[str, Any]]) -> str:
+    """The flooring material Rekognition named, with its best confidence, e.g. 'Hardwood (100%)'.
+    Only what the labels say; it is the adjuster's question, so nothing is inferred."""
+    best: dict[str, float] = {}
+    for f in frames:
+        if f.get("caption_model") != "rekognition:DetectLabels":
+            continue
+        for part in (f.get("caption") or "").removeprefix("Labels seen: ").rstrip(".").split(", "):
+            name, _, pct = part.rpartition(" ")
+            if name in FLOOR_MATERIALS and pct.endswith("%"):
+                best[name] = max(best.get(name, 0.0), float(pct[:-1]))
+    return ", ".join(f"{n} ({c:.0f}%)" for n, c in sorted(best.items(), key=lambda kv: -kv[1]))
+
+
 def _fields(pack: dict[str, Any]) -> dict[str, tuple[str, str]]:
     inc = pack["incident"]
     frames = pack.get("frames", [])
@@ -89,7 +106,10 @@ def _fields(pack: dict[str, Any]) -> dict[str, tuple[str, str]]:
         # water was and whether it came from above ground. Watermark never names a source.
         out["water_entry_visible"] = ("answered", f"{len(frames)} timed frames of where the water was in "
                                                   f"{inc.get('room') or 'the room'}, for the adjuster to judge where it came in")
-        out["flooring_visible"] = ("partial", "the floor is in frame with Ring's time; what it is and when it was "
+        floor = _floor_labels(frames)
+        out["flooring_visible"] = ("partial", (f"Rekognition labels the floor in view as {floor}; damage and when it "
+                                               f"was laid are the homeowner's to add") if floor else
+                                              "the floor is in frame with Ring's time; what it is and when it was "
                                               "laid are the homeowner's to add")
         out["contents_visible"] = ("partial", "what was in the camera's view is on record with times; the itemized "
                                               "list and costs are the homeowner's")

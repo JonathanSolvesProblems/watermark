@@ -1,0 +1,157 @@
+{
+ "service": "Amazon Rekognition DetectLabels",
+ "region": "us-east-1",
+ "source": "server\\data\\playground-oct9",
+ "frames": [
+  {
+   "incident": "inc-1791590366342-1bceb5",
+   "frame": 157,
+   "labels": "Labels seen: Bird Feeder 92%, Animal 85%, Bird 85%, Head 79%, Person 79%, Finch 56%, Woodpecker 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590366342-1bceb5",
+   "frame": 167,
+   "labels": "Labels seen: Bird Feeder 95%, Animal 94%, Bird 94%, Festival 73%, Hanukkah Menorah 73%, Finch 57%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590366342-1bceb5",
+   "frame": 177,
+   "labels": "Labels seen: Animal 96%, Bird 96%, Bird Feeder 93%, Woodpecker 57%, Finch 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590366342-1bceb5",
+   "frame": 187,
+   "labels": "Labels seen: Bird Feeder 95%, Chandelier 77%, Lamp 77%, Animal 71%, Bird 71%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590366342-1bceb5",
+   "frame": 195,
+   "labels": "Labels seen: Bird Feeder 93%, Animal 90%, Bird 90%, Woodpecker 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590281580-d72d63",
+   "frame": 118,
+   "labels": "Labels seen: Bird Feeder 92%, Animal 85%, Bird 85%, Head 79%, Person 79%, Finch 56%, Woodpecker 55%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590281580-d72d63",
+   "frame": 128,
+   "labels": "Labels seen: Bird Feeder 94%, Animal 94%, Bird 94%, Festival 65%, Hanukkah Menorah 65%, Finch 57%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590281580-d72d63",
+   "frame": 138,
+   "labels": "Labels seen: Animal 95%, Bird 95%, Bird Feeder 92%, Architecture 61%, Beacon 61%, Building 61%, Lighthouse 61%, Tower 61%, Woodpecker 57%, Finch 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590281580-d72d63",
+   "frame": 148,
+   "labels": "Labels seen: Bird Feeder 95%, Animal 85%, Bird 85%, Finch 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590281580-d72d63",
+   "frame": 156,
+   "labels": "Labels seen: Bird Feeder 93%, Animal 81%, Bird 81%, Woodpecker 56%, Finch 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590196691-6800fe",
+   "frame": 79,
+   "labels": "Labels seen: Bird Feeder 92%, Animal 78%, Bird 78%, Head 63%, Person 63%, Finch 56%, Woodpecker 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590196691-6800fe",
+   "frame": 89,
+   "labels": "Labels seen: Bird Feeder 95%, Animal 94%, Bird 94%, Finch 57%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590196691-6800fe",
+   "frame": 99,
+   "labels": "Labels seen: Animal 95%, Bird 95%, Bird Feeder 91%, Woodpecker 57%, Finch 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590196691-6800fe",
+   "frame": 109,
+   "labels": "Labels seen: Bird Feeder 95%, Animal 70%, Bird 70%, Festival 64%, Hanukkah Menorah 64%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590196691-6800fe",
+   "frame": 117,
+   "labels": "Labels seen: Bird Feeder 94%, Animal 69%, Bird 69%, Beverage 63%, Milk 63%, Finch 56%, Kangaroo 56%, Mammal 56%, Woodpecker 55%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590111532-3b8a72",
+   "frame": 40,
+   "labels": "Labels seen: Bird Feeder 92%, Animal 77%, Bird 77%, Head 63%, Person 63%, Woodpecker 56%, Finch 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590111532-3b8a72",
+   "frame": 50,
+   "labels": "Labels seen: Animal 95%, Bird 95%, Bird Feeder 94%, Finch 57%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590111532-3b8a72",
+   "frame": 60,
+   "labels": "Labels seen: Animal 95%, Bird 95%, Bird Feeder 93%, Woodpecker 57%, Finch 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590111532-3b8a72",
+   "frame": 70,
+   "labels": "Labels seen: Bird Feeder 93%, Animal 62%, Bird 61%, Woodpecker 56%, Finch 55%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590111532-3b8a72",
+   "frame": 78,
+   "labels": "Labels seen: Bird Feeder 95%, Beverage 68%, Milk 68%, Animal 62%, Bird 62%, Finch 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590021908-b16689",
+   "frame": 1,
+   "labels": "Labels seen: Bird Feeder 92%, Animal 78%, Bird 78%, Head 63%, Person 63%, Woodpecker 56%, Finch 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590021908-b16689",
+   "frame": 11,
+   "labels": "Labels seen: Animal 95%, Bird 95%, Bird Feeder 94%, Finch 57%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590021908-b16689",
+   "frame": 21,
+   "labels": "Labels seen: Animal 95%, Bird 95%, Bird Feeder 92%, Nature 62%, Outdoors 62%, Snow 62%, Snowman 62%, Winter 62%, Woodpecker 58%, Finch 56%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590021908-b16689",
+   "frame": 31,
+   "labels": "Labels seen: Bird Feeder 93%, Animal 88%, Bird 88%, Woodpecker 55%, Finch 55%.",
+   "water_visible": null
+  },
+  {
+   "incident": "inc-1791590021908-b16689",
+   "frame": 39,
+   "labels": "Labels seen: Bird Feeder 94%, Animal 62%, Bird 62%, Finch 56%, Woodpecker 55%.",
+   "water_visible": null
+  }
+ ]
+}

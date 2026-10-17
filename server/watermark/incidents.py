@@ -254,13 +254,14 @@ class IncidentManager:
                                        frames=stored, outcome=result.outcome if stored or result.outcome != "ok" else "ok",
                                        detail=(result.detail + (f" session={result.session_id}" if result.session_id else "")).strip())
 
-    async def _caption(self, fr: Frame, inc: dict[str, Any]) -> tuple[str, str, int] | None:
+    async def _caption(self, fr: Frame, inc: dict[str, Any]) -> tuple[str, str, int | None] | None:
         if self.captioner is None:
             return None
         try:
             ctx = f"{inc.get('kind')} sensor in {inc.get('room')}"
             cap = await asyncio.to_thread(self.captioner.caption, fr.data, ctx)
-            return cap.description, cap.model, int(cap.water_visible)
+            wet = None if cap.water_visible is None else int(cap.water_visible)
+            return cap.description, cap.model, wet
         except Exception as e:  # noqa: BLE001
             return f"(caption failed: {str(e)[:120]})", "error", 0
 

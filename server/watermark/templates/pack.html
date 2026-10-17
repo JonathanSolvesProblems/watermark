@@ -144,7 +144,7 @@
       <span class="stamp">{{ f.media_ms|hms }}</span>
     </div>
     <div class="meta">
-      <div><span class="spot {{ 'wet' if f.water_visible == 1 else '' }}"></span><span class="label">{{ "Water visible" if f.water_visible == 1 else ("No water visible" if f.water_visible == 0 else "Not captioned") }}</span></div>
+      <div><span class="spot {{ 'wet' if f.water_visible == 1 else '' }}"></span><span class="label">{{ "Water visible" if f.water_visible == 1 else ("No water visible" if f.water_visible == 0 else ("Labels only, wetness not judged" if f.caption else "Not captioned")) }}</span></div>
       <div class="muted" style="font-size:12px;margin-top:3px">{{ "live session, time of receipt" if f.origin == "live" else "Ring media timestamp" }}{% if f.drift_ms is not none %} · drift {{ (f.drift_ms/1000)|round(1) }} s{% endif %}</div>
       {% if f.caption %}<div style="margin-top:5px">{{ f.caption }}</div><div class="muted" style="font-size:12px">{{ f.caption_model }}</div>{% endif %}
     </div>

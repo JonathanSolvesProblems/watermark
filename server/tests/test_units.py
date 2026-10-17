@@ -1,5 +1,5 @@
 from watermark import claimmap, integrity
-from watermark.captions import _extract_json
+from watermark.captions import RekognitionCaptioner, _extract_json
 from watermark.chime import _pick_slot
 from watermark.ring import infer_kind
 from ringpartner.types import ChimeSlot, DeviceCapabilities, DeviceStatus
@@ -81,3 +81,31 @@ def test_extract_json_tolerates_fences():
     assert _extract_json('```json\n{"a": 1}\n```')["a"] == 1
     assert _extract_json('text before {"water_visible": true} after')["water_visible"] is True
     assert "description" in _extract_json("no json here")
+
+
+class _FakeRekognition:
+    def __init__(self, labels):
+        self.labels = labels
+
+    def detect_labels(self, **_):
+        return {"Labels": [{"Name": n, "Confidence": c} for n, c in self.labels]}
+
+
+def test_rekognition_never_says_dry():
+    """It can say yes to water, never no: on a real flood it saw only 'Hardwood'."""
+    wet = RekognitionCaptioner("us-east-1", client=_FakeRekognition([("Floor", 95.0), ("Water", 91.2)])).caption(b"x")
+    assert wet.water_visible is True and wet.confidence == "high" and "Water 91%" in wet.description
+    assert "not measured" in wet.extent and wet.model == "rekognition:DetectLabels"
+    weak = RekognitionCaptioner("us-east-1", client=_FakeRekognition([("Floor", 95.0), ("Water", 60.0)])).caption(b"x")
+    assert weak.water_visible is None
+    dry = RekognitionCaptioner("us-east-1", client=_FakeRekognition([("Bird Feeder", 92.0)])).caption(b"x")
+    assert dry.water_visible is None and dry.description == "Labels seen: Bird Feeder 92%."
+
+
+def test_flooring_question_cites_rekognition_floor_labels():
+    frames = [{"caption_model": "rekognition:DetectLabels", "caption": "Labels seen: Floor 100%, Hardwood 99%, Wood 98%."},
+              {"caption_model": "rekognition:DetectLabels", "caption": "Labels seen: Hardwood 100%, Tile 61%."},
+              {"caption_model": "amazon.nova-lite-v1:0", "caption": "Laminate 100% along the wall"}]
+    assert claimmap._floor_labels(frames) == "Hardwood (100%), Tile (61%)"
+    assert claimmap._floor_labels([{"caption_model": "rekognition:DetectLabels",
+                                    "caption": "Labels seen: Bird Feeder 92%."}]) == ""

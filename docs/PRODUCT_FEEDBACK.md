@@ -25,8 +25,15 @@ The friction log (`docs/FRICTION_LOG.md`) holds the itemised issues, with steps 
 
 - **Used for (designed):** frame captions and the pack narrative, plus the damage-findings pass.
 - **What happened:** every call from my account returns "ValidationException Error 002: Access to Bedrock models is not allowed for this account". IAM was not the cause. A support case opened on Oct 7 was still unassigned on Oct 16, and at least two other entrants posted the same error on the hackathon forum, where the organisers had no escalation path.
-- **Effect:** the measured packs carry no captions and say so; the code path is ready and switches on with one setting.
+- **Effect:** I moved frame labelling to Amazon Rekognition (below); the Bedrock path is ready and switches on with one setting. Still blocked on Oct 17 in us-east-1, us-west-2 and ca-central-1.
 - **Suggestion:** for hackathons that hand out AWS credits, pre-clear Bedrock on participant accounts, or give the error a link to the specific review it is waiting on.
+
+## Amazon Rekognition (DetectLabels)
+
+- **Used for:** labels on the captioned Ring frames, and the floor material for the adjuster's flooring question (`tools/recaption.py` relabelled the 5 judged runs; `docs/runs/rekognition-labels.json`).
+- **Worked well:** no model access step, one IAM action (`rekognition:DetectLabels`), and it answered on the first call. On my June photos it named the floor "Hardwood" at 100%, which is exactly what my adjuster asked.
+- **Needs work:** it cannot see shallow water. A film of water spreading across my hardwood on June 20 came back as "Floor 100%, Hardwood 100%, Stained Wood 100%", the same labels as the dry floor before the flood. For a flood product that means its silence is not evidence of dryness, so Watermark only lets it add a "water visible", never a "no water". It also labelled the Playground bird feeder "Hanukkah Menorah 73%" once; the pack shows that as it came, since the labels are model output.
+- **Suggestion:** a "Wet surface" or "Standing water" label, or a short note in the label docs on what it does not detect, would save the next builder the test I had to run.
 
 ## AWS IoT Core
 

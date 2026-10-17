@@ -205,7 +205,7 @@ function IncidentInner() {
                   <div className="p-3 grid gap-2">
                     <div className="flex items-center gap-2">
                       <span className="spot" data-wet={f.water_visible === 1} aria-hidden="true" />
-                      <span className="label">{f.water_visible === 1 ? "Water visible" : f.water_visible === 0 ? "No water visible" : "Not captioned"}</span>
+                      <span className="label">{f.water_visible === 1 ? "Water visible" : f.water_visible === 0 ? "No water visible" : f.caption ? "Labels only, wetness not judged" : "Not captioned"}</span>
                       {drift && <span className="label border border-dashed border-stencil rounded-[3px] px-1 text-ink">Time drift</span>}
                     </div>
                     {f.caption && <p className="text-[14px] leading-snug">{f.caption}</p>}
