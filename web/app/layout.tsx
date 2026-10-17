@@ -51,6 +51,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Watermark records what your Ring devices saw. It never states a cause. Manage your subscription in Ring
             &rsaquo; My Apps, and device settings such as motion zones in the Ring app.
           </p>
+          <p>
+            Built by Jonathan Andrei after two floods in one year. More of what I build at{" "}
+            <a href="https://jonathansolvesproblems.com" className="underline decoration-seam underline-offset-2 hover:text-ink hover:decoration-current transition-colors">
+              jonathansolvesproblems.com
+            </a>
+            .
+          </p>
         </footer>
       </body>
     </html>
