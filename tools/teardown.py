@@ -101,8 +101,9 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         print(f"s3: {BUCKET} not found or not accessible ({type(e).__name__})")
 
-    print("\nBy hand afterwards: deactivate the watermark IAM access key, rotate the Ring client "
-          "secret and the ngrok authtoken, and publish the archive page.")
+    print("\nBy hand afterwards: delete the Cloudflare A record watermark.jonathansolvesproblems.com "
+          "(the released IP goes back to AWS's pool and is reassigned), deactivate the watermark IAM "
+          "access key, rotate the Ring client secret and the ngrok authtoken, and publish the archive page.")
     return 0
 
 

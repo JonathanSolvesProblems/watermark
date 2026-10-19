@@ -41,7 +41,7 @@ client it is built on is its own repo:
 ```sh
 py -m venv .venv
 .venv\Scripts\pip install -e sdk -e "server[dev]" -e brain -e "rover[dev]"
-.venv\Scripts\python -m pytest                      # 53 tests, no network
+.venv\Scripts\python -m pytest                      # every test, no network needed
 
 cd server && set MODE=mock && ..\.venv\Scripts\python -m uvicorn watermark.main:app --port 8765
 cd web && npm install && set NEXT_PUBLIC_API_URL=http://localhost:8765 && npm run build && npm start

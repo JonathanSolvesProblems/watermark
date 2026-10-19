@@ -56,7 +56,7 @@ AWS IoT Core delivers the dispatch to the rover: the rover is a Thing (rover-1) 
 ## Open Source field
 
 ```
-New project: ringpartner, a typed Python client for the Ring Partner API (devices, sensors, two-step media downloads, WHEP sessions, chime playback, webhook HMAC verification, account-linking nonce). MIT. Repo: https://github.com/JonathanSolvesProblems/ring-partner-py. Watermark's server is built on it. GitHub: JonathanSolvesProblems. Why it matters: no typed client for the official Ring Partner API existed, and the Early Access sensor scope is newer than the official sample; every Ring Appstore developer who touches sensors re-reads the same docs I did.
+New project: ringpartner, a typed Python client for the Ring Partner API (devices, sensors, two-step media downloads, WHEP sessions, chime playback, webhook HMAC verification, account-linking nonce). MIT. Repo: https://github.com/JonathanSolvesProblems/ring-partner-py. Watermark's server is built on it. GitHub: JonathanSolvesProblems. Why it matters: several Ring Partner API clients appeared during this hackathon, all built around doorbells and cameras. This one is built around the Early Access sensor scope (flood, freeze and tamper webhooks, sensor status) and chime playback, the parts a flood product needs and the official sample does not cover, and it is dogfooded: every one of Watermark's 10 measured Playground runs went through it. Every Ring Appstore developer who touches sensors re-reads the same docs I did.
 ```
 
 ## Repo, video, feedback
