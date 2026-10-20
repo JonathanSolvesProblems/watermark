@@ -86,7 +86,7 @@ No third-party logos; plates, house numbers and signs are blurred.
 | 1:10 to 1:34 | To film: H1 kit, H3 pour, H4 alert, H6 event history, H7 Chime list | |
 | 1:34 | Live link: incident frames, dashboard | Frames through the Ring Partner API; Median 6.85 s, range 6.6 to 11.2 s, 10 runs |
 | 1:51 | Evidence pack, scrolled | Ring Developer Playground, simulated sensor; 2 of 7 answered, 2 partly |
-| 2:17 | ring-partner-py on GitHub | github.com/JonathanSolvesProblems/ring-partner-py |
+| 2:17 | ringwire on GitHub | github.com/JonathanSolvesProblems/ringwire |
 | 2:21 | To film: the rover carrying the Indoor Cam | |
 | 2:32 | The flooded street again; setup page; dashboard | |
 | 2:48 | End card: headshot, Watermark, jonathansolvesproblems.com, repo link | |

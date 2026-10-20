@@ -21,7 +21,7 @@ import io
 import time
 from dataclasses import dataclass, field
 
-from ringpartner import MediaNotFound, RingClient
+from ringwire import MediaNotFound, RingClient
 
 from .db import now_ms
 

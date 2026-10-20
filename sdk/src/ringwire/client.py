@@ -67,7 +67,7 @@ class RingClient:
 
     def __init__(self, access_token: str | None = None, *, token_provider: TokenProvider | None = None,
                  base_url: str = API_BASE, timeout: float = 20.0, max_retries: int = 3,
-                 transport: httpx.BaseTransport | None = None, user_agent: str = "ringpartner-py/0.1"):
+                 transport: httpx.BaseTransport | None = None, user_agent: str = "ringwire-py/0.1"):
         if not access_token and not token_provider:
             raise ValueError("access_token or token_provider is required")
         self._token = access_token

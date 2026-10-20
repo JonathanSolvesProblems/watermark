@@ -2,7 +2,7 @@ from watermark import claimmap, integrity
 from watermark.captions import RekognitionCaptioner, _extract_json
 from watermark.chime import _pick_slot
 from watermark.ring import infer_kind
-from ringpartner.types import ChimeSlot, DeviceCapabilities, DeviceStatus
+from ringwire.types import ChimeSlot, DeviceCapabilities, DeviceStatus
 
 
 def test_integrity_flags_drift_and_reconciled():

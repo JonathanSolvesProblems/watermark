@@ -21,7 +21,7 @@ import logging
 import uuid
 from typing import Any
 
-from ringpartner import RingClient, WebhookEvent, make_event
+from ringwire import RingClient, WebhookEvent, make_event
 
 from . import chime as chime_mod
 from .blobs import BlobStore
@@ -364,7 +364,7 @@ class IncidentManager:
                 if faulted and not open_inc:
                     env = make_event(f"{kind}_detected", dev["device_id"], account_id=account_id,
                                      request_id=f"reconciled-{dev['device_id']}-{kind}-{now_ms()}")
-                    from ringpartner import parse_event
+                    from ringwire import parse_event
                     await self.handle_event(parse_event(env), source="reconciled")
                     opened += 1
                     open_inc = self.db.open_incident_for_sensor(dev["device_id"])

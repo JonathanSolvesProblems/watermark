@@ -1,4 +1,4 @@
-# ringpartner
+# ringwire
 
 A typed Python client for the **Ring Partner API** (the `api.amazonvision.com` API behind the
 Ring Appstore), including the parts most samples skip: sensors, the two-step media
@@ -8,7 +8,7 @@ Built for [Watermark](../README.md) and published on its own so other Ring Appst
 developers do not have to re-read the docs I already read.
 
 ```bash
-pip install ringpartner
+pip install ringwire
 ```
 
 ## What it covers
@@ -38,7 +38,7 @@ pip install ringpartner
 ## Example
 
 ```python
-from ringpartner import RingClient, verify_and_parse
+from ringwire import RingClient, verify_and_parse
 
 client = RingClient(access_token)
 sensors = [d for d in client.list_devices() if client.status(d.id).flood_faulted is not None]

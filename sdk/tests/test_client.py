@@ -1,8 +1,8 @@
 import httpx
 import pytest
 
-from ringpartner import MediaNotFound, RateLimited, RingClient, Unauthorized
-from ringpartner.types import DeviceStatus
+from ringwire import MediaNotFound, RateLimited, RingClient, Unauthorized
+from ringwire.types import DeviceStatus
 
 DEVICES = {
     "meta": {"time": "2026-01-01T00:00:00Z"},
@@ -157,7 +157,7 @@ def test_event_history_pagination_stops_on_empty_page():
 
 
 def test_retry_on_429_then_success(monkeypatch):
-    monkeypatch.setattr("ringpartner.client.time.sleep", lambda s: None)
+    monkeypatch.setattr("ringwire.client.time.sleep", lambda s: None)
     n = {"i": 0}
 
     def handler(req: httpx.Request):
@@ -171,7 +171,7 @@ def test_retry_on_429_then_success(monkeypatch):
 
 
 def test_429_exhausts_retries(monkeypatch):
-    monkeypatch.setattr("ringpartner.client.time.sleep", lambda s: None)
+    monkeypatch.setattr("ringwire.client.time.sleep", lambda s: None)
     c = _make(lambda req: httpx.Response(429, headers={"Retry-After": "2"}))
     with pytest.raises(RateLimited) as ei:
         c.me()

@@ -38,7 +38,7 @@ Measured through the real Ring API: the first Ring frame arrived 6.85 s after th
 ```
 Ring Partner API surfaces in the judged path: one-way account linking (HMAC nonce, app-integrations POST then PATCH), device discovery, status (sensor faulted state, reported_at, online), the Early Access sensor webhooks (flood_detected, flood_cleared, freeze_*, tamper_*), device_online/offline, WHEP live sessions (which force a recording), image download with X-Media-Timestamp and X-Media-Origin, event history, dynamic scopes (Cameras, Sensors, Chimes) and chime audio playback, the only write in the API.
 
-Server: FastAPI, dogfooding the typed Python SDK `ringpartner` I wrote for the Open Source challenge. Webhooks are persisted before anything else (Ring keeps no history for sensor events) and deduplicated on meta.request_id; a reconcile loop polls /status so a missed webhook can neither start nor end a capture silently, and events learned that way are marked so the pack can say which timestamps are Ring's.
+Server: FastAPI, dogfooding the typed Python SDK `ringwire` I wrote for the Open Source challenge. Webhooks are persisted before anything else (Ring keeps no history for sensor events) and deduplicated on meta.request_id; a reconcile loop polls /status so a missed webhook can neither start nor end a capture silently, and events learned that way are marked so the pack can say which timestamps are Ring's.
 
 Measured on Ring's Developer Playground: the camera is the Playground doorbell reached through the real API, and the sensor event is simulated, because the Playground has no sensors and Ring does not open device access to my region. Every pack says so on its first page.
 
@@ -56,7 +56,7 @@ AWS IoT Core delivers the dispatch to the rover: the rover is a Thing (rover-1) 
 ## Open Source field
 
 ```
-New project: ringpartner, a typed Python client for the Ring Partner API (devices, sensors, two-step media downloads, WHEP sessions, chime playback, webhook HMAC verification, account-linking nonce). MIT. Repo: https://github.com/JonathanSolvesProblems/ring-partner-py. Watermark's server is built on it. GitHub: JonathanSolvesProblems. Why it matters: several Ring Partner API clients appeared during this hackathon, all built around doorbells and cameras. This one is built around the Early Access sensor scope (flood, freeze and tamper webhooks, sensor status) and chime playback, the parts a flood product needs and the official sample does not cover, and it is dogfooded: every one of Watermark's 10 measured Playground runs went through it. Every Ring Appstore developer who touches sensors re-reads the same docs I did.
+New project: ringwire, a typed Python client for the Ring Partner API (devices, sensors, two-step media downloads, WHEP sessions, chime playback, webhook HMAC verification, account-linking nonce). MIT. Repo: https://github.com/JonathanSolvesProblems/ringwire. Watermark's server is built on it. GitHub: JonathanSolvesProblems. Why it matters: several Ring Partner API clients appeared during this hackathon, all built around doorbells and cameras. This one is built around the Early Access sensor scope (flood, freeze and tamper webhooks, sensor status) and chime playback, the parts a flood product needs and the official sample does not cover, and it is dogfooded: every one of Watermark's 10 measured Playground runs went through it. Every Ring Appstore developer who touches sensors re-reads the same docs I did.
 ```
 
 ## Repo, video, feedback
@@ -69,7 +69,7 @@ Video: [URL]
 
 ## Notes (never pasted)
 
-- **Two public repos, both MIT:** `watermark` (the submission) and `ring-partner-py`
+- **Two public repos, both MIT:** `watermark` (the submission) and `ringwire`
   (split from `sdk/` with `git subtree split`). Published 2026-10-15. PHASE0.md was removed
   from all history before publishing and is gitignored.
 - **AWS field truth table (checked 2026-10-16):** IoT Core true (docs/runs/iot-dispatch.json).

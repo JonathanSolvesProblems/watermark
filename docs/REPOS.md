@@ -26,11 +26,11 @@ numbers, policy numbers, names or the address.
 screenshot the Collaborators page: chris-trag, knmeiss, giolaq, anishamalde, mosesroth,
 emersonsklar.
 
-## 2. `ring-partner-py` (Open Source mini challenge)
+## 2. `ringwire` (Open Source mini challenge)
 
 **Public, MIT, its own repo.** The mini challenge asks for a *new, additional* open-source
 project shipped alongside the primary submission, so it cannot just be a folder inside the
-main repo. `sdk/` is that project: `ringpartner`, a typed Python client for the Ring
+main repo. `sdk/` is that project: `ringwire`, a typed Python client for the Ring
 Partner API covering sensors, the two-step media downloads, WHEP sessions, chime playback,
 webhook HMAC verification and the account-linking nonce. 22 tests, no network needed.
 
@@ -42,7 +42,7 @@ Run from the repo root once the GitHub repo exists and is empty:
 
 ```sh
 git subtree split --prefix=sdk -b sdk-only
-git push git@github.com:JonathanSolvesProblems/ring-partner-py.git sdk-only:main
+git push git@github.com:JonathanSolvesProblems/ringwire.git sdk-only:main
 git branch -D sdk-only
 ```
 
@@ -65,7 +65,7 @@ Required submission fields: contribution URL, repo URL, GitHub username
 ## Checklist for submission day
 
 - [ ] `watermark` public, LICENSE visible in the About box
-- [ ] `ring-partner-py` public, LICENSE visible, tests green from a clean clone
+- [ ] `ringwire` public, LICENSE visible, tests green from a clean clone
 - [ ] PR opened against `ring-api-helloworld`, URL recorded
 - [ ] Both repos load in a logged-out browser
 - [ ] `server/.env` absent from both (`git log --all --full-history -- server/.env` returns nothing)

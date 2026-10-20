@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from ringpartner import (SENSOR_EVENTS, NonceError, SignatureError, compute_nonce, is_fresh, make_event,
+from ringwire import (SENSOR_EVENTS, NonceError, SignatureError, compute_nonce, is_fresh, make_event,
                          match_nonce, parse_event, sign, verify_and_parse, verify_signature)
 
 KEY = "test-signing-key-0123456789"

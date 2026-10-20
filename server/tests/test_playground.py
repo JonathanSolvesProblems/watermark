@@ -1,6 +1,6 @@
 """Playground mode: the simulated sensor and its labelling, without touching the network."""
 import pytest
-from ringpartner import Unauthorized
+from ringwire import Unauthorized
 
 from watermark.config import Settings
 from watermark.integrity import compute

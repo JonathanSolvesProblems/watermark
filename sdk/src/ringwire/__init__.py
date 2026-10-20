@@ -1,6 +1,6 @@
-"""ringpartner: a typed Python client for the Ring Partner API.
+"""ringwire: a typed Python client for the Ring Partner API.
 
-    from ringpartner import RingClient, verify_and_parse
+    from ringwire import RingClient, verify_and_parse
 
     client = RingClient(access_token)
     for d in client.list_devices():

@@ -22,7 +22,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from pydantic import BaseModel
 
-from ringpartner import RingClient, SignatureError, is_fresh, make_event, match_nonce, parse_event, verify_and_parse
+from ringwire import RingClient, SignatureError, is_fresh, make_event, match_nonce, parse_event, verify_and_parse
 
 from .blobs import make_blob_store
 from .capture import make_capture_backend

@@ -17,9 +17,9 @@ from pathlib import Path
 from dataclasses import dataclass
 from typing import Any
 
-from ringpartner import (Device, DeviceCapabilities, DeviceConfigurations, DeviceStatus, MediaImage, RingClient,
+from ringwire import (Device, DeviceCapabilities, DeviceConfigurations, DeviceStatus, MediaImage, RingClient,
                          Unauthorized, WhepSession)
-from ringpartner.types import ChimeSlot
+from ringwire.types import ChimeSlot
 
 from .config import Settings
 from .db import Database, now_ms
@@ -236,7 +236,7 @@ class MockRing:
 
     # -- RingClient surface --
     def me(self):
-        from ringpartner import User
+        from ringwire import User
         return User(account_id=self.ACCOUNT, email="mock@example.com")
 
     def list_devices(self, include=None) -> list[Device]:
@@ -291,7 +291,7 @@ class MockRing:
                           media_origin="recording", requested_timestamp_ms=at_timestamp_ms)
 
     def event_history(self, *a, **k):
-        from ringpartner import HistoryPage
+        from ringwire import HistoryPage
         return HistoryPage(events=[], next_path=None)
 
     def iter_event_history(self, *a, **k):

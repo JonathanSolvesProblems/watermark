@@ -6,7 +6,7 @@ import json
 
 import pytest
 
-from ringpartner import make_event, sign
+from ringwire import make_event, sign
 from watermark.ring import MockRing
 
 from .conftest import wait_for

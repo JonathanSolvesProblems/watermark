@@ -22,7 +22,7 @@ cause.
 Built for the Ring track of [Build, Ship, Shape: Amazon Developer Hackathon](https://amazonappdev2026.devpost.com/),
 with the AWS Builder and Open Source mini-challenges. MIT. The typed Ring Partner API
 client it is built on is its own repo:
-[ring-partner-py](https://github.com/JonathanSolvesProblems/ring-partner-py).
+[ringwire](https://github.com/JonathanSolvesProblems/ringwire).
 
 > Every number below traces to a committed run under `docs/runs/`.
 > `py tools/check_claims.py` fails the build if the prose and the data disagree.
@@ -62,7 +62,7 @@ can be exercised end to end; every judged frame in the demo comes from a real Ri
 
 | Folder | What | Tests |
 |---|---|---|
-| `sdk/` | `ringpartner`, a typed Python client for the Ring Partner API: devices, sensors, two-step media downloads, WHEP, chime playback, webhook HMAC, account-linking nonce. Also published on its own at `ring-partner-py` for the Open Source challenge (see [docs/REPOS.md](docs/REPOS.md)) | 22 |
+| `sdk/` | `ringwire`, a typed Python client for the Ring Partner API: devices, sensors, two-step media downloads, WHEP, chime playback, webhook HMAC, account-linking nonce. Also published on its own at `ringwire` for the Open Source challenge (see [docs/REPOS.md](docs/REPOS.md)) | 22 |
 | `server/` | FastAPI: webhook receiver (persist first, dedupe on `request_id`), incident state machine, reconcile loop, capture (WHEP via aiortc, download fallback), Bedrock captions, rover dispatch (local or AWS IoT Core), evidence pack (HTML, JSON, PDF) | 14 |
 | `rover/` | Raspberry Pi 4 on the printed 4WD chassis: line following with wet, blocked and end-of-line guards; the wand; the dispatch agent | 9 |
 | `brain/` | Photos of a wet room to adjuster-style findings (from RenoScout, verified on the June photos), with a Bedrock backend | 3 |
