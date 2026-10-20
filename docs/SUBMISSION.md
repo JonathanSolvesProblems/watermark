@@ -56,7 +56,15 @@ AWS IoT Core delivers the dispatch to the rover: the rover is a Thing (rover-1) 
 ## Open Source field
 
 ```
-New project: ringwire, a typed Python client for the Ring Partner API (devices, sensors, two-step media downloads, WHEP sessions, chime playback, webhook HMAC verification, account-linking nonce). MIT. Repo: https://github.com/JonathanSolvesProblems/ringwire. Watermark's server is built on it. GitHub: JonathanSolvesProblems. Why it matters: several Ring Partner API clients appeared during this hackathon, all built around doorbells and cameras. This one is built around the Early Access sensor scope (flood, freeze and tamper webhooks, sensor status) and chime playback, the parts a flood product needs and the official sample does not cover, and it is dogfooded: every one of Watermark's 10 measured Playground runs went through it. Every Ring Appstore developer who touches sensors re-reads the same docs I did.
+Contribution URLs: https://github.com/AmazonAppDev/ring-api-helloworld/pull/44 (pull request to Amazon's Ring sample) and https://github.com/JonathanSolvesProblems/ringwire (new project, MIT)
+Project repository: https://github.com/JonathanSolvesProblems/watermark
+GitHub username: JonathanSolvesProblems
+
+What I did: two contributions. (1) ringwire, a new typed Python client for the Ring Partner API, built around the Early Access sensor scope: sensor status with flood, freeze, contact and tamper state, the sensor webhooks with HMAC verification, chime playback, WHEP live sessions, the two-step media downloads and the account-linking nonce. (2) A pull request to Amazon's own ring-api-helloworld adding sensor_status.py, the sample's first script that reads a sensor, in the sample's own style.
+
+How it works: ringwire turns each JSON:API response into a typed object and encodes the traps in Ring's sensor docs, so callers cannot fall into them: the never-reported 1970 epoch becomes None, tamper reads `detected` rather than `faulted`, and `sensor_reporting_state` is never treated as liveness. Its tests run with no network. The PR script reads GET /v1/devices/{id}/status, prints every sensor attribute and reading, and auto-discovers a sensor by its status attributes, because the device list does not say which devices are sensors.
+
+Why it matters: several Ring Partner API clients appeared during this hackathon, all built around doorbells and cameras, and Amazon's sample had no sensor code at all. Sensors are where Ring's Early Access is heading, and their docs carry three traps a newcomer meets on day one. ringwire is dogfooded: Watermark's server is built on it, and every one of its 10 measured Playground runs went through it.
 ```
 
 ## Repo, video, feedback
