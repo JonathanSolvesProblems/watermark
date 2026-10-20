@@ -56,7 +56,7 @@ AWS IoT Core delivers the dispatch to the rover: the rover is a Thing (rover-1) 
 ## Open Source field
 
 ```
-Contribution URLs: https://github.com/AmazonAppDev/ring-api-helloworld/pull/44 (pull request to Amazon's Ring sample) and https://github.com/JonathanSolvesProblems/ringwire (new project, MIT)
+Contribution URLs: https://github.com/AmazonAppDev/ring-api-helloworld/pull/44 (pull request to Amazon's Ring sample) and https://github.com/JonathanSolvesProblems/ringwire (new project, MIT, published to PyPI: https://pypi.org/project/ringwire/)
 Project repository: https://github.com/JonathanSolvesProblems/watermark
 GitHub username: JonathanSolvesProblems
 
@@ -71,7 +71,7 @@ Why it matters: several Ring Partner API clients appeared during this hackathon,
 
 ```
 Repo: https://github.com/JonathanSolvesProblems/watermark
-Live demo: https://pendant-entourage-supper.ngrok-free.dev
+Live demo: https://watermark.jonathansolvesproblems.com
 Video: [URL]
 ```
 
