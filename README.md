@@ -13,8 +13,8 @@ because I happened to be home. Next time I won't be.
 Watermark is a Ring Appstore app. A Ring Flood & Freeze sensor fires; the Ring Chime
 plays; a Ring Indoor Cam that already sees the room opens a live session, which forces it
 to record; frames with Ring's own time land until the sensor reads dry. A printed rover
-that carries the Indoor Cam down a tape line to the room is in progress, and the demo
-leads with the fixed camera. What comes out is one evidence pack: timeline, frames, room
+that carries the Indoor Cam to a room no camera covers is the next step; its code and
+AWS IoT Core dispatch are in the repo, but it is not part of this demo. What comes out is one evidence pack: timeline, frames, room
 readings, device health, an **integrity section that lists every gap it could not
 verify**, and a map against the questions my adjuster actually asked. It never states a
 cause.
@@ -92,7 +92,8 @@ and the flooring question in the claim map cites the floor material it names. It
 judge wetness: on my June flood footage it labelled water on hardwood the same as the dry
 floor, so it can add "water visible" but never "no water", and the sensor stays the record.
 Bedrock (Converse API, Nova Lite) is wired for prose captions and the narrative, but AWS
-blocks it on my account. AWS IoT Core carries dispatch commands to the rover as a Thing.
+blocks it on my account. AWS IoT Core carries dispatch commands to the rover as a Thing (measured with the drive
+simulated on the Pi; the physical rover is the next step, not part of the demo).
 S3 holds frames and packs. EC2 serves the judged link. Each is behind one environment
 variable and defaults to a local mock.
 
@@ -104,7 +105,8 @@ variable and defaults to a local mock.
   tolerance from the request are flagged. Events learned by polling rather than by
   webhook are flagged. Camera offline windows are reported as gaps.
 - `docs/CORRECTIONS.md` lists every placeholder the data overruled.
-- The rover is in the demo only if it passes `docs/ROVER_TRIALS.md` (4 of 5 dispatches).
+- The rover is not in the demo: it has not yet passed `docs/ROVER_TRIALS.md` (4 of 5
+  dispatches on the real floor), so nothing in the video or the fields claims it drives.
 
 ## Status
 

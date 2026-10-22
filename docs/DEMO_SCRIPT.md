@@ -48,9 +48,7 @@ No third-party logos; plates, house numbers and signs are blurred.
 
 **2:17 What it's built on** (Tech Implementation)
 
-> It's built on the Ring Partner API through a Python client I open sourced, a rover I printed
-> with my 3D printer that can carry the camera to the room, with its orders sent through AWS IoT
-> Core.
+> It's built on the Ring Partner API through a Python client I open sourced.
 
 **2:32 Who it's for** (Potential Impact)
 
@@ -62,9 +60,8 @@ No third-party logos; plates, house numbers and signs are blurred.
 
 - **The [N] line.** I said "only a certain number of recordings" as a placeholder. Re-record that
   one sentence with the real count from the Indoor Cam's event history (shot H6 below).
-- **The rover line.** Keep it only if the rover passes 4 of 5 trials (`ROVER_TRIALS.md`).
-  Otherwise re-record: "It's built on the Ring Partner API through a Python client I open
-  sourced, with a rover dispatch over AWS IoT Core that I'm still testing."
+- **The rover line is cut** from the take: the rover has not driven on the floor, so the video
+  does not mention it. The rover is the next step, named in the written fields only.
 
 ## Shots as cut
 
@@ -87,7 +84,6 @@ No third-party logos; plates, house numbers and signs are blurred.
 | 1:34 | Live link: incident frames, dashboard | Frames through the Ring Partner API; Median 6.85 s, range 6.6 to 11.2 s, 10 runs |
 | 1:51 | Evidence pack, scrolled | Ring Developer Playground, simulated sensor; 2 of 7 answered, 2 partly |
 | 2:17 | ringwire on GitHub | github.com/JonathanSolvesProblems/ringwire |
-| 2:21 | To film: the rover carrying the Indoor Cam | |
 | 2:32 | The flooded street again; setup page; dashboard | |
 | 2:48 | End card: headshot, Watermark, jonathansolvesproblems.com, repo link | |
 
@@ -104,7 +100,6 @@ One controlled test with the real devices, landscape, 1080p or 4K, 30 fps:
    and the [N] line. Whatever it shows is what the voice says.
 5. **H7, the Chime gap.** Chime > Audio Settings > Chime Alerts, screen-recorded scrolling the
    list: the flood sensor is not offered.
-6. **The rover**, only if it passes its trials.
 
 Crop anything in the Ring app that shows my email, my address or my location name.
 

@@ -16,7 +16,7 @@ const MARKS = [
   {
     at: "6.85 s",
     title: "The camera goes to the water",
-    body: "An Indoor Cam that already sees the room, or the rover carrying one down a tape line. Every frame carries Ring's time. 6.85 s is the median of my 10 measured Ring Playground runs, with a simulated sensor.",
+    body: "An Indoor Cam that already sees the room opens a live session, which makes it record. Every frame carries Ring's time. 6.85 s is the median of my 10 measured Ring Playground runs, with a simulated sensor.",
   },
   {
     at: "When dry",
