@@ -44,6 +44,8 @@ Measured on Ring's Developer Playground: the camera is the Playground doorbell r
 
 Rover (in progress): Raspberry Pi 4 on a printed 4WD chassis, L298N, four TT motors, three TCRT5000 line sensors, an Arduino wand (DHT11, water sensor, HC-SR04). Bang-bang line following with three guards: wet floor (the destination), obstacle, end-of-line crossbar. It runs on the Pi today and reaches its station in simulation; every judged frame comes from the Ring camera it carries, never from the Pi.
 
+What existed before the hackathon: the rover's printed chassis and drive code and the photo-to-findings module (brain/) are adapted from my earlier RenoScout build. Everything else was written during the submission period: the Ring integration, the incident engine, the evidence pack and claim map, the ringwire client, the web app, the AWS integrations and the hosting.
+
 Web: Next.js following the Ring UX design guide: passwordless account linking with email pre-fill, device list with online state, redirect to the Ring app for device settings, subscription status pointer to My Apps, a first-visit tutorial, and a complete data-deletion action.
 ```
 
@@ -65,6 +67,12 @@ What I did: two contributions. (1) ringwire, a new typed Python client for the R
 How it works: ringwire turns each JSON:API response into a typed object and encodes the traps in Ring's sensor docs, so callers cannot fall into them: the never-reported 1970 epoch becomes None, tamper reads `detected` rather than `faulted`, and `sensor_reporting_state` is never treated as liveness. Its tests run with no network. The PR script reads GET /v1/devices/{id}/status, prints every sensor attribute and reading, and auto-discovers a sensor by its status attributes, because the device list does not say which devices are sensors.
 
 Why it matters: several Ring Partner API clients appeared during this hackathon, all built around doorbells and cameras, and Amazon's sample had no sensor code at all. Sensors are where Ring's Early Access is heading, and their docs carry three traps a newcomer meets on day one. ringwire is dogfooded: Watermark's server is built on it, and every one of its 10 measured Playground runs went through it.
+```
+
+## Built with
+
+```
+ring-partner-api, python, fastapi, next.js, typescript, aws-iot-core, amazon-s3, amazon-ec2, amazon-rekognition, webrtc, aiortc, raspberry-pi, openscad, sqlite
 ```
 
 ## Repo, video, feedback
