@@ -27,6 +27,8 @@ client it is built on is its own repo:
 > Every number below traces to a committed run under `docs/runs/`.
 > `py tools/check_claims.py` fails the build if the prose and the data disagree.
 
+**Demo video (2:45):** https://www.youtube.com/watch?v=Ag496FBNvoE
+
 **Live demo:** https://watermark.jonathansolvesproblems.com, a read-only replay of my recorded Ring Playground runs (real Ring frames with Ring's own timestamps).
 
 ## What it measures

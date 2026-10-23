@@ -80,7 +80,7 @@ ring-partner-api, python, fastapi, next.js, typescript, aws-iot-core, amazon-s3,
 ```
 Repo: https://github.com/JonathanSolvesProblems/watermark
 Live demo: https://watermark.jonathansolvesproblems.com
-Video: [URL]
+Video: https://www.youtube.com/watch?v=Ag496FBNvoE
 ```
 
 ## Notes (never pasted)
