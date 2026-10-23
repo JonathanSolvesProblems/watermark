@@ -68,3 +68,5 @@ demo/narration/
 *.edit-plan.json
 
 demo/gallery/
+demo/preview/
+demo/submission/
