@@ -29,7 +29,7 @@ No third-party logos; plates, house numbers and signs are blurred.
 
 **1:23 The gap** (Quality of the Idea: understanding the end user)
 
-> But the camera's history for those minutes shows only [N] recordings. So slow water doesn't trip
+> But the camera's history for those minutes shows no recordings at all. So slow water doesn't trip
 > motion detection, and the Chime can't sound for a flood sensor at all.
 
 **1:34 Watermark closes it** (Tech Implementation)
@@ -58,7 +58,7 @@ No third-party logos; plates, house numbers and signs are blurred.
 
 ## Still to record
 
-- **The [N] line.** I said "only a certain number of recordings" as a placeholder. Re-record that
+- **The count line.** I said "only a certain number of recordings" as a placeholder. Re-record that
   one sentence with the real count from the Indoor Cam's event history (shot H6 below).
 - **The rover line is cut** from the take: the rover has not driven on the floor, so the video
   does not mention it. The rover is the next step, named in the written fields only.
@@ -97,7 +97,7 @@ One controlled test with the real devices, landscape, 1080p or 4K, 30 fps:
 3. **H4, the Ring alert.** Screen-record the phone as the flood alert arrives, clock visible.
 4. **H6, the ablation.** The Indoor Cam's event history for the minutes of H3, screen-recorded,
    plus a screenshot. The count fills `ring_app_motion_events` in `docs/runs/ablation-run.json`
-   and the [N] line. Whatever it shows is what the voice says.
+   and the count line. It showed 0 on Oct 22 (docs/runs/ablation-run.json).
 5. **H7, the Chime gap.** Chime > Audio Settings > Chime Alerts, screen-recorded scrolling the
    list: the flood sensor is not offered.
 

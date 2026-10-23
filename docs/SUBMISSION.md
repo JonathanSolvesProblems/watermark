@@ -30,7 +30,7 @@ When a Ring Flood & Freeze sensor fires, Watermark plays the Ring Chime, opens a
 
 On June 20, 2026 the city sewer backed up into more than 60 units of my condo. Mine also came in through the foundation, gaps beside the electrical panel and a basement window, one week after I had rebuilt from my first flood. The mitigation report blamed heavy rain and floated my backyard shed. The only rebuttal was two phone videos I took because I happened to be home. Whether that water was sewer backup or clean rainwater decided which coverage limit applied. Watermark is what I wish had been running.
 
-Measured through the real Ring API: the first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s. On one of those runs (first frame in 6.9 s), the pack answers 2 of 7 questions my adjuster asked and partly answers 2 more; the other 3 are about the house and the policy. With my real sensor in a tray in front of my real Indoor Cam, the Ring app's event history shows [N] motion recordings while the tray filled: slowly rising water does not trip motion detection, and that is the gap Watermark fills.
+Measured through the real Ring API: the first Ring frame arrived 6.85 s after the sensor event, median of 10 runs, range 6.6 to 11.2 s. On one of those runs (first frame in 6.9 s), the pack answers 2 of 7 questions my adjuster asked and partly answers 2 more; the other 3 are about the house and the policy. With my real sensor in a tray in front of my real Indoor Cam, the Ring app's event history shows 0 motion recordings in the 3 minutes after the sensor reported water: slowly rising water does not trip motion detection, and that is the gap Watermark fills.
 ```
 
 ## How it works (technical)

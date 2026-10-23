@@ -1,0 +1,21 @@
+{
+  "what": "What Ring records on its own when a flood sensor gets wet, with Watermark off: the controlled test with my real devices",
+  "date": "2026-10-22",
+  "devices": {
+    "sensor": "Ring Flood & Freeze Sensor (2nd Gen), 'Water Heater', on Amazon Sidewalk",
+    "camera": "Ring Indoor Cam (2nd Gen), 'Flood Cam', aimed at the dish holding the sensor, motion detection on (default settings)",
+    "chime": "Ring Chime, 'Hallway'"
+  },
+  "procedure": "Water poured slowly into a flat dish holding the sensor, from outside the camera's view. Water left standing for 3 minutes. The phone's screen was recorded throughout over USB; notifications were read from the phone's notification log with their post times.",
+  "flood_alert_on_phone": "20:35:10",
+  "flood_alert_text": "Home Water Heater reported water at 10/22/26 08:35 PM",
+  "watch_window": "20:35 to 20:38",
+  "ring_app_motion_events": 0,
+  "other_camera_events_that_day": [
+    {"time": "20:22", "type": "Person", "cause": "me pouring into the bowl on the first attempt (the sensor did not detect water: it was not sitting flat in a rounded bowl)"},
+    {"time": "20:27", "type": "Motion", "cause": "me adjusting the sensor"}
+  ],
+  "chime_alerts_for_sensor": "not offered: the Chime's Audio Settings > Chime Alerts list contains only the Flood Cam, and the Chime's own screen reads 'Chime Alerts: Unavailable'",
+  "camera_linking_to_sensor": "not offered: the Flood Cam's Linked Devices suggests only doorbells and smart lighting; the sensor's Linked Chimes page has nothing to link",
+  "evidence": "Screenshots and phone screen recordings kept locally (demo/broll/ring-app/, not committed: they show my account)"
+}
