@@ -23,7 +23,7 @@ The friction log (`docs/FRICTION_LOG.md`) holds the itemised issues, with steps 
 
 - **Used for:** setting up the real devices (Flood & Freeze sensor, Indoor Cam 2nd gen, Chime), linking my account to Watermark through ring.com, and the controlled test that shows what Ring records on its own.
 - **Worked well:** the Flood & Freeze sensor paired over Amazon Sidewalk with no base station, and all three devices were set up the same evening they arrived.
-- **Needs work:** the Appstore menu is missing from the Canadian Ring app (friction log 10), and the finding below.
+- **Needs work:** the Appstore menu is missing from the Canadian Ring app (friction log 10); the app gives no sign when a sensor is sitting in water without both contacts touching it (friction log 16); and the finding below.
 - **Finding while testing with real devices:** a Ring Chime can be set to sound for camera motion, but not for a Flood & Freeze sensor. Under the Chime's Audio Settings, "Chime Alerts" lists only the Indoor Cam, and the Chime's own menu reads "Chime Alerts: Unavailable". A homeowner whose sensor detects water gets a phone notification and nothing in the house. Watermark plays the Chime through the API for exactly this reason.
 - **Onboarding:** under an hour from unboxing to all three devices online.
 - **Would I build with it again:** yes; it is what my customers already have.
