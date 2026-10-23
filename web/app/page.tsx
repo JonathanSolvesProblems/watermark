@@ -15,7 +15,7 @@ const MARKS = [
   },
   {
     at: "6.85 s",
-    title: "The camera goes to the water",
+    title: "The camera starts recording",
     body: "An Indoor Cam that already sees the room opens a live session, which makes it record. Every frame carries Ring's time. 6.85 s is the median of my 10 measured Ring Playground runs, with a simulated sensor.",
   },
   {
@@ -38,7 +38,7 @@ export default function Home() {
       {/* The hero is my own basement on 20 June 2026: evidence, not a drawing of it. */}
       <section className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
         <div>
-          <h1 className="headline text-[38px] sm:text-[52px] max-w-[18ch]">The camera goes to the water when the sensor finds it</h1>
+          <h1 className="headline text-[38px] sm:text-[52px] max-w-[18ch]">The camera records the water the moment the sensor finds it</h1>
           <p className="mt-6 text-[18px] leading-relaxed text-stencil max-w-xl">
             On June 20, 2026 the city sewer backed up into more than 60 units of my condo. Mine also came in through the
             foundation, gaps beside the electrical panel and a basement window, one week after I had finished rebuilding

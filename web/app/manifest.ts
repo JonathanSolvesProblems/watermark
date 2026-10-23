@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Watermark",
     short_name: "Watermark",
-    description: "When a Ring sensor finds water, the camera goes to the water.",
+    description: "When a Ring sensor finds water, the camera records it.",
     start_url: "/dashboard",
     display: "standalone",
     background_color: "#1b2a47",

@@ -11,7 +11,7 @@ const body = Commissioner({ subsets: ["latin"], variable: "--font-body" });
 
 export const metadata: Metadata = {
   title: "Watermark",
-  description: "When a Ring sensor finds water, the camera goes to the water. Evidence your insurer can use.",
+  description: "When a Ring sensor finds water, the camera records it. Evidence your insurer can use.",
   manifest: "/manifest.webmanifest",
 };
 

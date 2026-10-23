@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "watermark-server"
 version = "0.1.0"
-description = "Watermark: a Ring flood sensor fires, a Ring camera goes to the water, the homeowner gets a claim-ready evidence pack."
+description = "Watermark: a Ring flood sensor fires, a Ring camera records the water, the homeowner gets a claim-ready evidence pack."
 requires-python = ">=3.11"
 license = { text = "MIT" }
 dependencies = [

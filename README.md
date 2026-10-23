@@ -1,6 +1,6 @@
 # Watermark
 
-**When a Ring sensor finds water, the camera goes to the water.**
+**When a Ring sensor finds water, Watermark makes the camera record it and proves it to your insurer.**
 
 On June 20, 2026 the city sewer backed up into more than 60 units of my condo. Mine also came in
 through the foundation, gaps beside the electrical panel and a basement window, one week
