@@ -158,7 +158,7 @@ Severity: **blocker** (could not proceed), **major** (hours lost or wrong design
 - **Task:** the controlled test for the demo: the Flood & Freeze sensor in a bowl, water poured in slowly, with the Indoor Cam watching and the phone screen recorded.
 - **Steps:** set the sensor in a rounded cereal bowl, poured water until it sat in a few millimetres, waited seven minutes while polling the phone's notifications.
 - **Expected:** a flood alert within a minute or so.
-- **Actual:** nothing, from the sensor or the app. The sensor had tilted on the curved bottom, so only one of the two contacts was in the water. The app showed it Online with Good signal the whole time and gave no hint. Dried the contacts, restarted it (two green blinks), set it flat in a dish, poured again: the alert reached the phone 36 s after I started pouring (20:35:10).
+- **Actual:** nothing, from the sensor or the app. The sensor had tilted on the curved bottom, so only one of the two contacts was in the water. The app showed it Online with Good signal the whole time and gave no hint. Dried the contacts, restarted it (two green blinks), set it flat in a dish, poured again: the alert reached the phone within 36 s of my starting to pour (20:35:10).
 - **Severity:** minor for me (cost ten minutes), but a homeowner who tests the sensor once in a sink and sees nothing may conclude it is broken.
 - **Workaround:** a flat surface, and Ring's own test instructions: water must touch both contacts at the same time.
 - **Suggestion:** say "both contacts" and "flat, contacts down" on the setup screen where the app suggests testing with a little water, and show the last water-detected time on the device page so a silent test is visibly a non-event rather than ambiguous.
