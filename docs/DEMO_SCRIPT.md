@@ -1,7 +1,8 @@
-# Demo script (v5, as recorded)
+# Demo script (v6, final cut)
 
-2:56 in all: a 3.5 s title card, 2:48 of my voice, and the end card. Recorded in two takes on
-16 October and cut together; I read it in my own words rather than word for word from v4.
+2:46 in all: a 3.5 s title card, 2:38 of my voice, and the end card. Recorded in two takes on
+16 October plus the count line on 22 October, after the controlled test, and cut together; I read
+it in my own words rather than word for word from v4.
 Every number on screen is checked by `py tools/check_claims.py` against `docs/runs/`. No music.
 No third-party logos; plates, house numbers and signs are blurred.
 
@@ -39,27 +40,28 @@ No third-party logos; plates, house numbers and signs are blurred.
 > runs on Ring's Developer Playground, the first frame landed in under seven seconds. The sensor
 > there is simulated, and the pack says so.
 
-**1:55 What you hand the insurer** (Design)
+**1:45 What you hand the insurer** (Design)
 
 > You get one evidence pack: the timeline, the frames, device health, and what the record can't
 > vouch for. Against the seven questions my adjuster actually asked, it answers the two that
 > mattered, when the water came in and where it was, and partly answers two more. It never names
 > a cause.
 
-**2:17 What it's built on** (Tech Implementation)
+**2:07 What it's built on** (Tech Implementation)
 
 > It's built on the Ring Partner API through a Python client I open sourced.
 
-**2:32 Who it's for** (Potential Impact)
+**2:22 Who it's for** (Potential Impact)
 
 > A property manager or insurer with sensors in every unit gets this record for all of them,
 > without anyone home. And for Ring, the flood sensor becomes a reason to add a camera. Next time
 > water comes in, I won't need to be home.
 
-## Still to record
+## Lines changed after the first take
 
-- **The count line.** I said "only a certain number of recordings" as a placeholder. Re-record that
-  one sentence with the real count from the Indoor Cam's event history (shot H6 below).
+- **The count line** was recorded on 22 October, after the controlled test, with the real result:
+  the Indoor Cam's event history showed no recordings while the sensor sat in water
+  (`docs/runs/ablation-run.json`). It replaces the placeholder "only a certain number of recordings".
 - **The rover line is cut** from the take: the rover has not driven on the floor, so the video
   does not mention it. The rover is the next step, named in the written fields only.
 
@@ -80,24 +82,30 @@ No third-party logos; plates, house numbers and signs are blurred.
 | 0:49 | Opened wall by the electrical panel (video) | |
 | 0:54 | The flooded street, plates and signs blurred | The condo's street, June 20, 2026 |
 | 0:58 | Live link: incident page, home page | |
-| 1:10 to 1:34 | To film: H1 kit, H3 pour, H4 alert, H6 event history, H7 Chime list | |
+| 1:10 | My Flood & Freeze sensor on the floor, then my Indoor Cam (Canon, Oct 15) | Ring Flood & Freeze Sensor; Ring Indoor Cam |
+| 1:14 | The pour: water into the bowl with the sensor in it, the Indoor Cam behind (Canon, Oct 22) | Controlled test. Real device. |
+| 1:19 | Phone board, 8:35 PM: the Ring alert sliding in, the bowl beside it | |
+| 1:23 | Phone board, 8:38 PM: the camera's event history, nothing since 8:27 | |
+| 1:27 | Water reaching the sensor, from above (Canon) | Controlled test. Real device. |
+| 1:30 | Phone board, 8:40 PM: the Chime's alert list, only the camera on it; the Chime on my wall beside it | |
 | 1:34 | Live link: incident frames, dashboard | Frames through the Ring Partner API; Median 6.85 s, range 6.6 to 11.2 s, 10 runs |
-| 1:51 | Evidence pack, scrolled | Ring Developer Playground, simulated sensor; 2 of 7 answered, 2 partly |
-| 2:17 | ringwire on GitHub | github.com/JonathanSolvesProblems/ringwire |
-| 2:32 | The flooded street again; setup page; dashboard | |
-| 2:48 | End card: headshot, Watermark, jonathansolvesproblems.com, repo link | |
+| 1:41 | Evidence pack, scrolled | Ring Developer Playground, simulated sensor; 2 of 7 answered, 2 partly |
+| 2:07 | ringwire on GitHub | github.com/JonathanSolvesProblems/ringwire |
+| 2:22 | The flooded street again; dashboard; the evidence pack | |
+| 2:38 | End card: headshot, Watermark, jonathansolvesproblems.com, repo link | |
 
-## Hardware shots I film myself
+## Hardware shots (filmed 22 October, devices on 15 October)
 
-One controlled test with the real devices, landscape, 1080p or 4K, 30 fps:
+One controlled test with the real devices, Canon 1080p, plus the phone's screen recorded over USB:
 
-1. **H1, the kit.** Flood & Freeze sensor and Indoor Cam beside the bowl. About 4 s.
+1. **H1, the kit.** The sensor and the Indoor Cam, each filmed on its own on 15 October.
 2. **H3, the pour.** Water poured slowly into the bowl with the sensor inside. "Controlled test.
    Real device." goes on in the edit. Note the clock time when the water touches the sensor.
 3. **H4, the Ring alert.** Screen-record the phone as the flood alert arrives, clock visible.
 4. **H6, the ablation.** The Indoor Cam's event history for the minutes of H3, screen-recorded,
    plus a screenshot. The count fills `ring_app_motion_events` in `docs/runs/ablation-run.json`
-   and the count line. It showed 0 on Oct 22 (docs/runs/ablation-run.json).
+   and the count line. It showed 0 on 22 October: the alert reached the phone at 20:35:10 and the
+   camera recorded nothing from 20:35 to 20:38.
 5. **H7, the Chime gap.** Chime > Audio Settings > Chime Alerts, screen-recorded scrolling the
    list: the flood sensor is not offered.
 
@@ -107,7 +115,7 @@ Crop anything in the Ring app that shows my email, my address or my location nam
 
 | Criterion | Where it is earned |
 |---|---|
-| Tech Implementation | 1:34 and 2:17: live sessions and sensor webhooks through the Ring Partner API, real Ring frames with Ring's timestamps, the open-source client, IoT Core dispatch |
-| Design | 1:51: one finished pack a homeowner hands over, plus the incident page and dashboard |
-| Potential Impact | 0:00: both of my floods on my own footage, more than 60 units in one building; 2:32: property managers and insurers |
+| Tech Implementation | 1:34 and 2:07: live sessions and sensor webhooks through the Ring Partner API, real Ring frames with Ring's timestamps, the open-source client, IoT Core dispatch |
+| Design | 1:45: one finished pack a homeowner hands over, plus the incident page and dashboard |
+| Potential Impact | 0:00: both of my floods on my own footage, more than 60 units in one building; 2:22: property managers and insurers |
 | Quality of the Idea | 1:23: the gap only someone who owns the devices finds (slow water does not trip motion, the Chime cannot sound for a sensor), and the refusal to name a cause |
